@@ -377,15 +377,15 @@ aside[role=complementary] {
     <td>
 
   ```scss
-  // Don't do this
-  a.item-details-size-chart-link {
-    ...
-  }
-  .look-item-cell {
-    p {
-      ...
-    }
-  }
+      // Don't do this
+      a.item-details-size-chart-link {
+        ...
+      }
+      .look-item-cell {
+        p {
+          ...
+        }
+      }
   ```
 
   </td>
@@ -402,33 +402,6 @@ aside[role=complementary] {
       ...
     }
   ```
-
-      ```scss
-      // Don't do this
-      a.item-details-size-chart-link {
-        ...
-      }
-      .look-item-cell {
-        p {
-          ...
-        }
-      }
-      ```
-
-  </td>
-  <td>
-    
-    ```scss
-        // Do this instead 
-      .item-details-size-chart-link { 
-        // removed unnecessary element tag
-          ...
-      }
-      .look-item-cell-description {
-        // added new class on p tag, so I can target it directly
-        ...
-      }
-    ```
 
    </td>
   </tr>
