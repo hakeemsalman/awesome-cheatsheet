@@ -3,17 +3,19 @@
 SASS is stand for **S**yntactically **A**wesome **S**tyle **S**heets, it is a pre-processor scripting language that is interpreted or compiled into Cascading Style Sheets (CSS).
 SassScript is the scripting language itself. [For more info](https://en.wikipedia.org/wiki/Sass_(style_sheet_language))
 
-Sass consists of two syntaxes. 
+Sass consists of two syntaxes.
+
 1. SASS (original syntax, `indented syntax` similar to Haml).
 2. SCSS (newer syntax, `Sassy CSS`, uses block formatting like that of CSS.)
 
+## Keypoints
 
-## Keypoints:
 1. It is a pre-processor, to compile the css from .scss or .sass extension.
 2. Need to install Sass compiler in computer where you are working [click here for installation guide](https://sass-lang.com/install/).
 3. Write a command to watch sass `sass --watch input.scss output.css`.
 
 #### Sass features
+
 1. [Variables](#1-variables)
 2. [Nesting](#2-nesting)
 3. [Modules & Partials](#3-partials)
@@ -22,12 +24,19 @@ Sass consists of two syntaxes.
 6. [Operators](#6-operators)
 
 #### Tips and Tricks
+
 1. [Media queries](#1-media-queries)
 
-
 ## Sass Features
+
 ### 1 Variables
-Variables are used to store the values and use it anytime and everywhere.
+
+1. Variables are used to store the values and use it anytime and everywhere.
+2. Margins and padding (use `*` and `/` operators that let you multiply and divide values) Font sizes, weights, and families.
+3. Colors (use variables for lighter/darker variants of colors by using the lighten() and darken() functions).
+4. Breakpoint widths for media queries.
+5. Create and write variables inside *`_variables.scss`* module.
+
 ```html
 <h1>Hello World</h1>
   <p>Animals</p>
@@ -48,6 +57,7 @@ body {
   color: $primary-color;
 }
 ```
+
 ```css
 /* CSS */
 body {
@@ -57,6 +67,7 @@ body {
 ```
 
 ### 2 Nesting
+
 It's a hierarchy based syntax.
 
 ```scss
@@ -77,6 +88,7 @@ body {
   }
 }
 ```
+
 ```css
 /*css*/
 body ul {
@@ -95,9 +107,10 @@ body a {
 ```
 
 ### 3 Partials
+
 1. Partial Sass files that contain little snippets of CSS that you can include in other Sass files.
 2. Underscore `_` should be denoted before first letter when you create partial files.
-3. Use `@use` to import `*.scss` file. <p style="color: red;">*If @use is NOT working try with @import rule.*</p>
+3. Use `@use` to import `*.scss` file. <span style="color: red;">*If @use is NOT working try with @import rule.*</span>
 4. This rule loads another Sass file as a *`module`*
 5. No need to write the extension of *`module`* file when importing.
 
@@ -115,6 +128,7 @@ body {
   color: $primary-color;
 }
 ```
+
 ```css
 /* CSS */
 body {
@@ -124,9 +138,10 @@ body {
 ```
 
 ### 4 Mixins
+
 1. A mixin lets you make groups of CSS declarations that you want to reuse throughout your site.
 2. It helps keep your Sass very DRY. *Don't Repeat Yourself*.
-3. 
+3.
 
 ```scss
 @mixin theme($theme: DarkGray) {
@@ -164,9 +179,10 @@ body {
   box-shadow: 0 0 1px rgba(0, 100, 0, 0.25);
   color: #fff;
 }
-``` 
+```
 
 ### 5 Extend
+
 1. It's `Inherit` the properties from `selectors`.
 2. Use `%` keyword to share the properties. Like example:`%flex{ display: flex; }`.
 3. Use `@extend` keyword to extend the shared property.
@@ -206,6 +222,7 @@ body {
   border-color: yellow;
 }
 ```
+
 ```css
 /* This CSS will print because %message-shared is extended. */
 .warning, .error, .success, .message {
@@ -228,6 +245,7 @@ body {
 ```
 
 ### 6 Operators
+
 1. We can use Operators/expressions for doing Math calculations.
 2. They are `+`, `-`, `*`, `math.div()`, and `%`.
 
@@ -247,6 +265,7 @@ aside[role="complementary"] {
   margin-left: auto;
 }
 ```
+
 ```css
 .container {
   display: flex;
@@ -263,6 +282,7 @@ aside[role=complementary] {
 ```
 
 ### 1 Media queries
+
 1. Write `@media queries` inside a class.
 2. Don't use `css` *media queriess* instead of `scss` *media queries syntax*
 
@@ -282,17 +302,64 @@ aside[role=complementary] {
 }
 ```
 
-### Semantic class name
+### 2 Semantic class name
+
 1. Use Class names that describe the meaning of the content, rather than its presentation.
 
-a. item-details-sku-container
-b. header-menu-search-icon
-c. profile-information-label
+- item-details-sku-container
+- header-menu-search-icon
+- profile-information-label
 
+### 3. Selectors
+
+1. Using `ID`s and `tag` selectors in css to style the element is a bad practice, it's reserved for *`Javascript`*.
+
+<table>
+  <tr>
+    <td>
+
+
+      ```scss
+      // Don't do this
+        a.item-details-size-chart-link {
+        ...
+        }
+
+        .look-item-cell {
+          p {
+             ...
+          }
+        }
+      ```
+
+    </td>
+
+    <td>
+    
+
+    ```scss
+      // Do this instead 
+    .item-details-size-chart-link { 
+      // removed unnecessary element tag
+        ...
+    }
+
+    .look-item-cell-description {
+      // added new class on p tag, so I can target it directly
+      ...
+    }
+    ```
+    
+
+    </td>
+  </tr>
+</table>
 
 
 ---
 ---
+
 ### Resources
+
 1. Some guidelines collected from [https://sass-lang.com/guide/](https://sass-lang.com/guide/).
-2. 
+2.
