@@ -47,28 +47,47 @@ Sass consists of two syntaxes.
   <a href="#">Click me</a>
 ```
 
-```scss
-// SCSS SYNTAX
-$font-stack: Helvetica, sans-serif;
-$primary-color: #333;
+<table>
+  <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
+    <td>
 
-body {
-  font: 100% $font-stack;
-  color: $primary-color;
-}
-```
+  ```scss
+  $font-stack: Helvetica, sans-serif;
+  $primary-color: #333;
+
+  body {
+    font: 100% $font-stack;
+    color: $primary-color;
+  }
+  ```
+
+  </td>
+    <td>
 
 ```css
-/* CSS */
 body {
   font: 100% Helvetica, sans-serif;
   color: #333;
 }
 ```
 
+  </td>
+  </tr>
+</table>
+
 ### 2 Nesting
 
 It's a hierarchy based syntax.
+
+<table>
+  <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
+    <td>
 
 ```scss
 // scss
@@ -89,6 +108,9 @@ body {
 }
 ```
 
+  </td>
+    <td>
+
 ```css
 /*css*/
 body ul {
@@ -105,6 +127,10 @@ body a {
   text-decoration: none;
 }
 ```
+
+  </td>
+  </tr>
+</table>
 
 ### 3 Partials
 
@@ -249,6 +275,13 @@ body {
 1. We can use Operators/expressions for doing Math calculations.
 2. They are `+`, `-`, `*`, `math.div()`, and `%`.
 
+<table>
+  <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
+    <td>
+
 ```scss
 @use "sass:math";
 
@@ -265,6 +298,8 @@ aside[role="complementary"] {
   margin-left: auto;
 }
 ```
+  </td>
+  <td>
 
 ```css
 .container {
@@ -281,10 +316,21 @@ aside[role=complementary] {
 }
 ```
 
+  </td>
+  </tr>
+</table>
+
 ### 1 Media queries
 
 1. Write `@media queries` inside a class.
 2. Don't use `css` *media queriess* instead of `scss` *media queries syntax*
+
+<table>
+  <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
+    <td>
 
 ```scss
 /* Don't do this */
@@ -294,6 +340,11 @@ aside[role=complementary] {
     }
 }
 
+```
+  </td>
+  <td>
+
+```scss
 /* Do this instead */
 .my-class {
     @media (min-width: $screen-sm-min) {
@@ -301,6 +352,10 @@ aside[role=complementary] {
     }
 }
 ```
+
+  </td>
+  </tr>
+</table>
 
 ### 2 Semantic class name
 
@@ -316,37 +371,39 @@ aside[role=complementary] {
 
 <table>
   <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
     <td>
 
-      ```scss
-        //scss
-        // Don't do this
-        a.item-details-size-chart-link {
+  ```scss
+  // Don't do this
+  a.item-details-size-chart-link {
+    ...
+  }
+  .look-item-cell {
+    p {
+      ...
+    }
+  }
+  ```
+
+  </td>
+  <td>
+    
+  ```scss
+      // Do this instead 
+    .item-details-size-chart-link { 
+      // removed unnecessary element tag
         ...
-        }
-        .look-item-cell {
-          p {
-             ...
-          }
-        }
-      ```
+    }
+    .look-item-cell-description {
+      // added new class on p tag, so I can target it directly
+      ...
+    }
+  ```
 
-    </td>
-    <td>
-
-      ```scss
-        // Do this instead 
-      .item-details-size-chart-link { 
-        // removed unnecessary element tag
-          ...
-      }
-      .look-item-cell-description {
-        // added new class on p tag, so I can target it directly
-        ...
-      }
-      ```
-
-    </td>
+   </td>
   </tr>
 </table>
 
