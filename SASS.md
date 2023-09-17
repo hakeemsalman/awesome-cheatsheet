@@ -316,25 +316,27 @@ aside[role=complementary] {
 
 <table>
   <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
     <td>
 
       ```scss
-        //scss
-        // Don't do this
-        a.item-details-size-chart-link {
+      // Don't do this
+      a.item-details-size-chart-link {
         ...
+      }
+      .look-item-cell {
+        p {
+          ...
         }
-        .look-item-cell {
-          p {
-             ...
-          }
-        }
+      }
       ```
 
-    </td>
-    <td>
-
-      ```scss
+  </td>
+  <td>
+    
+    ```scss
         // Do this instead 
       .item-details-size-chart-link { 
         // removed unnecessary element tag
@@ -344,9 +346,9 @@ aside[role=complementary] {
         // added new class on p tag, so I can target it directly
         ...
       }
-      ```
+    ```
 
-    </td>
+   </td>
   </tr>
 </table>
 
