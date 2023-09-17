@@ -318,13 +318,12 @@ aside[role=complementary] {
   <tr>
     <td>
 
-
       ```scss
-      // Don't do this
+        //scss
+        // Don't do this
         a.item-details-size-chart-link {
         ...
         }
-
         .look-item-cell {
           p {
              ...
@@ -333,23 +332,19 @@ aside[role=complementary] {
       ```
 
     </td>
-
     <td>
-    
 
-    ```scss
-      // Do this instead 
-    .item-details-size-chart-link { 
-      // removed unnecessary element tag
+      ```scss
+        // Do this instead 
+      .item-details-size-chart-link { 
+        // removed unnecessary element tag
+          ...
+      }
+      .look-item-cell-description {
+        // added new class on p tag, so I can target it directly
         ...
-    }
-
-    .look-item-cell-description {
-      // added new class on p tag, so I can target it directly
-      ...
-    }
-    ```
-    
+      }
+      ```
 
     </td>
   </tr>
