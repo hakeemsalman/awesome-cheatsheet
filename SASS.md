@@ -25,7 +25,9 @@ Sass consists of two syntaxes.
 
 #### Tips and Tricks
 
-1. [Media queries](#1-media-queries)
+1. [1 Media queries](#1-media-queries)
+2. [2 Semantic class name](#2-semantic-class-name)
+3. [3 Selectors](3-selectors)
 
 ## Sass Features
 
@@ -365,7 +367,7 @@ aside[role=complementary] {
 - header-menu-search-icon
 - profile-information-label
 
-### 3. Selectors
+### 3 Selectors
 
 1. Using `ID`s and `tag` selectors in css to style the element is a bad practice, it's reserved for *`Javascript`*.
 
@@ -407,6 +409,73 @@ aside[role=complementary] {
   </tr>
 </table>
 
+### 4 Reference Parent Selectors with &
+1. It is possible to nest to these within the parent selector — you just need to use an ampersand `&`.
+2. `&` is likely equal to *`parent-selector`*.
+3. Don’t Overdo Nesting
+
+<table title="Use ampersand">
+  <tr>
+    <td>SCSS</td><td>CSS</td>
+  </tr>
+  <tr>
+    <td>
+
+    ```scss
+    .my-link-class {
+    text-decoration: underline;
+
+    &:hover,
+    &:active {
+        text-decoration: none;
+    }
+}
+    ```
+
+  </td>
+  <td>
+
+  ```css
+  .my-link-class {
+    text-decoration: underline;
+  }
+
+  .my-link-class:hover, .my-link-class:active {
+      text-decoration: none;
+  }
+  ```
+
+   </td>
+  </tr>
+</table>
+
+
+<table title="Don’t Overdo Nesting">
+  <tr>
+    <td>SCSS</td>
+  </tr>
+  <tr>
+    <td>
+
+  ```scss
+  // DO NOT 
+  ul.menubar {
+    list-style: none;
+    > li {
+        display: inline-block;
+        > ul {
+            padding: 10px 0;
+            > li > a {
+                color: black;
+              }  
+          }
+      } 
+  }
+  ```
+
+ </td>
+  </tr>
+</table>
 
 ---
 ---
@@ -414,4 +483,3 @@ aside[role=complementary] {
 ### Resources
 
 1. Some guidelines collected from [https://sass-lang.com/guide/](https://sass-lang.com/guide/).
-2.
