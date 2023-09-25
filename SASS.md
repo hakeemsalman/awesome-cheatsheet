@@ -419,20 +419,21 @@ aside[role=complementary] {
     <td>SCSS</td><td>CSS</td>
   </tr>
   <tr>
-    <td>
+  <td>
+ 
 
-    ```scss
-    .my-link-class {
-    text-decoration: underline;
-
-    &:hover,
-    &:active {
-        text-decoration: none;
+  ```scss
+  .my-link-class {
+      text-decoration: underline;
+      &:hover,
+      &:active {
+          text-decoration: none;
+      }
     }
-}
-    ```
+  ```
 
   </td>
+
   <td>
 
   ```css
