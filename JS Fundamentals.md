@@ -642,6 +642,169 @@ alert( +apples + +oranges ); // 5
 
 #### Operator precedence
 
+1. As we can see, the “unary plus” has a priority of `14` which is higher than the `11` of “addition” (binary plus). That’s why, in the expression  `"+apples + +oranges"`, unary pluses work before the addition.
+
+<table>
+  <tr>
+    <th>Preccedence</th><th>name</th><th>Sign</th>
+  </tr>
+  <tr>
+<td>14</td>
+<td>unary plus</td>
+  <td>
+    
+  `+`
+
+  </td>
+  </tr>
+  <tr>
+    <td>14</td>
+    <td>unary negation</td>
+    <td>
+      
+  `-`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>13</td>
+    <td>exponentiation</td>
+    <td>
+      
+   `**`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>multiplication</td>
+    <td>
+      
+   `*`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>12</td>
+    <td>division</td>
+    <td>
+     
+   `/`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>addition</td>
+    <td>
+      
+   `+`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>11</td>
+    <td>subtraction</td>
+    <td>
+      
+   `-`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+    <td>
+      
+   `...`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>assignment</td>
+    <td>
+      
+   `=`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>...</td>
+    <td>...</td>
+    <td>
+      
+   `...`
+  
+  </td>
+  </tr>
+
+</table>
+
+
+#### Modify-in-place
+
+1. An operator to a variable and store the new result in that same variable.
+2. Short “modify-and-assign” operators exist for all arithmetical and bitwise operators: `/=`, `-=`, etc.
+
+```js
+let n = 2;
+n += 5; // now n = 7 (same as n = n + 5)
+n *= 2; // now n = 14 (same as n = n * 2)
+
+alert( n ); // 14
+// -------------------
+n = 2;
+n *= 3 + 5; // right part evaluated first, same as n *= 8
+alert( n ); // 16
+```
+
+#### Increment & decrement
+
+1. Increment `++` increases a variable by 1. It is in postfix form.
+2. Decrement `--` decreases a variable by 1. It is in prefix form.
+3. Increment/decrement can only be applied to variables. Trying to use it on a value like `5++` will give an error.
+4. These precedence is higher than most other arithmetical operations.
+
+```js
+let counter = 2;
+counter++;        // works the same as counter = counter + 1, but is shorter
+alert( counter ); // 3
+
+counter = 2;
+counter--;        // works the same as counter = counter - 1, but is shorter
+alert( counter ); // 1
+```
+
+#### Bitwise operators
+
+1. These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level.
+
+1. AND ( `&` )
+2. OR ( `|` )
+3. XOR ( `^` )
+4. NOT ( `~` )
+5. LEFT SHIFT ( `<<` )
+6. RIGHT SHIFT ( `>>` )
+7. ZERO-FILL RIGHT SHIFT ( `>>>` )
+
+You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#bitwise_operators) in this MDN docs.
+
+#### Comma
+
+1. The comma operator , is one of the rarest and most unusual operators. Sometimes, it’s used to write shorter code.
+2. It has very low Precedence.
+
+```js
+let a = (1 + 2, 3 + 4);
+
+alert( a ); // 7 (the result of 3 + 4)
+
+//the first expression 1 + 2 is evaluated and its result is thrown away. Then, 3 + 4 is evaluated and returned as the result.
+```
+
+
+## Comparisions
 
 
 
