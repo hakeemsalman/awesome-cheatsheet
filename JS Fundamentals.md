@@ -21,6 +21,18 @@
    - [Constants](#constants)
 5. [Data Types](#5-data-types)
    - [Number](#1-number)
+   - [BigInt](#2-bigint)
+   - [String](#3-string)
+   - [Boolean](#4-boolean)
+   - [Null](#5-null)
+   - [Undefined](#6-undefined)
+   - [Objects](#7-objects)
+   - [Symbols](#8-symbols)
+6. [Interaction](#6-interaction)
+   - [Alert](#1-alert)
+   - [Prompt](#2-prompt)
+   - [Confirm](#3-confirm)
+7 [Type Conversions](#7-type-conversions)
 
 ## 1 Hello World
 
@@ -377,6 +389,261 @@ let age = 100;
 age = undefined; // explicitly assign undefined to a variable
 alert(age); // "undefined"
 ```
+
+#### 7 Objects
+
+1. It is used to store and collections of data and more complex entities.
+2. It's Non-primitive Data type
+***pending***
+
+#### 8 Symbols
+
+1. It is used to create unique identifier for objects
+2. 
+
+***pending***
+
+#### typeof Operator
+
+1. The `typeof` operator returns the type of the operand. 
+2. It’s useful when we want to do a quick check.
+
+```js
+typeof undefined // "undefined"
+
+typeof 0 // "number"
+
+typeof 10n // "bigint"
+
+typeof true // "boolean"
+
+typeof "foo" // "string"
+
+typeof Symbol("id") // "symbol"
+
+typeof Math // "object"  (1)
+
+typeof null // "object"  (2) It'a an error, null is not an object. See null section
+
+typeof alert // "function"  (3)
+```
+
+
+## 6 Interaction
+
+To interact with user, we have `alert`, `prompt` and `confirm` functions in javascript.
+
+#### 1 Alert
+
+1. It shows a message and waits for the user to press **OK**.
+2. All parameters are convert to `string` type.
+
+```js
+alert("Hello");
+```
+
+#### 2 Prompt
+
+1. It shows a modal window with a text message, an input field for the visitor, and the buttons OK/Cancel.
+
+```js
+result = prompt(title, [default]);
+
+// title =  text to show the visitor.
+// default = the initial value for the input field [optional].
+
+let age = prompt('How old are you?', 100);
+alert(`You are ${age} years old!`); // You are 100 years old!
+```
+
+> NOTE: `[...]` *Square Brackets* means **Optional** parameter
+
+#### 3 Confirm
+
+1. Shows a modal window with a `question` and two buttons: OK and Cancel.
+2. The result is `true` if OK is pressed and `false` otherwise.
+
+```js
+result = confirm(question);
+
+let isBoss = confirm("Are you the boss?");
+alert( isBoss ); // true if OK is pressed
+```
+
+## 7 Type Conversions
+
+1. It's an *Explicitly* process conversion, convert a value to the expected data type,
+2. Type conversion is useful when we want `String` value instead of `boolean` value.
+
+
+#### 1 String
+
+1. Convert a any value to `string` type.
+
+```js
+let value = true;
+alert(typeof value); // boolean
+
+value = String(value); // now value is a string "true"
+alert(typeof value); // string
+```
+
+#### 2 Number
+
+1. Conver a value to `number` type.
+2. Value must be valid number, otherwise it convert to `NaN` type.
+
+```js
+let str = "123";
+alert(typeof str); // string
+
+let num = Number(str); // becomes a number 123
+
+alert(typeof num); // number
+
+let age = Number("an arbitrary string instead of a number");
+
+alert(age); // NaN, conversion failed
+```
+<table>
+ <tr>
+    <td>Value</td>
+    <td>Becomes</td>
+  </tr>
+  <tr>
+  <td>
+  
+  `undefined`
+  
+  </td><td>
+  
+  `NaN`
+  
+  </td>
+  </tr>
+  <tr><td>
+    
+   `null`
+    
+  </td><td>
+    
+   `0`
+    
+  </td>
+  </tr>
+  <tr>
+    <td>
+
+  `true and false`
+  
+  </td><td>
+  
+  `1` and `0`
+  
+  </td>
+  </tr>
+  <tr>
+    <td>
+    
+   `string`
+   
+   </td>
+  <td>
+
+  Whitespaces (includes spaces, tabs `\t`, newlines `\n` etc.) from the start and end are removed. If the remaining string is empty, the result is `0`. Otherwise, the number is “read” from the string. An error gives `NaN`.
+
+  </td>
+  </tr>
+</table>
+
+
+```js
+alert( Number("   123   ") ); // 123
+alert( Number("123z") );      // NaN (error reading a number at "z")
+alert( Number(true) );        // 1
+alert( Number(false) );       // 0
+```
+
+#### 3 Boolean
+
+1. Values that are intuitively **empty** like `0`, `an empty string`, `null`, `undefined`, and `NaN`, become `false`.
+2. Other values become `true`.
+
+```js
+alert( Boolean(1)   );  // true
+alert( Boolean(0)   );  // false
+alert( Boolean("0") );  // true Zero is a string, not a number 
+
+alert( Boolean("hello") ); // true
+alert( Boolean("") ); // false
+```
+
+## Basic operators, maths
+
+1. Addition `+`
+2. Subtraction `-`
+3. Multiplication `*`
+4. Division `/`
+5. Remainder `%` (NOT related to `percent`)
+6. Exponentiation `**`
+
+```js
+alert( 5 + 2 ); // 7, 
+alert( 8 - 3 ); // 5, 
+alert( 8 * 2 ); // 16, 
+alert( 5 / 2 ); // 2, the quotient of 5 divided by 2
+alert( 8 % 2 ); // 0, the remainder of 8 divided by 2
+alert( 2 ** 4 ); // 16, 2 to the power of 4.
+
+alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
+alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
+```
+
+#### String concatenation
+
+1. If the binary + is applied to strings, it merges (concatenates) them.
+2. The binary `+` is the only operator that supports strings in such a way. Other arithmetic operators work only with numbers and always convert their operands to numbers.
+3. The unary plus or, in other words, the plus operator `+` applied to a single value, doesn’t do anything to numbers. But if the operand is not a number, the unary plus converts it into a number.
+
+```js
+let s = "my" + "string";
+alert(s); // mystring
+
+// ---->>  BINARY <<-----
+
+alert( '1' + 2 ); // "12"
+alert( 2 + '1' ); // "21"
+
+alert( 6 - '2' ); // 4, converts '2' to a number
+alert( '6' / '2' ); // 3, converts both operands to numbers
+
+// ---->> UNARY <<-----
+
+// No effect on numbers
+let x = 1;
+alert( +x ); // 1
+
+let y = -2;
+alert( +y ); // -2
+
+// Converts non-numbers to numbers
+alert( +true ); // 1
+alert( +"" );   // 0
+
+let apples = "2";
+let oranges = "3";
+
+// both values converted to numbers before the binary plus
+alert( +apples + +oranges ); // 5
+
+// the longer variant
+// alert( Number(apples) + Number(oranges) ); // 5
+```
+
+#### Operator precedence
+
+
+
 
 
 
