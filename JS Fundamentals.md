@@ -32,7 +32,7 @@
    - [Alert](#1-alert)
    - [Prompt](#2-prompt)
    - [Confirm](#3-confirm)
-7 [Type Conversions](#7-type-conversions)
+7. [Type Conversions](#7-type-conversions)
 
 ## 1 Hello World
 
@@ -578,7 +578,7 @@ alert( Boolean("hello") ); // true
 alert( Boolean("") ); // false
 ```
 
-## Basic operators, maths
+## 8 Basic operators, maths
 
 1. Addition `+`
 2. Subtraction `-`
@@ -805,6 +805,247 @@ alert( a ); // 7 (the result of 3 + 4)
 
 
 ## Comparisions
+
+1. Greater/Less than `a > b` `a < b`
+2. Greater/less than or equals `a >= b`, `a <= b`
+3. Equals `a == b`
+4. Not equals `a != b`
+
+All comparisions operators return a boolean value.
+
+```js
+alert( 2 > 1 );  // true (correct)
+alert( 2 == 1 ); // false (wrong)
+alert( 2 != 1 ); // true (correct)
+let result = 5 > 4; // assign the result of the comparison
+alert( result ); // true
+```
+
+#### String comparisions
+
+1. Comparison operators return a boolean value.
+2. Strings are compared letter-by-letter in the “dictionary” order.
+3. When values of different types are compared, they get converted to numbers (with the exclusion of a strict equality check).
+4. The values null and undefined equal == each other and do not equal any other value.
+5. Be careful when using comparisons like > or < with variables that can occasionally be null/undefined.
+6. Checking for null/undefined separately is a good idea.
+
+```js
+alert( 'Z' > 'A' ); // true
+alert( 'Glow' > 'Glee' ); // true
+alert( 'Bee' > 'Be' ); // true
+```
+
+The algorithm to compare two strings is simple:
+
+1. Compare the first character of both strings.
+2. If the first character from the first string is greater (or less) than the other string’s, then the first string is greater (or less) than the second. We’re done.
+3. Otherwise, if both strings’ first characters are the same, compare the second characters the same way.
+4. Repeat until the end of either string.
+5. If both strings end at the same length, then they are equal. Otherwise, the longer string is greater.
+
+In the first example above, the comparison `'Z'` > `'A'` gets to a result at the first step.
+
+The second comparison `'Glow'` and `'Glee'` needs more steps as strings are compared character-by-character:
+
+`G` is the same as `G`.
+`l` is the same as `l`.
+`o` is greater than `e`. Stop here. The first string is greater.
+
+```js
+alert( '2' > 1 ); // true, string '2' becomes a number 2
+alert( '01' == 1 ); // true, string '01' becomes a number 1
+
+// for boolean values, true becomes 1 and false becomes 0.
+alert( true == 1 ); // true
+alert( false == 0 ); // true
+
+let a = 0;
+alert( Boolean(a) ); // false
+
+let b = "0";
+alert( Boolean(b) ); // true
+
+alert(a == b); // true!
+```
+
+#### Strict equality
+
+1. A strict equality operator `===` checks the equality without type conversion.
+
+```js
+alert( 0 === false ); // false
+
+alert( null === undefined ); // false ---> strict equality
+alert( null == undefined ); // true   ---> strict equality
+
+// null vs 0
+
+alert( null > 0 );  // (1) false
+alert( null == 0 ); // (2) false
+alert( null >= 0 ); // (3) true
+
+alert( undefined > 0 ); // false (1)
+alert( undefined < 0 ); // false (2)
+alert( undefined == 0 ); // false (3)
+```
+
+#### Conditions 
+
+1. `if` statement evaluates a condition in parentheses and, if the result is true, executes a block of code.
+2. You can use `?` statement instead of `if` statements.
+3. A number 0, an empty string "", null, undefined, and NaN all become false. Because of that they are called “falsy” values. Remaining are true.
+4. `if` statement fails then `else` block is execute. `if` statement may contain optional `else` block.
+5. `else if` statement test several variants of a condition.
+6. conditional operator `?` looks like this `let result = condition ? value1 : value2;` 
+
+
+```js
+let year = prompt('In which year was ECMAScript-2015 specification published?', '');
+
+if (year == 2015) alert( 'You are right!' );
+
+// if and else
+if (year == 2015) {
+  alert( 'You guessed it right!' );
+} else {
+  alert( 'How can you be so wrong?' ); // any value except 2015
+}
+
+// if and else if
+
+//year = 2015
+
+if (year < 2015) {
+  alert( 'Too early...' );
+} else if (year > 2015) {
+  alert( 'Too late' );
+} else {
+  alert( 'Exactly!' ); // this one may execute
+}
+
+// conditional operator ?
+let accessAllowed;
+let age = prompt('How old are you?', '');
+
+if (age > 18) {
+  accessAllowed = true;
+} else {
+  accessAllowed = false;
+}
+
+alert(accessAllowed);
+
+// can be written in ? operator
+
+let accessAllowed = (age > 18) ? true : false;
+```
+
+#### Logical operators
+
+1. There are four logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT), `??` (Nullish Coalescing).
+2. `||` OR operator =>  If any of its arguments are `true`, it returns `true`, otherwise it returns `false`.
+3. `||` operator evaluates operands from left to right. For each operand, converts it to boolean. If the result is `true`, stops and returns the original value of that operand.
+4. `&&` AND operator returns `true` if both operands are truthy and `false` otherwise.
+5. For each operand, converts it to a boolean. If the result is `false`, stops and returns the original value of that operand.
+6. Precedence of AND `&&` is higher than OR `||`.
+7. `!` (NOT) operator returns reverse value.
+8.  `!!` Double NOT is sometimes used for converting a value to boolean type. Similar to `Boolean("non-empty string")`
+9.  The precedence of NOT `!` is the highest of all logical operators, so it always executes first, before `&&` or `||`.
+
+
+```js
+//   ||
+alert( true || true );   // true
+alert( false || true );  // true
+alert( true || false );  // true
+alert( false || false ); // false
+
+//   &&
+alert( true && true );   // true
+alert( false && true );  // false
+alert( true && false );  // false
+alert( false && false ); // false
+
+//   !
+alert( !true ); // false
+alert( !0 ); // true
+```
+
+## Nullish coalescing operator '??'
+
+1. A value is **defined** when it’s neither `null` nor `undefined`.
+2. The result of `a ?? b` is:
+    - if `a` is defined, then `a`,
+    - if `a` isn’t defined, then `b`.
+3. The precedence of the `??` operator is the same as `||`. only a bit higher than `?` and `=`.
+4. It’s forbidden to use it with `||` or `&&` without explicit parentheses.
+
+```js
+// set height=100, if height is null or undefined
+height = height ?? 100;
+```
+
+
+## Loops: while & for
+
+1. A single execution of the loop body is called an *iteration*.
+
+#### While Loop
+
+1. Loop iterate the body until the condition becomes `false`.
+2. Curly braces are not required for a single-line body.
+
+```js
+while (condition) {
+  // code
+  // so-called "loop body"
+}
+
+let i = 0;
+while (i < 3) { // shows 0, then 1, then 2
+  alert( i );
+  i++;
+}
+```
+
+#### do...whilw loop
+
+1. The loop will first execute the body, then check the condition.
+2. Use when you need to run the code atleast once even though the condition is wrong.
+
+
+```js
+do {
+  // loop body
+} while (condition);
+
+let i = 0;
+do {
+  alert( i );
+  i++;
+} while (i < 3);
+```
+
+#### for loop
+
+```js
+for (begin; condition; step) {
+  // ... loop body ...
+}
+
+for (let i = 0; i < 3; i++) { // shows 0, then 1, then 2
+  alert(i);
+}
+```
+
+#### Break and Continue
+
+
+
+
+
+
 
 
 
