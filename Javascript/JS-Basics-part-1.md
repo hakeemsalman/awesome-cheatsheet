@@ -599,7 +599,7 @@ alert( 4 ** (1/2) ); // 2 (power of 1/2 is the same as a square root)
 alert( 8 ** (1/3) ); // 2 (power of 1/3 is the same as a cubic root)
 ```
 
-#### String concatenation
+#### 1 String concatenation
 
 1. If the binary + is applied to strings, it merges (concatenates) them.
 2. The binary `+` is the only operator that supports strings in such a way. Other arithmetic operators work only with numbers and always convert their operands to numbers.
@@ -640,7 +640,7 @@ alert( +apples + +oranges ); // 5
 // alert( Number(apples) + Number(oranges) ); // 5
 ```
 
-#### Operator precedence
+#### 2 Operator precedence
 
 1. As we can see, the “unary plus” has a priority of `14` which is higher than the `11` of “addition” (binary plus). That’s why, in the expression  `"+apples + +oranges"`, unary pluses work before the addition.
 
@@ -742,7 +742,7 @@ alert( +apples + +oranges ); // 5
 </table>
 
 
-#### Modify-in-place
+#### 3 Modify-in-place
 
 1. An operator to a variable and store the new result in that same variable.
 2. Short “modify-and-assign” operators exist for all arithmetical and bitwise operators: `/=`, `-=`, etc.
@@ -759,7 +759,7 @@ n *= 3 + 5; // right part evaluated first, same as n *= 8
 alert( n ); // 16
 ```
 
-#### Increment & decrement
+#### 4 Increment & decrement
 
 1. Increment `++` increases a variable by 1. It is in postfix form.
 2. Decrement `--` decreases a variable by 1. It is in prefix form.
@@ -776,7 +776,7 @@ counter--;        // works the same as counter = counter - 1, but is shorter
 alert( counter ); // 1
 ```
 
-#### Bitwise operators
+#### 5 Bitwise operators
 
 1. These operators are used very rarely, when we need to fiddle with numbers on the very lowest (bitwise) level.
 
@@ -790,7 +790,7 @@ alert( counter ); // 1
 
 You can read the [Bitwise Operators](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#bitwise_operators) in this MDN docs.
 
-#### Comma
+#### 6 Comma
 
 1. The comma operator , is one of the rarest and most unusual operators. Sometimes, it’s used to write shorter code.
 2. It has very low Precedence.
@@ -804,7 +804,7 @@ alert( a ); // 7 (the result of 3 + 4)
 ```
 
 
-## Comparisions
+## 9 Comparisions
 
 1. Greater/Less than `a > b` `a < b`
 2. Greater/less than or equals `a >= b`, `a <= b`
@@ -821,7 +821,7 @@ let result = 5 > 4; // assign the result of the comparison
 alert( result ); // true
 ```
 
-#### String comparisions
+#### 1 String comparisions
 
 1. Comparison operators return a boolean value.
 2. Strings are compared letter-by-letter in the “dictionary” order.
@@ -869,7 +869,7 @@ alert( Boolean(b) ); // true
 alert(a == b); // true!
 ```
 
-#### Strict equality
+#### 2 Strict equality
 
 1. A strict equality operator `===` checks the equality without type conversion.
 
@@ -890,7 +890,7 @@ alert( undefined < 0 ); // false (2)
 alert( undefined == 0 ); // false (3)
 ```
 
-#### Conditions 
+## 10 Conditions 
 
 1. `if` statement evaluates a condition in parentheses and, if the result is true, executes a block of code.
 2. You can use `?` statement instead of `if` statements.
@@ -941,7 +941,7 @@ alert(accessAllowed);
 let accessAllowed = (age > 18) ? true : false;
 ```
 
-#### Logical operators
+## 11 Logical operators
 
 1. There are four logical operators in JavaScript: `||` (OR), `&&` (AND), `!` (NOT), `??` (Nullish Coalescing).
 2. `||` OR operator =>  If any of its arguments are `true`, it returns `true`, otherwise it returns `false`.
@@ -972,7 +972,7 @@ alert( !true ); // false
 alert( !0 ); // true
 ```
 
-## Nullish coalescing operator '??'
+## 12 Nullish coalescing operator '??'
 
 1. A value is **defined** when it’s neither `null` nor `undefined`.
 2. The result of `a ?? b` is:
@@ -987,11 +987,11 @@ height = height ?? 100;
 ```
 
 
-## Loops: while & for
+## 13 Loops: while & for
 
 1. A single execution of the loop body is called an *iteration*.
 
-#### While Loop
+#### 1 While Loop
 
 1. Loop iterate the body until the condition becomes `false`.
 2. Curly braces are not required for a single-line body.
@@ -1009,7 +1009,7 @@ while (i < 3) { // shows 0, then 1, then 2
 }
 ```
 
-#### do...whilw loop
+#### 2 do...while loop
 
 1. The loop will first execute the body, then check the condition.
 2. Use when you need to run the code atleast once even though the condition is wrong.
@@ -1027,7 +1027,7 @@ do {
 } while (i < 3);
 ```
 
-#### for loop
+#### 3 for loop
 
 ```js
 for (begin; condition; step) {
@@ -1039,17 +1039,378 @@ for (let i = 0; i < 3; i++) { // shows 0, then 1, then 2
 }
 ```
 
-#### Break and Continue
+#### 4 Break and Continue
+
+1. Normally, a loop exits when its condition becomes falsy.
+
+```js
+let sum = 0;
+
+while (true) {
+
+  let value = +prompt("Enter a number", '');
+
+  if (!value) break; // (*)
+
+  sum += value;
+
+}
+alert( 'Sum: ' + sum );
+```
+
+#### 5 Continue
+
+1. It stops the current iteration and forces the loop to start a new one (if the condition allows).
+2. If you don't want to do anything in the current iteration, and would like to go forward to next one, use `continue`.
+
+```js
+for (let i = 0; i < 10; i++) {
+
+  // if true, skip the remaining part of the body
+  if (i % 2 == 0) continue;
+
+  alert(i); // 1, then 3, 5, 7, 9
+}
+```
+
+#### 6 Label
+
+1. A label is an identifier with a colon before a loop.
+2. Labels do not allow to *jump* anywhere.
+3. A break directive must be inside a code block.
+4. A label is the only way for `break/continue` to escape a nested loop to go to an outer one.
+
+```js
+outer: for (let i = 0; i < 3; i++) {
+
+  for (let j = 0; j < 3; j++) {
+
+    let input = prompt(`Value at coords (${i},${j})`, '');
+
+    // if an empty string or canceled, then break out of both loops
+    if (!input) break outer; // (*)
+
+    // do something with the value...
+  }
+}
+
+alert('Done!');
+```
+## 14 Switch statements
+
+1. The switch has one or more case blocks and an optional default.
+2. It is similar to `if else if` statements. 
+2. The value of `x` is checked for a strict equality.
+
+```js
+switch(x) {
+  case 'value1':  // if (x === 'value1')
+    ...
+    [break]
+
+  case 'value2':  // if (x === 'value2')
+    ...
+    [break]
+
+  default:
+    ...
+    [break]
+}
+```
+
+## 15 Functions
+
+1. `function` is some block of code, to be called many times without repetition.
+2. To create a function we can use a `function` *declaration*.
+3. `function` is should be declared first, before calling it.
+4. When JavaScript prepares to run the script, it first looks for global Function Declarations in it and creates the functions. We can think of it as an *initialization stage*.
+5. A Function Declaration can be called earlier than it is defined.
+
+```js
+alert(message);             // prebuilt function
+prompt(message, default);   // prebuilt function
+confirm(question);          // prebuilt function
 
 
+function showMessage() {    // custom function
+  alert( 'Hello everyone!' );
+}
+
+showMessage();
+showMessage();
+```
+#### 1 Local variables
+
+1. A variable declared *inside* a function is only visible inside that function.
+2. 
+
+```js
+function showMessage() {
+  let message = "Hello, I'm JavaScript!"; // local variable
+
+  alert( message );
+}
+
+showMessage(); // Hello, I'm JavaScript!
+
+alert( message ); // <-- Error! The variable is local to the function
+```
+
+#### 2 Outer variables
+
+1. A variable declared outside a function, also known as *Global variable*.
+2. function has full access to the outer variable. The outer variable is only used if there’s no local one.
+3. If a same-named variable is declared inside the function then it *shadows* the outer one. For instance, in the code below the function uses the local `userName`. The outer one is ignored.
+4. Maximize the use of **local variable** instead of *global* variable. 
+
+```js
+let userName = 'John';
+
+function showMessage() {
+  let userName = "Bob"; // declare a local variable
+
+  let message = 'Hello, ' + userName; // Bob
+  alert(message);
+}
+
+// the function will create and use its own userName
+showMessage();
+
+alert( userName ); // John, unchanged, the function did not access the outer variable
+```
+
+#### 3 Parameters
+
+1. Pass the arbitrary data to functions using parameters.
+2. When the function is called, the given values are copied to local variables. `from` and `text`. You can use *outside* the function.
+3. It is also called an *argument*. In simple terms, We declare functions listing their parameters, then call them passing arguments.
+
+```js
+function showMessage(from, text) {
+  from = '*' + from + '*'; // now it becomes, *Ann*
+  alert( from + ': ' + text );
+}
+
+let from = "Ann";
+showMessage(from, "Hello"); // *Ann*: Hello
+
+// the value of "from" is the same, the function modified a local copy
+alert( from ); // Ann
+```
+
+#### 4 Default values
+
+1. If a function is called, but an argument is not provided, then the corresponding value becomes undefined.
+2. For more info, follow this [link](https://javascript.info/function-basics#default-values)
+
+```js
+function showMessage(from, text = "no text given") {
+  alert( from + ": " + text );
+}
+
+showMessage("Ann"); // Ann: no text given
+```
+
+#### 5 Returning a value
+
+1. A function can return a value back into the calling code as the result.
+2. When the execution reaches it, the function stops, and the value is returned to the calling code. (assigned to `result` above)
+3. A function with an empty `return` or without it returns `undefined`
 
 
+```js
+function sum(a, b) {
+  return a + b;
+}
+
+let result = sum(1, 2);
+alert( result ); // 3
 
 
+// empty return
+function doNothing() { /* empty */ }
+alert( doNothing() === undefined ); // true
+
+function doNothing() {
+  return;
+}
+alert( doNothing() === undefined ); // true
+```
+
+#### 6 Naming a function
+
+1. Functions are actions. So their name is usually a verb. It should be brief, as accurate as possible and describe what the function does.
+2. One function – one action
+
+**Function starting with**:  
+"`get…`" – return a value,  
+"`calc…`" – calculate something,  
+"`create…`" – create something,  
+"`check…`" – check something and return a boolean, etc.  
+
+```js
+showMessage(..)     // shows a message
+getAge(..)          // returns the age (gets it somehow)
+calcSum(..)         // calculates a sum and returns the result
+createForm(..)      // creates a form (and usually returns it)
+checkPermission(..) // checks a permission, returns true/false
+```
+
+## 16 Function expressions
+
+1. As the function creation happens in the context of the assignment expression (to the right side of `=`), this is a *Function Expression*.
+2. After `function` declaration, no need to write a *name*, called *anonymous function*.
+
+```js
+let sayHi = function() { // function expression
+  alert( "Hello" );
+};
+```
+
+#### 1 Function is a value
+
+1. No matter how the function is created, a function is a value.
+2. A function is a *special value*, in the sense that we can call it like sayHi().
+3. We can copy a function to another variable. *copy without parathesis*, otherwise it will the function.
+4. The semicolon `;` is recommended at the end of the statement, it’s not a part of the function syntax.
+
+```js
+function sayHi() {
+  alert( "Hello" );
+}
+
+alert( sayHi ); // shows the function code
+
+// ------------------------------------
+// ------------------------------------
+
+function sayHi() {   // (1) create
+  alert( "Hello" );
+}
+
+let func = sayHi;    // (2) copy
+
+func(); // Hello     // (3) run the copy (it works)!
+sayHi(); // Hello    //     this still works too (why wouldn't it)
+
+let sayHi = function() {
+  // ...
+};                          // semicolon at end of expression
+```
+
+#### 2 Callback functions
+
+1. A callback function is a `function` that is passed as an *argument* to another function.
+2. Fore more info, follow this [link](https://javascript.info/function-expressions#callback-functions).
+3. A function is a value representing an **action**.
 
 
+```js
+function ask(question, yes, no) {
+  if (confirm(question)) yes()
+  else no();
+}
+
+function showOk() {
+  alert( "You agreed." );
+}
+
+function showCancel() {
+  alert( "You canceled the execution." );
+}
+
+// usage: functions showOk, showCancel are passed as arguments to ask
+ask("Do you agree?", showOk, showCancel);
+```
+
+#### 3 Function Expression vs Function Declaration
+
+1. A Function Declaration can be called earlier than it is defined.
+2. When JavaScript prepares to run the script, it first looks for global Function Declarations in it and creates the functions. We can think of it as an “initialization stage”.
+3. And after all Function Declarations are processed, the code is executed. So it has access to these functions.
+
+<table>
+    <tr>
+      <td>Syntax</td>
+      <td>
+
+        ```js
+        // Function Declaration
+        function sum(a, b) {
+          return a + b;
+        }
+        ```
+  </td>
+   <td>
+
+        ```js
+        // Function Expression
+        let sum = function(a, b) {
+          return a + b;
+        };
+        ```
+
+  </td>
+  </tr>
+</table>
 
 
+```js
+sayHi("John"); // Hello, John
+
+function sayHi(name) {
+  alert( `Hello, ${name}` );
+}
+```
+
+## Arrow functions, the basics
+
+1. Arrow function is similar to function expression, but only different in syntax.
+2. Arrow function can have Single and multi-line.
+3. Single line automatically returns the expression and Multi-line needs `return` statement.
+    - Without curly braces: `(...args) => expression`, function evaluate implicitly `returns` the result
+    - With curly braces: `(...args) => { body }` but we need an explicit `return` to return something.
+
+<table>
+  <tr>
+    <td>Array function</td><td>Function Expression</td>
+  </tr>
+  <tr>
+    <td>
+
+      ```js
+      let func = (arg1, arg2, ..., argN) => expression;
+      ```
+
+  </td>
+  <td>
+
+      ```js
+      let func = function(arg1, arg2, ..., argN) {
+        return expression;
+      };
+      ```
+
+  </td>
+  </tr>
+</table>
+
+```js
+let sum = (a, b) => a + b; // single line function
+
+alert( sum(1, 2) ); // 3
+
+
+// --------------------
+// --------------------
+
+let sum = (a, b) => {  // the curly brace opens a multiline function
+  let result = a + b;
+  return result; // if we use curly braces, then we need an explicit "return"
+};
+
+alert( sum(1, 2) ); // 3
+```
 
 ---
 
