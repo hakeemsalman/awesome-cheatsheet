@@ -179,6 +179,8 @@ ReactDOM.render(navbar, document.getElementById("root"))
       const root = ReactDOM.createRoot(document.getElementById("root"))
       root.render(navbar)
       ```
+5. Use `react-dom/client` to *import* the package.
+
 
 ```js
 import React from "react"
@@ -582,4 +584,130 @@ function Page() {
 ReactDOM.render(<Page />, document.getElementById("root"))
 ```
 
+## Styling Classes
+
+1. We write `class` attribute in `HTML` code, but here we should write `className`
+2. In vanilla JS, we write `className` for that particular element.
+    ```js
+    const ul = document.createElement("ul")
+    ul.className = "list"
+    ```
+3. Challenge
+
+<table>
+  <tr>
+    <th>Javascript</th>
+    <th>CSS</th>
+  </tr>
+  <tr>
+  <td>
+
+  ```js
+    /**
+    Challenge: 
+
+    - Add an `ul` inside the Header's `nav` and create
+      the following `li`s: "Pricing", "About", & "Contact"
+    - Using flexbox, line up the nav items horizontally, and
+      put them inline with the React logo.
+    - Change the image styling to happen in CSS instead of in-line
+      For practice, add a new class to the image in order to style it
+    */
+
+    function Header() {
+        return (
+            <header>
+                <nav className="nav">
+                    <img src="./react-logo.png" className="nav-logo" />
+                    <ul className="nav-items">
+                        <li>Pricing</li>
+                        <li>About</li>
+                        <li>Contact</li>
+                    </ul>
+                </nav>
+            </header>
+        )
+    }
+    ```
+
+  </td>
+<td>
+
+ ```css
+  .nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  }
+
+  .nav-logo {
+      width: 60px;
+  }
+
+  .nav-items {
+      list-style: none;
+      display: flex;
+  }
+
+  .nav-items > li {
+      padding: 10px;
+  }
+```
+
+</td>
+</tr>
+</table>
+    
+## Organize Components
+
+1. Create a separate component for appropriate block of code.
+    - ```js
+        Header.js
+        Footer.js
+        MainContent.js
+      ```
+2. Then `import` those components in `index.js`
+3. Each component must import `react` and should use `export defalut` to function.
+
+    -   ```js
+        // Component.js
+        import React from "react"
+
+        export default function Component() {
+            return (
+                ...
+            )
+        }
+        ```
+    -   ```js
+        // index.js
+        import React from "react"
+        import ReactDOM from "react-dom"
+        import MainContent from "./Component"
+
+        function Page() {
+            return (
+                <div>
+                    ...
+                    <MainContent />
+                    ...
+                </div>
+            )
+        }
+
+        ReactDOM.render(<Page />, document.getElementById("root"))
+        ```
+
+## Create React with Vite
+
+Vite is a build tool and development server designed to improve the development process of modern web applications. 
+
+1. Pre-requisites apps installs `node` and `npm`.
+2. Run this command in your terminal `npm create vite@latest`.
+3. Type your name of `<project>` --> select framework `react` --> cd `<project name>` --> `npm install` --> `npm run dev`.
+4. Open host in the browser and customize your application based on your requirements.
+
+
+
+ 
 
