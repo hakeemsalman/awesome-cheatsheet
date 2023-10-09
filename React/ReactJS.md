@@ -77,3 +77,50 @@ ReactDOM.render(<MainContent />,document.getElementById("root"))
 
 *JSX* stand for Javascript XML. React convert html code to javascript *DOM* element.
 
+**CHALLANGE**
+
+```js
+/* 
+Challenge: 
+
+Create a navbar in JSX:
+    - Use the semantic `nav` element as the parent wrapper
+    - Have an h1 element with the brand name of your "website"
+    - Insert an unordered list for the other nav elements
+        - Inside the `ul`, have three `li`s for "Pricing",
+        "About", and "Contact"
+    - Don't worry about styling yet - it'll just be plain-looking HTML for now
+*/
+
+const navbar = (
+    <nav>
+        <h1>Bob's Bistro</h1>
+        <ul>
+            <li>Menu</li>
+            <li>About</li>
+            <li>Contact</li>
+        </ul>
+    </nav>
+)
+
+ReactDOM.render(navbar, document.getElementById("root"))
+```
+
+## Deploy project
+
+1. Sign up the **Netlify** [account](https://app.netlify.com/signup)
+2. Download and unzip the Scrimba file
+3. Drag and drop your folder into this [https://app.netlify.com/drop](https://app.netlify.com/drop)
+
+## UPDATE: New React 18
+
+1. Upto React 17 version `ReactDOM.render()` is available.
+2. In React 18v, use `createRoot()` before use `render()` method.
+3. In `createRoot()` method, add root element that what you want to add. 
+    - eg: `createRoot(document.getElementById("root"))`
+4. Then use `render()` method to that `createRoot`.
+    - eg:
+      ```js
+      const root = ReactDOM.createRoot(document.getElementById("root"))
+      root.render(navbar)
+      ```
