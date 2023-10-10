@@ -1,54 +1,54 @@
 # ReactJS
 
-
 ```html
 <html>
-    <head>
-        <link rel="stylesheet" href="index.css">
-        <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    </head>
-    <body>
-        <div id="root"></div>
-        <script src="index.js" type="text/babel"></script>
-    </body>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+    <script
+      crossorigin
+      src="https://unpkg.com/react@17/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="index.js" type="text/babel"></script>
+  </body>
 </html>
 ```
+
 ```js
-  ReactDOM.render(<h1>Hello, everyone!</h1>,  document.getElementById("root"))
+ReactDOM.render(<h1>Hello, everyone!</h1>, document.getElementById("root"));
 ```
 
 > ReactDOM.render( [what you want to render] , [where you want to render] )
- 
 
 ## Custom component
 
 ```js
- function MainContent(){
-    return(
-      <h1>I'm learning</h1>  
-    );
+function MainContent() {
+  return <h1>I'm learning</h1>;
 }
 
-ReactDOM.render(<MainContent />,document.getElementById("root"))
-
+ReactDOM.render(<MainContent />, document.getElementById("root"));
 ```
 
+## Features
 
- ## Features
+1.  Composable
+2.  Declarative
 
- 1. Composable
- 2. Declarative
-
- 1. 
-    ```js
+3.  ```js
     // ReactDOM.render(<h1>Hello, React!</h1>, document.getElementById("root"))
 
     /* 
     Challenge - recreate the above line of code in vanilla JS by creating and
     appending an h1 to our div#root (without using innerHTML).
-
+    
     - Create a new h1 element
     - Give it some textContent
     - Give it a class name of "header"
@@ -60,22 +60,22 @@ ReactDOM.render(<MainContent />,document.getElementById("root"))
     const divRoot = document.getElementById("root");
     const textNode = document.createTextNode("Hello World");
     headingElement.appendChild(textNode);
-
+    
     headingElement.classList.add("header");
     divRoot.appendChild(headingElement);
     */
 
     //        Scrimba code
 
-    const h1 = document.createElement("h1")
-    h1.textContent = "This is an imperative way to program"
-    h1.className = "header"
+    const h1 = document.createElement("h1");
+    h1.textContent = "This is an imperative way to program";
+    h1.className = "header";
     document.getElementById("root").append(h1);
-
     ```
+
 ## JSX
 
-*JSX* stand for Javascript XML. React convert html code to javascript *DOM* element.
+_JSX_ stand for Javascript XML. React convert html code to javascript _DOM_ element.
 
 **CHALLANGE**
 
@@ -93,17 +93,17 @@ Create a navbar in JSX:
 */
 
 const navbar = (
-    <nav>
-        <h1>Bob's Bistro</h1>
-        <ul>
-            <li>Menu</li>
-            <li>About</li>
-            <li>Contact</li>
-        </ul>
-    </nav>
-)
+  <nav>
+    <h1>Bob's Bistro</h1>
+    <ul>
+      <li>Menu</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+);
 
-ReactDOM.render(navbar, document.getElementById("root"))
+ReactDOM.render(navbar, document.getElementById("root"));
 ```
 
 ## Deploy project
@@ -114,10 +114,9 @@ ReactDOM.render(navbar, document.getElementById("root"))
 
 ## Import React
 
-1. Use `package.json` to add dependencies of React in project folder instead of adding *CDN's* link.
-2. Then install React with *npm* manager.
+1. Use `package.json` to add dependencies of React in project folder instead of adding _CDN's_ link.
+2. Then install React with _npm_ manager.
 3. Use `import` keyword to apply react functions in your `index.js`
-
 
 ```json
 {
@@ -127,78 +126,78 @@ ReactDOM.render(navbar, document.getElementById("root"))
   "main": "index.js",
   "dependencies": {
     "react": "^17.0.0",
-    "react-dom": "^17.0.0",
+    "react-dom": "^17.0.0"
   }
 }
 ```
 
 ```html
 <html>
-    <head>
-        <link rel="stylesheet" href="index.css">
-        
-        <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <head>
+    <link rel="stylesheet" href="index.css" />
+
+    <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
         <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
         <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
          -->
-    </head>
-    <body>
-        <div id="root"></div>
-        <script src="index.pack.js"></script>  <!-- removed type="text/babel"  -->
-    </body>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script src="index.pack.js"></script>
+    <!-- removed type="text/babel"  -->
+  </body>
 </html>
 ```
 
 ```js
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 const navbar = (
-    <nav>
-        <h1>Bob's Bistro</h1>
-        <ul>
-            <li>Menu</li>
-            <li>About</li>
-            <li>Contact</li>
-        </ul>
-    </nav>
-)
+  <nav>
+    <h1>Bob's Bistro</h1>
+    <ul>
+      <li>Menu</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+);
 
-ReactDOM.render(navbar, document.getElementById("root"))
+ReactDOM.render(navbar, document.getElementById("root"));
 ```
 
 ## UPDATE: New React 18
 
 1. Upto React 17 version `ReactDOM.render()` is available.
 2. In React 18v, use `createRoot()` before use `render()` method.
-3. In `createRoot()` method, add root element that what you want to add. 
-    - eg: `createRoot(document.getElementById("root"))`
+3. In `createRoot()` method, add root element that what you want to add.
+   - eg: `createRoot(document.getElementById("root"))`
 4. Then use `render()` method to that `createRoot`.
-    - eg:
-      ```js
-      const root = ReactDOM.createRoot(document.getElementById("root"))
-      root.render(navbar)
-      ```
-5. Use `react-dom/client` to *import* the package.
-
+   - eg:
+     ```js
+     const root = ReactDOM.createRoot(document.getElementById("root"));
+     root.render(navbar);
+     ```
+5. Use `react-dom/client` to _import_ the package.
 
 ```js
-import React from "react"
-import ReactDOM from "react-dom/client"
+import React from "react";
+import ReactDOM from "react-dom/client";
 
 const navbar = (
-    <nav>
-        <h1>Bob's Bistro</h1>
-        <ul>
-            <li>Menu</li>
-            <li>About</li>
-            <li>Contact</li>
-        </ul>
-    </nav>
-)
+  <nav>
+    <h1>Bob's Bistro</h1>
+    <ul>
+      <li>Menu</li>
+      <li>About</li>
+      <li>Contact</li>
+    </ul>
+  </nav>
+);
 
-const root = ReactDOM.createRoot(document.getElementById("root"))
-root.render(navbar)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(navbar);
 
 // ReactDOM.render(navbar, document.getElementById("root")) not working
 
@@ -212,8 +211,9 @@ root.render(navbar)
 2. React to Real DOM Elements: React doesn't directly convert React elements into real DOM elements. Instead, React uses a process known as "reconciliation" to update the real DOM efficiently based on changes in the virtual DOM. It calculates the differences between the current virtual DOM and the previous one and applies only the necessary updates to the real DOM.
 
 #### Challege 1
+
 ```js
-import React from "react"
+import React from "react";
 
 /**
 Challenge: find out what happens if we try to append JSX
@@ -228,21 +228,20 @@ to our div#root using .append() instead of ReactDOM
  */
 
 const page = (
-    <div>
-        <h1>My awesome website in React</h1>
-        <h3>Reasons I love React</h3>
-        <ol>
-            <li>It's composable</li>
-            <li>It's declarative</li>
-            <li>It's a hireable skill</li>
-            <li>It's actively maintained by skilled people</li>
-        </ol>
-    </div>
-)
+  <div>
+    <h1>My awesome website in React</h1>
+    <h3>Reasons I love React</h3>
+    <ol>
+      <li>It's composable</li>
+      <li>It's declarative</li>
+      <li>It's a hireable skill</li>
+      <li>It's actively maintained by skilled people</li>
+    </ol>
+  </div>
+);
 
-// document.getElementById("root").append(page) // uncomment to see this in output 
+// document.getElementById("root").append(page) // uncomment to see this in output
 document.getElementById("root").append(JSON.stringify(page));
-
 ```
 
 #### Challege 2
@@ -257,21 +256,20 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 const page = (
-    <div>
-        <h1>My awesome website in React</h1>
-        <h3>Reasons I love React</h3>
-        <ol>
-            <li>It's composable</li>
-            <li>It's declarative</li>
-            <li>It's a hireable skill</li>
-            <li>It's actively maintained by skilled people</li>
-        </ol>
-    </div>
+  <div>
+    <h1>My awesome website in React</h1>
+    <h3>Reasons I love React</h3>
+    <ol>
+      <li>It's composable</li>
+      <li>It's declarative</li>
+      <li>It's a hireable skill</li>
+      <li>It's actively maintained by skilled people</li>
+    </ol>
+  </div>
 );
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(navbar);
-
 ```
 
 ## Challenge 3
@@ -292,52 +290,54 @@ Hints:
   just like in HTML. In the slide, I have it set to 40px
  */
 
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 const page = (
-    <div>
-        <img src="./react-logo.png" width="40px" />
-        <h1>Fun facts about React</h1>
-        <ul>
-            <li>Was first released in 2013</li>
-            <li>Was originally created by Jordan Walke</li>
-            <li>Has well over 100K stars on GitHub</li>
-            <li>Is maintained by Facebook</li>
-            <li>Powers thousands of enterprise apps, including mobile apps</li>
-        </ul>
-    </div>
-)
+  <div>
+    <img src="./react-logo.png" width="40px" />
+    <h1>Fun facts about React</h1>
+    <ul>
+      <li>Was first released in 2013</li>
+      <li>Was originally created by Jordan Walke</li>
+      <li>Has well over 100K stars on GitHub</li>
+      <li>Is maintained by Facebook</li>
+      <li>Powers thousands of enterprise apps, including mobile apps</li>
+    </ul>
+  </div>
+);
 
-ReactDOM.render(page, document.getElementById("root"))
+ReactDOM.render(page, document.getElementById("root"));
 ```
 
 ## Quiz
 
 1. Why do we need to `import React from "react"` in our files?
-React is what defines JSX
+   React is what defines JSX
 
 2. If I were to console.log(page) in index.js, what would show up?
-A JavaScript object. React elements that describe what React should
-eventually add to the real DOM for us.
+   A JavaScript object. React elements that describe what React should
+   eventually add to the real DOM for us.
 
 3. What's wrong with this code:
-    ```js
-    const page = (
-        <h1>Hello</h1>
-        <p>This is my website!</p>
-    )
-    ```
-    We need our JSX to be nested under a single parent element
+
+   ```js
+   const page = (
+       <h1>Hello</h1>
+       <p>This is my website!</p>
+   )
+   ```
+
+   We need our JSX to be nested under a single parent element
 
 4. What does it mean for something to be "declarative" instead of "imperative"?
-Declarative means I can tell the computer WHAT to do 
-and expect it to handle the details. Imperative means I need
-to tell it HOW to do each step.
+   Declarative means I can tell the computer WHAT to do
+   and expect it to handle the details. Imperative means I need
+   to tell it HOW to do each step.
 
 5. What does it mean for something to be "composable"?
-We have small pieces that we can put together to make something
-larger/greater than the individual pieces.
+   We have small pieces that we can put together to make something
+   larger/greater than the individual pieces.
 
 ## Custom Component
 
@@ -350,74 +350,73 @@ larger/greater than the individual pieces.
   <tr>
   <td>
 
-  ```js
-  const page = (
-      <div>
-          <img src="./react-logo.png" width="40px" />
-          <h1>Fun facts about React</h1>
-          <ul>
-              <li>Was first released in 2013</li>
-              <li>Was originally created by Jordan Walke</li>
-              <li>Has well over 100K stars on GitHub</li>
-              <li>Is maintained by Facebook</li>
-              <li>Powers thousands of enterprise apps, including mobile apps</li>
-          </ul>
-      </div>
+```js
+const page = (
+  <div>
+    <img src="./react-logo.png" width="40px" />
+    <h1>Fun facts about React</h1>
+    <ul>
+      <li>Was first released in 2013</li>
+      <li>Was originally created by Jordan Walke</li>
+      <li>Has well over 100K stars on GitHub</li>
+      <li>Is maintained by Facebook</li>
+      <li>Powers thousands of enterprise apps, including mobile apps</li>
+    </ul>
+  </div>
+);
+
+ReactDOM.render(page, document.getElementById("root"));
+```
+
+  </td>
+  <td>
+
+```js
+function temporaryName() {
+  return (
+    <div>
+      <img src="./react-logo.png" width="40px" />
+      <h1>Fun facts about React</h1>
+      <ul>
+        <li>Was first released in 2013</li>
+        <li>Was originally created by Jordan Walke</li>
+        <li>Has well over 100K stars on GitHub</li>
+        <li>Is maintained by Facebook</li>
+        <li>Powers thousands of enterprise apps, including mobile apps</li>
+      </ul>
+    </div>
   );
+}
 
-  ReactDOM.render(page, document.getElementById("root"))
-  ```
-
-  </td>
-  <td>
-
-  ```js
-  function temporaryName() {
-      return (
-          <div>
-              <img src="./react-logo.png" width="40px" />
-              <h1>Fun facts about React</h1>
-              <ul>
-                  <li>Was first released in 2013</li>
-                  <li>Was originally created by Jordan Walke</li>
-                  <li>Has well over 100K stars on GitHub</li>
-                  <li>Is maintained by Facebook</li>
-                  <li>Powers thousands of enterprise apps, including mobile apps</li>
-              </ul>
-          </div>
-      )
-  }
-
-  ReactDOM.render(temporaryName(), document.getElementById("root"))
-  ```
+ReactDOM.render(temporaryName(), document.getElementById("root"));
+```
 
   </td>
   <td>
 
-  ```js
-  function TemporaryName() {
-      return (
-          <div>
-              <img src="./react-logo.png" width="40px" />
-              <h1>Fun facts about React</h1>
-              <ul>
-                  <li>Was first released in 2013</li>
-                  <li>Was originally created by Jordan Walke</li>
-                  <li>Has well over 100K stars on GitHub</li>
-                  <li>Is maintained by Facebook</li>
-                  <li>Powers thousands of enterprise apps, including mobile apps</li>
-              </ul>
-          </div>
-      )
-  }
+```js
+function TemporaryName() {
+  return (
+    <div>
+      <img src="./react-logo.png" width="40px" />
+      <h1>Fun facts about React</h1>
+      <ul>
+        <li>Was first released in 2013</li>
+        <li>Was originally created by Jordan Walke</li>
+        <li>Has well over 100K stars on GitHub</li>
+        <li>Is maintained by Facebook</li>
+        <li>Powers thousands of enterprise apps, including mobile apps</li>
+      </ul>
+    </div>
+  );
+}
 
-  ReactDOM.render(<TemporaryName />, document.getElementById("root"))
-  ```
+ReactDOM.render(<TemporaryName />, document.getElementById("root"));
+```
 
   </td>
   </tr>
 </table>
-
 
 #### Challenges
 
@@ -437,18 +436,18 @@ Render your list to the page
 import React from "react";
 import ReactDOM from "react-dom";
 
-function Page(){
-    return (
-         <ol>
-            <li>It's a popular library, so I'll be 
-            able to fit in with the cool kids!</li>
-            <li>I'm more likely to get a job as a developer
-            if I know React</li>
-        </ol>
-    );
+function Page() {
+  return (
+    <ol>
+      <li>
+        It's a popular library, so I'll be able to fit in with the cool kids!
+      </li>
+      <li>I'm more likely to get a job as a developer if I know React</li>
+    </ol>
+  );
 }
 
-ReactDOM.render(<Page/>, document.getElementById("root"))
+ReactDOM.render(<Page />, document.getElementById("root"));
 
 /*
 Part 2: 
@@ -462,71 +461,72 @@ Part 2:
     "© 20xx <last name here> development. All rights reserved."
 */
 
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 function Page() {
-    return (
-        <div>
-            <header>
-                <nav>
-                    <img src="./react-logo.png" width="40px" />
-                </nav>
-            </header>
-            <h1>Reasons I'm excited to learn React</h1>
-            <ol>
-                <li>It's a popular library, so I'll be 
-                able to fit in with the cool kids!</li>
-                <li>I'm more likely to get a job as a developer
-                if I know React</li>
-            </ol>
-            <footer>
-                <small>© 2021 Ziroll development. All rights reserved.</small>
-            </footer>
-        </div>
-    )
+  return (
+    <div>
+      <header>
+        <nav>
+          <img src="./react-logo.png" width="40px" />
+        </nav>
+      </header>
+      <h1>Reasons I'm excited to learn React</h1>
+      <ol>
+        <li>
+          It's a popular library, so I'll be able to fit in with the cool kids!
+        </li>
+        <li>I'm more likely to get a job as a developer if I know React</li>
+      </ol>
+      <footer>
+        <small>© 2021 Ziroll development. All rights reserved.</small>
+      </footer>
+    </div>
+  );
 }
 
-ReactDOM.render(<Page />, document.getElementById("root"))
+ReactDOM.render(<Page />, document.getElementById("root"));
 ```
 
 ## Quiz 2
 
 1. What is a React component?
-A function that returns React elements. (UI)
+   A function that returns React elements. (UI)
 
 2. What's wrong with this code?
-    ```js
-    function myComponent() {
-        return (
-            <small>I'm tiny text!</small>
-        )
-    }
-    ```
-    Function name should be in *Pascal case* `MyComponent()`
+
+   ```js
+   function myComponent() {
+     return <small>I'm tiny text!</small>;
+   }
+   ```
+
+   Function name should be in _Pascal case_ `MyComponent()`
 
 3. What's wrong with this code?
-    ```js
-    function Header() {
-        return (
-            <header>
-                <nav>
-                    <img src="./react-logo.png" width="40px" />
-                </nav>
-            </header>
-        )
-    }
 
-    ReactDOM.render(Header(), document.getElementById("root"))
-    ```
+   ```js
+   function Header() {
+     return (
+       <header>
+         <nav>
+           <img src="./react-logo.png" width="40px" />
+         </nav>
+       </header>
+     );
+   }
 
-    Write `<Header />` instead of `Header()`
+   ReactDOM.render(Header(), document.getElementById("root"));
+   ```
+
+   Write `<Header />` instead of `Header()`
 
 ## Parent/Child Component
 
 ```js
-import React from "react"
-import ReactDOM from "react-dom"
+import React from "react";
+import ReactDOM from "react-dom";
 
 /**
 Challenge: 
@@ -540,58 +540,58 @@ Challenge:
 */
 
 function Header() {
-    return (
-        <header>
-            <nav>
-                <img src="./react-logo.png" width="40px" />
-            </nav>
-        </header>
-    )
+  return (
+    <header>
+      <nav>
+        <img src="./react-logo.png" width="40px" />
+      </nav>
+    </header>
+  );
 }
 
 function Footer() {
-    return (
-        <footer>
-            <small>© 2021 Ziroll development. All rights reserved.</small>
-        </footer>
-    )
+  return (
+    <footer>
+      <small>© 2021 Ziroll development. All rights reserved.</small>
+    </footer>
+  );
 }
 
 function MainContent() {
-    return (
-        <div>
-            <h1>Reasons I'm excited to learn React</h1>
-            <ol>
-                <li>It's a popular library, so I'll be 
-                able to fit in with the cool kids!</li>
-                <li>I'm more likely to get a job as a developer
-                if I know React</li>
-            </ol>
-        </div>
-    )
+  return (
+    <div>
+      <h1>Reasons I'm excited to learn React</h1>
+      <ol>
+        <li>
+          It's a popular library, so I'll be able to fit in with the cool kids!
+        </li>
+        <li>I'm more likely to get a job as a developer if I know React</li>
+      </ol>
+    </div>
+  );
 }
 
 function Page() {
-    return (
-        <div>
-            <Header />
-            <MainContent />
-            <Footer />
-        </div>
-    )
+  return (
+    <div>
+      <Header />
+      <MainContent />
+      <Footer />
+    </div>
+  );
 }
 
-ReactDOM.render(<Page />, document.getElementById("root"))
+ReactDOM.render(<Page />, document.getElementById("root"));
 ```
 
 ## Styling Classes
 
 1. We write `class` attribute in `HTML` code, but here we should write `className`
 2. In vanilla JS, we write `className` for that particular element.
-    ```js
-    const ul = document.createElement("ul")
-    ul.className = "list"
-    ```
+   ```js
+   const ul = document.createElement("ul");
+   ul.className = "list";
+   ```
 3. Challenge
 
 <table>
@@ -602,57 +602,57 @@ ReactDOM.render(<Page />, document.getElementById("root"))
   <tr>
   <td>
 
-  ```js
-    /**
-    Challenge: 
+````js
+  /**
+  Challenge:
 
-    - Add an `ul` inside the Header's `nav` and create
-      the following `li`s: "Pricing", "About", & "Contact"
-    - Using flexbox, line up the nav items horizontally, and
-      put them inline with the React logo.
-    - Change the image styling to happen in CSS instead of in-line
-      For practice, add a new class to the image in order to style it
-    */
+  - Add an `ul` inside the Header's `nav` and create
+    the following `li`s: "Pricing", "About", & "Contact"
+  - Using flexbox, line up the nav items horizontally, and
+    put them inline with the React logo.
+  - Change the image styling to happen in CSS instead of in-line
+    For practice, add a new class to the image in order to style it
+  */
 
-    function Header() {
-        return (
-            <header>
-                <nav className="nav">
-                    <img src="./react-logo.png" className="nav-logo" />
-                    <ul className="nav-items">
-                        <li>Pricing</li>
-                        <li>About</li>
-                        <li>Contact</li>
-                    </ul>
-                </nav>
-            </header>
-        )
-    }
-    ```
+  function Header() {
+      return (
+          <header>
+              <nav className="nav">
+                  <img src="./react-logo.png" className="nav-logo" />
+                  <ul className="nav-items">
+                      <li>Pricing</li>
+                      <li>About</li>
+                      <li>Contact</li>
+                  </ul>
+              </nav>
+          </header>
+      )
+  }
+  ```
 
-  </td>
+</td>
 <td>
 
- ```css
-  .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  }
+```css
+.nav {
+display: flex;
+justify-content: space-between;
+align-items: center;
+}
 
-  .nav-logo {
-      width: 60px;
-  }
+.nav-logo {
+    width: 60px;
+}
 
-  .nav-items {
-      list-style: none;
-      display: flex;
-  }
+.nav-items {
+    list-style: none;
+    display: flex;
+}
 
-  .nav-items > li {
-      padding: 10px;
-  }
-```
+.nav-items > li {
+    padding: 10px;
+}
+````
 
 </td>
 </tr>
@@ -661,53 +661,70 @@ ReactDOM.render(<Page />, document.getElementById("root"))
 ## Organize Components
 
 1. Create a separate component for appropriate block of code.
-    - ```js
-        Header.js
-        Footer.js
-        MainContent.js
-      ```
+   - ```js
+     Header.js;
+     Footer.js;
+     MainContent.js;
+     ```
 2. Then `import` those components in `index.js`
 3. Each component must import `react` and should use `export defalut` to function.
 
-    -   ```js
-        // Component.js
-        import React from "react"
+   - ```js
+     // Component.js
+     import React from "react"
 
-        export default function Component() {
-            return (
-                ...
-            )
-        }
-        ```
-    -   ```js
-        // index.js
-        import React from "react"
-        import ReactDOM from "react-dom"
-        import MainContent from "./Component"
+     export default function Component() {
+         return (
+             ...
+         )
+     }
+     ```
 
-        function Page() {
-            return (
-                <div>
-                    ...
-                    <MainContent />
-                    ...
-                </div>
-            )
-        }
+   - ```js
+     // index.js
+     import React from "react";
+     import ReactDOM from "react-dom";
+     import MainContent from "./Component";
 
-        ReactDOM.render(<Page />, document.getElementById("root"))
-        ```
+     function Page() {
+       return (
+         <div>
+           ...
+           <MainContent />
+           ...
+         </div>
+       );
+     }
+
+     ReactDOM.render(<Page />, document.getElementById("root"));
+     ```
 
 ## Create React with Vite
 
-Vite is a build tool and development server designed to improve the development process of modern web applications. 
+Vite is a build tool and development server designed to improve the development process of modern web applications.
 
 1. Pre-requisites apps installs `node` and `npm`.
 2. Run this command in your terminal `npm create vite@latest`.
 3. Type your name of `<project>` --> select framework `react` --> cd `<project name>` --> `npm install` --> `npm run dev`.
 4. Open host in the browser and customize your application based on your requirements.
 
+## Topics
 
+1. Props
+2. Creating componenets from the array
+3.
 
- 
+## The Rules of JSX (react.dev)
+
+1. Return a single root element
+   - To return multiple elements from a component, wrap them with a single parent tag.
+   - `<> ... </> ` This empty tag is called a [Fragment](https://react.dev/reference/react/Fragment). Fragments let you group things without leaving any trace in the browser HTML tree.
+2. Close all the tags
+   - JSX requires tags to be explicitly closed: self-closing tags like `<img>` must become `<img />`, and wrapping tags like `<li>`oranges must be written as `<li>oranges</li>`.
+3. camelCase all most of the things!
+
+> Follow this link for HTML,CSS attibutes in list of DOM components
+> [https://react.dev/reference/react-dom/components/common](https://react.dev/reference/react-dom/components/common)
+
+> You can *convert these HTML* code to *JSX* by using this [tool](https://transform.tools/html-to-jsx)
 
