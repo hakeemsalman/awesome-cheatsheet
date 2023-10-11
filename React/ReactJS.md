@@ -1,5 +1,15 @@
 # ReactJS
 
+## Pre-requisites topics of JS
+
+1. Functions and Arrow Functions
+2. Objects
+3. Arrays and array methods
+4. Destructuring
+5. Template literals
+6. Ternary Operators
+7. ES Modules and Import / Export Syntax
+
 ```html
 <html>
   <head>
@@ -708,11 +718,6 @@ Vite is a build tool and development server designed to improve the development 
 3. Type your name of `<project>` --> select framework `react` --> cd `<project name>` --> `npm install` --> `npm run dev`.
 4. Open host in the browser and customize your application based on your requirements.
 
-## Topics
-
-1. Props
-2. Creating componenets from the array
-3.
 
 ## The Rules of JSX (react.dev)
 
@@ -728,3 +733,91 @@ Vite is a build tool and development server designed to improve the development 
 
 > You can *convert these HTML* code to *JSX* by using this [tool](https://transform.tools/html-to-jsx)
 
+## Passing the value with Curly braces
+
+1. You could use a value from JavaScript by replacing `"` and `"` with `{` and `}`.
+2. Any JavaScript expression will work between curly braces, including function calls like `formatDate()`:
+
+
+```jsx
+const avatar = 'https://i.imgur.com/7vQD0fPs.jpg';
+  const description = 'Gregorio Y. Zara';
+  return (
+    <img
+      className="avatar"
+      src={avatar}
+      alt={description}
+    />
+  );
+```
+#### Where to use curly braces
+
+1. As text directly inside a JSX tag: 
+    - `<h1>{name}'s To Do List</h1>` *works*.
+    - `<{tag}>Gregorio Y. Zara's To Do List</{tag}>` will *NOT work*.
+2. As attributes immediately following the `=`sign:
+    - `src={avatar}` *work*
+    - `src="{avatar}"` *NOT work*  
+3. Using *double curlies*: **CSS**
+    - To pass a JS object in JSX, you must wrap the object in another pair of curly braces:` person={{ name: "Hedy Lamarr", inventions: 5 }}`
+    - ```jsx
+      export default function TodoList() {
+        return (
+          <ul style={{
+            backgroundColor: 'black', // Inline style properties are written in camelCase
+            color: 'pink'
+          }}>
+            <li>Improve the videophone</li>
+            <li>Prepare aeronautics lectures</li>
+            <li>Work on the alcohol-fuelled engine</li>
+          </ul>
+        );
+      }
+      ```
+4. You can move several expressions into one object, and reference them in your JSX inside curly braces:
+    - ```jsx
+      const person = {
+        name: 'Gregorio Y. Zara',
+        theme: {
+          backgroundColor: 'black',
+          color: 'pink'
+        }
+      };
+      ```
+    - ```jsx
+      <div style={person.theme}>
+        <h1>{person.name}'s Todos</h1>
+        ...
+        ...
+      ```
+
+> **NOTE**: Inline style properties are written in camelCase
+
+
+## React Core Concepts
+
+1. **Props**
+2. Creating **componenets** from the array
+3. **State**
+
+## Props
+
+1. React components use *props* to communicate with each other.
+    - Props are the information that you pass to a JSX tag. For example, `className`, `src`, `alt`, `width`, and `height` are some of the props you can pass to an `<img>`.
+
+#### Passing props to a component 
+
+**Step 1**: Pass props to the child component:-
+
+First, pass some props to `Avatar`. For example, let’s pass two props: `person` (an object), and `size` (a number):
+
+```jsx
+export default function Profile() {
+  return (
+    <Avatar
+      person={{ name: 'Lin Lanying', imageId: '1bX5QH6' }}
+      size={100}
+    />
+  );
+}
+```
