@@ -14,14 +14,11 @@
 <html>
   <head>
     <link rel="stylesheet" href="index.css" />
-    <script
-      crossorigin
-      src="https://unpkg.com/react@17/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
-    ></script>
+
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+
+    <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
   </head>
   <body>
@@ -821,3 +818,217 @@ export default function Profile() {
   );
 }
 ```
+
+**Step 2**: Read props inside the child component:-
+
+You can read these props by listing their names `person`, `size` separated by the commas inside `({` and `})` directly after `function Avatar`. This lets you use them inside the `Avatar` code, like you would with a variable
+
+```js
+function Avatar({ person, size }) {
+  // person and size are available here
+}
+```
+<table>
+  <tr>
+    <th>App.js</td>
+    <th>utils.js</th>
+  </tr>
+  <tr>
+<td>
+
+  ```js
+  import { getImageUrl } from './utils.js';
+
+  function Avatar({ person, size }) {
+    return (
+      <img
+        className="avatar"
+        src={getImageUrl(person)}
+        alt={person.name}
+        width={size}
+        height={size}
+      />
+    );
+  }
+  
+  export default function Profile() {
+    return (
+      <div>
+        <Avatar
+          size={100}
+          person={{ 
+            name: 'Katsuko Saruhashi', 
+            imageId: 'YfeOqp2'
+          }}
+        />
+        <Avatar
+          size={50}
+          person={{ 
+            name: 'Lin Lanying',
+            imageId: '1bX5QH6'
+          }}
+        />
+      </div>
+    );
+  }
+  ```
+
+</td>
+  <td>
+    
+  ```js
+  export function getImageUrl(person, size = 's') {
+    return (
+      'https://i.imgur.com/' +
+      person.imageId +
+      size +
+      '.jpg'
+    );
+  }
+  ```
+
+  </td>
+</tr>
+</table>
+
+***Specifying a default value for a prop***
+
+  - If you want to give a prop a default value to fall back on when no value is specified, you can do it with the destructuring by putting `=` and the default value right after the parameter:
+
+  - ```js
+    function Avatar({ person, size = 100 }) {
+      // ...
+    }
+    ```
+
+***Forwarding props with the JSX spread syntax ***
+
+1. Sometimes, passing props gets very repetitive, use *spread* operator. 
+
+<table>
+  <tr>
+    <th>Pass each values</td>
+    <th>Use spread operator</th>
+  </tr>
+  <tr>
+<td>
+
+ ```js
+ function Profile({ person, size, isSepia, thickBorder }) {
+    return (
+      <div className="card">
+        <Avatar
+          person={person}
+          size={size}
+          isSepia={isSepia}
+          thickBorder={thickBorder}
+        />
+      </div>
+    );
+  }
+ ```
+
+</td>
+  <td>
+    
+  ```js
+  function Profile(props) {
+    return (
+      <div className="card">
+        <Avatar {...props} />
+      </div>
+    );
+  }
+  ```
+
+  </td>
+</tr>
+</table>
+
+
+***Passing JSX as children*** 
+
+1. When you nest content inside a JSX tag, the parent component will receive that content in a prop called `children`.
+2. For example, the `Card` component below will receive a `children` prop set to `<Avatar />` and render it in a wrapper div
+
+<table>
+  <tr>
+    <th>App.js</td>
+    <th>Avatar.js</th>
+    <th>utils.js</th>
+  </tr>
+  <tr>
+<td>
+
+ ```js
+import Avatar from './Avatar.js';
+
+function Card({ children }) {
+  return (
+    <div className="card">
+      {children}
+    </div>
+  );
+}
+
+export default function Profile() {
+  return (
+    <Card>
+      <h1>Hi</h1>
+      <h2>Bye</h2>
+    </Card>
+  );
+}
+ ```
+
+</td>
+  <td>
+    
+  ```js
+  import { getImageUrl } from './utils.js';
+
+  export default function Avatar({ person, size }) {
+    return (
+      <img
+        className="avatar"
+        src={getImageUrl(person)}
+        alt={person.name}
+        width={size}
+        height={size}
+      />
+    );
+  }
+  ```
+
+  </td>
+   <td>
+    
+  ```js
+  export function getImageUrl(person, size = 's') {
+    return (
+      'https://i.imgur.com/' +
+      person.imageId +
+      size +
+      '.jpg'
+    );
+  }
+  ```
+
+  </td>
+</tr>
+</table>
+
+***How props change over time***
+
+1. You can see demonstration of this topic in this [link](https://react.dev/learn/passing-props-to-a-component#how-props-change-over-time)
+
+> **NOTE**  
+> However, props are **immutable** — a term from computer science meaning "unchangeable". When a component needs to change its props (for example, in response to a user interaction or new data), it will have to "ask" its parent component to pass it *different* props—a new object! Its old props will then be cast aside, and eventually the JavaScript engine will reclaim the memory taken by them.
+
+> **Don’t try to “change props”**. When you need to respond to the user input (like changing the selected color), you will need to “***set state***”
+
+
+### Try [This](https://react.dev/learn/passing-props-to-a-component#recap) some challenges
+
+## Conditional Rendering
+
