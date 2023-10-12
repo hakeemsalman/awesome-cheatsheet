@@ -1,5 +1,9 @@
 # ReactJS
 
+## Contents
+
+1. 
+
 ## Pre-requisites topics of JS
 
 1. Functions and Arrow Functions
@@ -9,6 +13,8 @@
 5. Template literals
 6. Ternary Operators
 7. ES Modules and Import / Export Syntax
+
+## Boiler plate of ReactJS 
 
 ```html
 <html>
@@ -35,6 +41,9 @@ ReactDOM.render(<h1>Hello, everyone!</h1>, document.getElementById("root"));
 > ReactDOM.render( [what you want to render] , [where you want to render] )
 
 ## Custom component
+
+1. The *first* letter of `function name` should be in *capital* letter.
+2. To add a component write a `<function name />` in other components. 
 
 ```js
 function MainContent() {
@@ -210,6 +219,22 @@ root.render(navbar);
 
 // ReactDOM.createRoot(document.getElementById("root")).render(navbar)
 ```
+
+## Installation in Local environment
+
+**To create *React* App**
+> npm init  
+> npm install create-react-app   
+> npx create-react-app myapp  
+> npm run dev  
+
+**To create *Next* App**
+
+> npm init  
+> npm install create-next-app   
+> npx create-next-app appName  
+> npm run dev  
+
 
 ## Use append() instead of render()
 
