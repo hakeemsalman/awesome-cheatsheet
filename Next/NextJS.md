@@ -187,4 +187,45 @@ You can use component-level Sass via CSS Modules and the `.module.scss` or `.mod
 
 ## Pre-rendering and Data Fetching
 
+By default, Next.js pre-renders every page. This means that Next.js *generates HTML for each page in advance*.
+
+Each generated HTML is associated with minimal JavaScript code necessary for that page. When a page is loaded by the browser, its JavaScript code runs and makes the page fully interactive. (This process is called **hydration**.)
+
+![Pre-render](./assets/image.png)
+
+![No Pre-render](./assets/image2.png)
+
+--
+---
+
+**Two Forms of Pre-rendering**
+
+- **Static Generation** is the pre-rendering method that generates the HTML at **build time**. The pre-rendered HTML is then *reused* on each request.
+- **Server-side Rendering** is the pre-rendering method that generates the HTML on each request.
+
+
+> We can create *Hybrid app* by mixing two forms also on one app.
+
+#### When to Use Static Generation v.s. Server-side Rendering
+
+We recommend using **Static Generation**(with and without data) whenever possible because your page can be built once and served by CDN, which makes it much faster than having a server render the page on every request.
+
+You can use Static Generation for many types of pages, including:
+
+- Marketing pages
+- Blog posts
+- E-commerce product listings
+- Help and documentation
+
+You should ask yourself: "Can I pre-render this page **ahead** of a user's request?" If the answer is yes, then you should choose Static Generation.
+
+On the other hand, Static Generation is **not** a good idea if you cannot pre-render a page ahead of a user's request. Maybe your page shows frequently updated data, and the page content changes on every request.
+
+In that case, you can use **Server-side Rendering**. It will be slower, but the pre-rendered page will always be up-to-date. Or you can skip pre-rendering and use client-side JavaScript to populate frequently updated data.
+
+
+
+
+
+
 

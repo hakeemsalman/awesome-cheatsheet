@@ -2,7 +2,24 @@
 
 ## Contents
 
-1. 
+1. [Boiler plate of ReactJs](#boiler-plate-of-reactjs)
+1. [Custom component](#custom-component)
+1. [Features](#features)
+1. [JSX](#jsx)
+1. [How to Deploy in Netllify](#deploy-project)
+1. [Import & Export React](#import--export-react)
+1. [Update: React 18](#update-new-react-18)
+1. [Installation Local Environment](#installation-in-local-environment)
+1. [Different Custom Component](#different-custom-component)
+1. [Parent/Child Component](#parentchild-component)
+1. [Styling Classes](#styling-classes)
+1. [Organize Components](#organize-components)
+1. [Create React with Vite](#create-react-with-vite)
+1. [The Rules of JSX](#the-rules-of-jsx-reactdev)
+1. [Passing the value with Curly braces](#passing-the-value-with-curly-braces)
+1. [React Core Concepts](#react-core-concepts)
+1. [Conditional Rendering](#conditional-rendering)
+
 
 ## Pre-requisites topics of JS
 
@@ -128,74 +145,120 @@ ReactDOM.render(navbar, document.getElementById("root"));
 2. Download and unzip the Scrimba file
 3. Drag and drop your folder into this [https://app.netlify.com/drop](https://app.netlify.com/drop)
 
-## Import React
+## Import & Export React 
 
 1. Use `package.json` to add dependencies of React in project folder instead of adding _CDN's_ link.
-2. Then install React with _npm_ manager.
-3. Use `import` keyword to apply react functions in your `index.js`
+1. Then install React with *npm* manager. 
+1. `npm i create-react-app` --> `npx create-create-app@latest` 
+1. Use `import` keyword to apply react functions in your `index.js`
 
-```json
-{
-  "name": "my-react-app",
-  "version": "1.0.0",
-  "description": "My first React app",
-  "main": "index.js",
-  "dependencies": {
-    "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+
+<table>
+<tr>
+  <th>package.json</th>
+  <th>index.html</th>
+  <th>App.js</th>
+  <th>index.js</th>
+</tr>
+<tr>
+  <td>
+
+  ```json
+  {
+    "name": "my-react-app",
+    "version": "1.0.0",
+    "description": "My first React app",
+    "main": "index.js",
+    "dependencies": {
+      "react": "^17.0.0",
+      "react-dom": "^17.0.0"
+    }
   }
-}
-```
+  ```
 
-```html
-<html>
-  <head>
-    <link rel="stylesheet" href="index.css" />
+  </td>
+  <td>
 
-    <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-        <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-         -->
-  </head>
-  <body>
-    <div id="root"></div>
-    <script src="index.pack.js"></script>
-    <!-- removed type="text/babel"  -->
-  </body>
-</html>
-```
+  ```html
+  <html>
+    <head>
+      <link rel="stylesheet" href="index.css" />
 
-```js
-import React from "react";
-import ReactDOM from "react-dom";
+      <!-- <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+          <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+          <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+          -->
+    </head>
+    <body>
+      <div id="root"></div>
+      <script src="index.pack.js"></script>
+      <!-- removed type="text/babel"  -->
+    </body>
+  </html>
+  ```
 
-const navbar = (
-  <nav>
-    <h1>Bob's Bistro</h1>
-    <ul>
-      <li>Menu</li>
-      <li>About</li>
-      <li>Contact</li>
-    </ul>
-  </nav>
-);
+  </td>
+  <td>
 
-ReactDOM.render(navbar, document.getElementById("root"));
-```
+  ```js
+  import React from "react";
+  import ReactDOM from "react-dom";
+
+  function Profile() {
+    return (
+      <img
+        src="https://i.imgur.com/MK3eW3As.jpg"
+        alt="Katherine Johnson"
+      />
+    );
+  }
+
+  export default function Gallery() {
+    return (
+      <section>
+        <h1>Amazing scientists</h1>
+        <Profile />
+        <Profile />
+        <Profile />
+      </section>
+    );
+  }
+  ```
+
+  </td>
+  <td>
+    
+  ```js
+  import Gallery from './App.js';
+
+  ReactDOM.render(Gallary, document.getElementById("root"));
+  ```
+  </td>
+</tr>
+
+</table>
+
+
+
+
+
+
+
+
 
 ## UPDATE: New React 18
 
 1. Upto React 17 version `ReactDOM.render()` is available.
-2. In React 18v, use `createRoot()` before use `render()` method.
-3. In `createRoot()` method, add root element that what you want to add.
+1. In React 18v, createVariable of `createRoot()` *method* then use `render()` method.
+1. Use `react-dom/client` to _import_ the package.
+1. In `createRoot()` method, add root element that what you want to add.
    - eg: `createRoot(document.getElementById("root"))`
-4. Then use `render()` method to that `createRoot`.
+1. Then use `render()` method to that `createRoot`.
    - eg:
      ```js
      const root = ReactDOM.createRoot(document.getElementById("root"));
      root.render(navbar);
      ```
-5. Use `react-dom/client` to _import_ the package.
 
 ```js
 import React from "react";
@@ -371,7 +434,9 @@ ReactDOM.render(page, document.getElementById("root"));
    We have small pieces that we can put together to make something
    larger/greater than the individual pieces.
 
-## Custom Component
+## Different Custom Component
+
+We can write with these kinds of code.
 
 <table>
   <tr>
@@ -740,6 +805,7 @@ Vite is a build tool and development server designed to improve the development 
 3. Type your name of `<project>` --> select framework `react` --> cd `<project name>` --> `npm install` --> `npm run dev`.
 4. Open host in the browser and customize your application based on your requirements.
 
+> NOTE: we are NOT using Vite framework here , it just installation/educational, not for development purpose
 
 ## The Rules of JSX (react.dev)
 
@@ -818,13 +884,13 @@ const avatar = 'https://i.imgur.com/7vQD0fPs.jpg';
 
 ## React Core Concepts
 
-1. **Props**
-2. Creating **componenets** from the array
+1. [**Props**](#props)
+2. **Componenets**
 3. **State**
 
 ## Props
 
-1. React components use *props* to communicate with each other.
+- React components use *props* to communicate with each other.
     - Props are the information that you pass to a JSX tag. For example, `className`, `src`, `alt`, `width`, and `height` are some of the props you can pass to an `<img>`.
 
 #### Passing props to a component 
@@ -1056,4 +1122,5 @@ export default function Profile() {
 ### Try [This](https://react.dev/learn/passing-props-to-a-component#recap) some challenges
 
 ## Conditional Rendering
+
 
