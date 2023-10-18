@@ -151,15 +151,18 @@ ReactDOM.render(navbar, document.getElementById("root"));
 1. Then install React with *npm* manager. 
 1. `npm i create-react-app` --> `npx create-create-app@latest` 
 1. Use `import` keyword to apply react functions in your `index.js`
-
+1. For info follow this [link](https://react.dev/learn/importing-and-exporting-components)
 
 <table>
+<thead>
 <tr>
   <th>package.json</th>
   <th>index.html</th>
   <th>App.js</th>
   <th>index.js</th>
 </tr>
+</thead>
+<tbody>
 <tr>
   <td>
 
@@ -235,15 +238,35 @@ ReactDOM.render(navbar, document.getElementById("root"));
   ```
   </td>
 </tr>
-
+</tbody>
 </table>
 
 
+<table>
+		<thead>
+			<tr>
+        <th>Syntax</th>
+				<th>Export statement</th>
+				<th>Import statement</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Default</td>
+				<td>export default function Button() {}</td>
+				<td>import Button from './Button.js';</td>
+			</tr>
+			<tr>
+				<td>Named</td>
+				<td>export function Button() {}</td>
+				<td>mport { Button } from './Button.js';</td>
+			</tr>
+		</tbody>
+	</table>
 
+		
 
-
-
-
+		i
 
 
 ## UPDATE: New React 18
@@ -1065,8 +1088,13 @@ function Card({ children }) {
 export default function Profile() {
   return (
     <Card>
-      <h1>Hi</h1>
-      <h2>Bye</h2>
+      <Avatar
+        size={100}
+        person={{ 
+          name: 'Katsuko Saruhashi',
+          imageId: 'YfeOqp2'
+        }}
+      />
     </Card>
   );
 }
