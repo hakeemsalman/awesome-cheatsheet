@@ -264,9 +264,6 @@ ReactDOM.render(navbar, document.getElementById("root"));
 		</tbody>
 	</table>
 
-		
-
-		i
 
 
 ## UPDATE: New React 18
@@ -916,6 +913,7 @@ const avatar = 'https://i.imgur.com/7vQD0fPs.jpg';
 - React components use *props* to communicate with each other.
     - Props are the information that you pass to a JSX tag. For example, `className`, `src`, `alt`, `width`, and `height` are some of the props you can pass to an `<img>`.
 
+- Props is nothings but a *Parameter* in a function, but in ReactJS we call it as a **Props**
 #### Passing props to a component 
 
 **Step 1**: Pass props to the child component:-
@@ -935,10 +933,15 @@ export default function Profile() {
 
 **Step 2**: Read props inside the child component:-
 
-You can read these props by listing their names `person`, `size` separated by the commas inside `({` and `})` directly after `function Avatar`. This lets you use them inside the `Avatar` code, like you would with a variable
+1. You can read these props by adding any name in parameter, like `props` (*any name you can write*). 
+1. You can read these props by listing their names `person`, `size` separated by the commas inside `({` and `})` directly after `function Avatar`. This lets you use them inside the `Avatar` code, like you would with a variable
 
 ```js
-function Avatar({ person, size }) {
+function Avatar(props) { // props or param, recommended is props
+  <p>props.person.name</p>
+  <p>props.person.imageId</p>
+  <p>props.size</p>
+
   // person and size are available here
 }
 ```
@@ -1151,4 +1154,112 @@ export default function Profile() {
 
 ## Conditional Rendering
 
+1. Your components will often need to display different things depending on different conditions. In React, you can conditionally render JSX using JavaScript syntax like if statements, &&, and ? : operators.
+1. In React, you control branching logic with JavaScript.
+1. You can return a JSX expression conditionally with an if statement.
+1. You can conditionally save some JSX to a variable and then include it inside other JSX by using the curly braces.
+1. In JSX, {cond ? <A /> : <B />} means “if cond, render <A />, otherwise <B />”.
+1. In JSX, {cond && <A />} means “if cond, render <A />, otherwise nothing”.
+1. The shortcuts are common, but you don’t have to use them if you prefer plain if.
+
+<table>
+      <thead>
+        <tr>
+          <td>App.js</td>
+          <td>Image Output</td>
+        </tr>
+      </thead>
+      <tr>
+          <td>Simple Ternary Operator</td>
+          <td>Image Output</td>
+        </tr>
+      <tbody>
+        <tr>
+          <td>
+
+          ```js
+          function Item({ name, isPacked }) {
+            if (isPacked) {
+              return <li className="item">{name} ✔</li>;
+            }
+            return <li className="item">{name}</li>;
+          }
+
+          export default function PackingList() {
+            return (
+              <section>
+                <h1>Sally Ride's Packing List</h1>
+                <ul>
+                  <Item 
+                    isPacked={true} 
+                    name="Space suit" 
+                  />
+                  <Item 
+                    isPacked={true} 
+                    name="Helmet with a golden leaf" 
+                  />
+                  <Item 
+                    isPacked={false} 
+                    name="Photo of Tam" 
+                  />
+                </ul>
+              </section>
+            );
+          }
+          ```
+
+  </td>
+  <td>
+
+  ![Alt text](image.png)
+
+  </td>
+</tr>
+<tr>
+<td>
+
+```js
+function Item({ name, isPacked }) {
+  return (
+    <li className="item">
+      {isPacked ? name + ' ✔' : name}
+    </li>
+  );
+}
+
+export default function PackingList() {
+  return (
+    <section>
+      <h1>Sally Ride's Packing List</h1>
+      <ul>
+        <Item 
+          isPacked={true} 
+          name="Space suit" 
+        />
+        <Item 
+          isPacked={true} 
+          name="Helmet with a golden leaf" 
+        />
+        <Item 
+          isPacked={false} 
+          name="Photo of Tam" 
+        />
+      </ul>
+    </section>
+  );
+}
+```
+</td>
+<td>
+
+![Alt text](image.png)
+
+</td>
+</tr>
+</tbody>
+</table>
+
+#### Use these challenges [Link](https://react.dev/learn/conditional-rendering#challenges)
+
+## Rendering Lists
 
