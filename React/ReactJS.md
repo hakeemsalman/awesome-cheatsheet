@@ -1378,3 +1378,27 @@ const listItems = chemists.map(person =>
 return <ul>{listItems}</ul>;
 ```
 
+#### Where to get your key 
+**Different sources of data provide different sources of keys:**
+
+1. Data from a database: If your data is coming from a database, you can use the database keys/IDs, which are unique by nature.
+1. Locally generated data: If your data is generated and persisted locally (e.g. notes in a note-taking app), use an incrementing counter, crypto.randomUUID() or a package like uuid when creating items.  
+  
+**Rules of keys**
+1. Keys must be unique among siblings. However, it’s okay to use the same keys for JSX nodes in different arrays.
+1. Keys must not change or that defeats their purpose! Don’t generate them while rendering.
+
+
+## Keeping Components Pure
+
+- Although you might not have used them all yet, in React there are three kinds of inputs that you can read while rendering: props, state, and context. You should always treat these inputs as read-only.
+
+- When you want to change something in response to user input, you should set state instead of writing to a variable. You should never change preexisting variables or objects while your component is rendering.
+
+- It is useful to remember which operations on arrays mutate them, and which don’t. For example, `push`, `pop`, `reverse`, and `sort` will mutate the original array, but `slice`, `filter`, and `map` will create a new one.
+
+> Follow this [link](https://react.dev/learn/keeping-components-pure) for more information
+
+## Understanding Your UI as a Tree
+
+
