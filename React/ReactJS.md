@@ -1263,3 +1263,118 @@ export default function PackingList() {
 
 ## Rendering Lists
 
+Say that you have a list of content.
+
+```jsx
+<ul>
+  <li>Creola Katherine Johnson: mathematician</li>
+  <li>Mario José Molina-Pasquel Henríquez: chemist</li>
+  <li>Mohammad Abdus Salam: physicist</li>
+  <li>Percy Lavon Julian: chemist</li>
+  <li>Subrahmanyan Chandrasekhar: astrophysicist</li>
+</ul>
+
+```
+
+1. You will often need to show several instances of the same component using different data when building interfaces: from lists of comments to galleries of profile images.
+1. In these situations, you can store that data in JavaScript objects and arrays and use methods like `map()` and `filter()` to render lists of components from them.
+
+
+### Generate list of items from the array
+
+1. Arrow functions implicitly return the expression right after `=>`, so you didn’t need a `return` statement:
+    - ```jsx
+      const listItems = chemists.map(person =>
+        <li>...</li> // Implicit return!
+      );
+      ```
+1. However, you must write `return` explicitly if your `=>` is followed by a `{` curly brace!
+    - ```jsx
+      const listItems = chemists.map(person => { // Curly brace
+        return <li>...</li>;
+      });
+      ```
+1. Arrow functions containing` => {` are said to have a **block body**. They let you write more than a single line of code, but you *have* to write a `return` statement yourself. If you forget it, nothing gets returned!
+
+
+
+#### Map the item
+
+1. Move the data into an array:
+
+```jsx
+const people = [
+  {
+    id: 0,
+    name: 'Creola Katherine Johnson',
+    title: 'mathematician'
+  },
+  {
+    id: 1,
+    name: 'Mario José Molina-Pasquel Henríquez',
+    title: 'chemist'
+  },
+  {
+    id: 2,
+    name: 'Mohammad Abdus Salam',
+    title: 'physicist'
+  },
+  {
+    id: 3,
+    name: 'Percy Lavon Julian',
+    title: 'chemist'
+  },
+  {
+    id: 4,
+    name: 'Subrahmanyan Chandrasekhar',
+    title: 'astrophysicist'
+  }
+];
+```
+
+2. Map the `people` members into a new array of JSX nodes, `listItems`:
+
+```jsx
+const listItems = people.map(person => <li key={person.id}>{person.name}</li>);
+```
+
+3. Return `listItems` from your component wrapped in a `<ul>`:
+
+```jsx
+return <ul>{listItems}</ul>;
+```
+
+#### Filtering arrays of items 
+
+1. Create a new array of just “chemist” people, `chemists`, by calling `filter()` on the `people` filtering by `person.profession === 'chemist'`:
+
+```jsx
+const chemists = people.filter(person =>
+  person.profession === 'chemist'
+);
+```
+
+2. Now **map** over `chemists`:
+
+```jsx
+const listItems = chemists.map(person =>
+  <li>
+     <img
+       src={getImageUrl(person)}
+       alt={person.name}
+     />
+     <p>
+       <b>{person.name}:</b>
+       {' ' + person.profession + ' '}
+       known for {person.accomplishment}
+     </p>
+  </li>
+);
+```
+
+3. Lastly, return the `listItems` from your component:
+
+```jsx
+return <ul>{listItems}</ul>;
+```
+
