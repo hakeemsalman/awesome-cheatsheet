@@ -18,6 +18,7 @@
 1. [The Rules of JSX](#the-rules-of-jsx-reactdev)
 1. [Passing the value with Curly braces](#passing-the-value-with-curly-braces)
 1. [React Core Concepts](#react-core-concepts)
+    - [props](#props)
 1. [Conditional Rendering](#conditional-rendering)
 
 
@@ -719,7 +720,7 @@ ReactDOM.render(<Page />, document.getElementById("root"));
   <tr>
   <td>
 
-````js
+```js
   /**
   Challenge:
 
@@ -1158,8 +1159,8 @@ export default function Profile() {
 1. In React, you control branching logic with JavaScript.
 1. You can return a JSX expression conditionally with an if statement.
 1. You can conditionally save some JSX to a variable and then include it inside other JSX by using the curly braces.
-1. In JSX, {cond ? <A /> : <B />} means “if cond, render <A />, otherwise <B />”.
-1. In JSX, {cond && <A />} means “if cond, render <A />, otherwise nothing”.
+1. In JSX, `{cond ? <A /> : <B />}` means “if cond, render `<A />`, otherwise `<B />`”.
+1. In JSX, `{cond && <A />}` means “if cond, render `<A />`, otherwise nothing”.
 1. The shortcuts are common, but you don’t have to use them if you prefer plain if.
 
 <table>
@@ -1175,38 +1176,38 @@ export default function Profile() {
         </tr>
       <tbody>
         <tr>
-          <td>
+  <td>
 
-          ```js
-          function Item({ name, isPacked }) {
-            if (isPacked) {
-              return <li className="item">{name} ✔</li>;
-            }
-            return <li className="item">{name}</li>;
-          }
+  ```js
+  function Item({ name, isPacked }) {
+    if (isPacked) {
+      return <li className="item">{name} ✔</li>;
+    }
+    return <li className="item">{name}</li>;
+  }
 
-          export default function PackingList() {
-            return (
-              <section>
-                <h1>Sally Ride's Packing List</h1>
-                <ul>
-                  <Item 
-                    isPacked={true} 
-                    name="Space suit" 
-                  />
-                  <Item 
-                    isPacked={true} 
-                    name="Helmet with a golden leaf" 
-                  />
-                  <Item 
-                    isPacked={false} 
-                    name="Photo of Tam" 
-                  />
-                </ul>
-              </section>
-            );
-          }
-          ```
+  export default function PackingList() {
+    return (
+      <section>
+        <h1>Sally Ride's Packing List</h1>
+        <ul>
+          <Item 
+            isPacked={true} 
+            name="Space suit" 
+          />
+          <Item 
+            isPacked={true} 
+            name="Helmet with a golden leaf" 
+          />
+          <Item 
+            isPacked={false} 
+            name="Photo of Tam" 
+          />
+        </ul>
+      </section>
+    );
+  }
+  ```
 
   </td>
   <td>
@@ -1402,3 +1403,4 @@ return <ul>{listItems}</ul>;
 ## Understanding Your UI as a Tree
 
 
+MUST READ this doc, follow this [link](https://react.dev/learn/understanding-your-ui-as-a-tree) to know more.

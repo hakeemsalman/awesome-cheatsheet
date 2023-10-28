@@ -59,6 +59,8 @@ Sass consists of two syntaxes.
   ```scss
   $font-stack: Helvetica, sans-serif;
   $primary-color: #333;
+  $black: #000;
+  $black-200: $black,10%
 
   body {
     font: 100% $font-stack;
