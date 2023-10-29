@@ -465,18 +465,60 @@ Follow this [link](https://react.dev/learn/render-and-commit#step-3-react-commit
 
 ## State as a Snapshot
 
+*pending*
 
 ## Class Component
 
-```mermaid
-flowchart TD
-   
-    Properties_props --> C{ES6 class 
-    
-    state}
-    C -->D[HTML JSX]
-```
+![Alt text](image-1.png)
 
+<table>
+    <thead>
+      <tr>
+        <td>
+          Functional Component
+        </td>
+        <td>
+          stateful Class Component
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+    <td>
+
+    1. Javascript Functions
+    2. Use Func components as much as possible.
+    3. Absense of 'this' keyword. 
+
+
+  ```jsx
+  function Page({props}) {
+    return (
+      <h1>Hello, {props.name}</h1>
+    );
+  }
+  ```
+
+ </td>
+<td>
+
+    1. Class extending Component Class
+    1. Render method returning HTML
+
+  ```jsx
+  class Welcome extends React.Component{
+    render(){
+      return (
+        <h1>Hello, {this.props.name}</h1>
+      );
+    }
+  }
+  ```
+
+  </td>
+</tr>
+</tbody>
+</table>
 
 
 
