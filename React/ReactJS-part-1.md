@@ -536,6 +536,52 @@ ReactDOM.render(<TemporaryName />, document.getElementById("root"));
   </tr>
 </table>
 
+<table>
+    <thead>
+      <tr>
+        <td>
+          stateless Functional Component
+        </td>
+        <td>
+          stateful Class Component
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+    <td>
+
+    1. Javascript Functions
+    
+  ```jsx
+  function Page({props}) {
+    return (
+      <h1>Hello, {props.name}</h1>
+    );
+  }
+  ```
+
+ </td>
+<td>
+
+    1. Class extending Component Class
+    1. Render method returning HTML
+
+  ```jsx
+  class Welcome extends React.Component{
+    render(){
+      return (
+        <h1>Hello, {this.props.name}</h1>
+      );
+    }
+  }
+  ```
+
+  </td>
+</tr>
+</tbody>
+</table>
+
 #### Challenges
 
 ```js

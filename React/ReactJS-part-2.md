@@ -1,3 +1,8 @@
+# Topics
+
+1. [Class Component](#class-component)
+1. 
+
 # Adding Interactivity
 
 In React, data that changes over time is called state. You can add state to any component, and update it as needed.
@@ -426,6 +431,58 @@ The `useState` Hook provides those two things:
 Read more about [state and isolated](https://react.dev/learn/state-a-components-memory#state-is-isolated-and-private)
 
 ## Render and Commit
+
+This process of requesting and serving UI has three steps:
+
+1. Triggering a render (delivering the guest’s order to the kitchen)
+1. Rendering the component (preparing the order in the kitchen)
+1. Committing to the DOM (placing the order on the table)
+
+#### Step 1: Trigger a render 
+
+
+1. Initial render 
+    - it’s done by calling createRoot with the target DOM node, and then calling its render method with your component 
+      ```jsx
+      import ReactDOM from 'react-dom/client'
+
+      const root = ReactDOM.createRoot(document.getElementById('root'))
+      root.render(<Image />);
+      ```
+
+2. The component’s (or one of its ancestors’) state has been updated.
+
+#### Step 2: React renders your components 
+
+After you trigger a render, React calls your components to figure out what to display on screen. “Rendering” is React calling your components.
+
+
+#### Step 3: React commits changes to the DOM 
+
+Follow this [link](https://react.dev/learn/render-and-commit#step-3-react-commits-changes-to-the-dom)
+
+
+
+## State as a Snapshot
+
+
+## Class Component
+
+```mermaid
+flowchart TD
+   
+    Properties_props --> C{ES6 class 
+    
+    state}
+    C -->D[HTML JSX]
+```
+
+
+
+
+
+
+
 
 
 
