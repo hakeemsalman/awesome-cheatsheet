@@ -1258,7 +1258,7 @@ export default function Profile() {
   </td>
   <td>
 
-  ![Alt text](image.png)
+  ![Alt text](./assets/image.png)
 
   </td>
 </tr>
@@ -1299,7 +1299,7 @@ export default function PackingList() {
 </td>
 <td>
 
-![Alt text](image.png)
+![Alt text](./assets/image.png)
 
 </td>
 </tr>
