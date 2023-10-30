@@ -6,7 +6,11 @@
 1. [JSX syntax](#jsx-syntax)
 1. [Props](#props)
 1. [State](#state)
-1. [setState]()
+1. [setState](#setstate-method-in-class-components)
+    - [Challenge](#challange)
+1. [Destructuring props and state](#destructuring-props-and-state)
+1. [Event Handling](#event-handling)
+1. [Binding Event Handlers](#binding-event-handlers)
 
 ## Functional vs Class Component
 
@@ -308,9 +312,400 @@ export default Hello
 
 ## setState method in class components
 
+1. Always make use of setState and never modify the state directly.
+1. Code has to be executed after the state has been updated? Place that code in the call back
+function which is the second argument to the setState method.
+1. When you have to update state based on the previous state value, pass in a function as an
+argument instead of the regular object.
+
+1. `this.setState()` is *async* method, to avoid this, use **callback function** in second parameter
+   - here `count` is showing `0` in *console* and `1` is showing in UI. Means *UI count* is greater than *console count*.
+   -  ```jsx
+      // Message class component
+
+      import React, { Component } from 'react'
+
+      export default class Message extends Component {
+
+        constructor(){
+          super(); // we extend parent Component, so we need call parent constructor first.
+          this.state = {
+            count: 0
+          }
+        }
+
+        increment(){
+          this.setState({
+            count : this.state.count + 1
+          });
+          console.log('count' + this.state.count)
+        }
+
+        render() {
+          return (
+            <div>
+              <h1>Count {this.state.count}</h1>
+              <button onClick={() => this.increment()}>Increment</button>
+            </div>
+          )
+        }
+      }
+      ```
+
+   -  using *callback function*
+
+   -  ```jsx
+      this.setState({
+        count : this.state.count + 1
+      }, () => {console.log('callback function parameter'+ this.state.count)});
+      console.log('count' + this.state.count)
+      ```
+### Challange
+
+**Update 5 times increment with one click**
+
+```jsx
+// Message class component
+
+import React, { Component } from 'react'
+
+export default class Message extends Component {
+
+  constructor(){
+    super(); // we extend parent Component, so we need call parent constructor first.
+    this.state = {
+      count: 0
+    }
+  }
+
+  increment(){
+    this.setState({
+      count : this.state.count + 1
+    });
+    console.log('count' + this.state.count)
+  }
+
+  incrementFive(){
+    this.increment();
+    this.increment();
+    this.increment();
+    this.increment();
+    this.increment();
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Count {this.state.count}</h1>
+        <button onClick={() => this.incrementFive()}>Increment</button>
+      </div>
+    )
+  }
+}
+```
+
+Above code won't update to 5, it updates to 1;
+
+***Solultion***
+
+```jsx
+// Message class component
+
+import React, { Component } from 'react'
+
+export default class Message extends Component {
+
+  constructor(){
+    super(); // we extend parent Component, so we need call parent constructor first.
+    this.state = {
+      count: 0
+    }
+  }
+
+  increment(){
+    this.setState((prevState) => {            // SOLUTION
+      count: prevState + 1;                   // SOLUTION
+    })
+    console.log('count' + this.state.count)
+  }
+
+  incrementFive(){
+    this.increment();
+    this.increment();
+    this.increment();
+    this.increment();
+    this.increment();
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Count {this.state.count}</h1>
+        <button onClick={() => this.incrementFive()}>Increment</button>
+      </div>
+    )
+  }
+}
+```
 
 
+## Destructuring props and state
 
+1. Should use `{ }` *curly braces*
 
+<table>
+  <thead>
+    <tr>
+      <th>without Props(Destructing props)</th>
+      <th>with Props</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
 
+  ```jsx
+  // function 
 
+  const Greet = ({name, heroName}) => {
+    return (
+      <div>
+        <h1>Hello {name} a.k.a {heroName}</h1>
+      <div>
+    )
+  }
+  ```
+  ```jsx
+  // Class component
+
+  render() {
+    const {name, heroName} = this.props;
+    return (
+      <div>
+        <h1>Hi {name} a.k.a {heroName}</h1>
+      </div>
+    )
+  }
+  ```
+
+</td>
+<td>
+
+  ```jsx
+  // function
+
+  const Greet = (props) => {
+    return (
+      <div>
+        <h1>Hello {props.name} a.k.a {props.heroName}</h1>
+      <div>
+    )
+  }
+  ```
+  ```jsx
+  // Class component
+
+  render() {
+    return (
+      <div>
+        <h1>Hi {this.props.name} a.k.a {this.props.heroName}</h1>
+      </div>
+    )
+  }
+  ```
+</td>
+</tr>
+</tbody>
+</table>
+
+## Event Handling
+
+1. All events should be in **camelCase** like, `onClick`, `onScroll`, etc...
+1. When you are using the event handler, you should *NOT* call the function. You should write function name *with out parathesis*
+    - `onClick={functionName}`    *Correct*
+    - `onClick={functionName()}`  *InCorrect* it is known as **function call**
+
+<table>
+  <thead>
+    <tr>
+      <th>Function Component</th>
+      <th>Class Component</th>
+    </tr>
+  </thead>
+  <tbody>
+  <tr>
+  <td>
+
+  ```jsx
+  // function component
+
+  function buttonEvent(){
+    console.log('button is clicked of function component')
+  }
+
+  const Greet = ({name, heroName}) => {
+    return (
+      <div>
+        <button onClick={buttonEvent}>function Click</button>
+      <div>
+    )
+  }
+  ```
+
+</td>
+<td>
+
+  ```jsx
+  // Class component
+
+  buttonEvent(){
+    console.log('button is clicked of function component')
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.buttonEvent}>Class Click</button>
+      </div>
+    )
+  }
+  ```
+</td>
+</tr>
+</tbody>
+</table>
+
+## Binding Event Handlers
+
+The code below encounters an error. To resolve this, we have three solutions:
+1. Bind methond                (NOT to use due to *performance implications*)
+1. Inline Arrow function       (you can use but it might have chances of *performance issue*)
+1. Bind method in constructor  (*official documention method* Best Option)
+1. Arrow function              (*official documention method* but experimental)
+
+Because `this` keyword gives an `undefined` error, if you see in `console.log(this)`, you'll get `undefined`.
+
+```jsx
+// Message class component
+
+import React, { Component } from 'react'
+
+export default class Message extends Component {
+
+  constructor(){
+    super(); // we extend parent Component, so we need call parent constructor first.
+    this.state = {
+      count: 0
+    }
+  }
+
+  changeCount(){
+    this.setState({
+      count : this.state.count + 1
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Count {this.state.count}</h1>
+        <button onClick={this.changeCount}>Increment</button>
+      </div>
+    )
+  }
+}
+```
+
+<table>
+<thead>
+  <tr>
+    <th>using Bind method</th>
+    <th>Inline Arrow function</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+```jsx
+render() {
+  return (
+    <div>
+      <h1>Count {this.state.count}</h1>
+      <button onClick={this.changeCount.bind(this)}>Increment</button>
+    </div>
+  )
+}
+```
+
+</td>
+<td>
+        
+```jsx
+// here we are using paranthesis this.changeMessage() instead of this.changeMessage, so calling the function & returning it's value
+render() {
+  return (
+    <div>
+      <h1>Count {this.state.count}</h1>
+      <button onClick={() => {this.changeCount()}}>Increment</button> 
+    </div>
+  )
+}
+```
+
+</td>
+</tr>
+
+<tr>
+    <th>Using Bind method in constructor</th>
+    <th>Using Arrow function</th>
+  </tr>
+  <tr>
+  <td>
+
+```jsx
+constructor(){
+    super(); // we extend parent Component, so we need call parent constructor first.
+    this.state = {
+      count: 0
+    }
+
+    this.changeCount = this.changeCount.bind(this)
+  }
+
+  /* ... */
+
+  render() {
+    return (
+      <div>
+        <h1>Count {this.state.count}</h1>
+        <button onClick={this.changeCount}>Increment</button>
+      </div>
+    )
+  }
+```
+
+</td>
+<td>
+
+```jsx
+changeCount = () => {
+    this.setState({
+      count : this.state.count + 1
+    });
+}
+
+render() {
+  return (
+    <div>
+      <h1>Count {this.state.count}</h1>
+      <button onClick={this.changeCount}>Increment</button>
+    </div>
+  )
+}
+```
+
+</td>
+  </tr>
+</tbody>
+</table>
