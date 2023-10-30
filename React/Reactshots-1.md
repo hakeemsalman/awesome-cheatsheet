@@ -11,6 +11,8 @@
 1. [Destructuring props and state](#destructuring-props-and-state)
 1. [Event Handling](#event-handling)
 1. [Binding Event Handlers](#binding-event-handlers)
+1. [Methods as Props](#methods-as-props---passing-method-from-the-parameter)
+1. [Conditional Rendering](#conditional-rendering)
 
 ## Functional vs Class Component
 
@@ -577,6 +579,8 @@ export default class Message extends Component {
 
 ## Binding Event Handlers
 
+If you are `this` keyword in methods, then you should bind the `this` keyword.
+
 The code below encounters an error. To resolve this, we have three solutions:
 1. Bind methond                (NOT to use due to *performance implications*)
 1. Inline Arrow function       (you can use but it might have chances of *performance issue*)
@@ -709,3 +713,130 @@ render() {
   </tr>
 </tbody>
 </table>
+
+
+## Methods as Props - passing method from the parameter
+
+
+<table>
+<thead>
+<tr>
+  <th>ParentComponent.jsx</th>
+  <th>ChildComponent.jsx</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+```jsx
+import React, { Component } from 'react'
+
+export default class ParentComponent extends Component {
+
+  constructor(){
+    super(); // 
+    
+    this.state = {
+      parentName : 'Parent'
+    }
+
+    this.greetParent = this.greetparent.bind(this)
+  }
+
+  greetParent(){
+    alert(`hello ${this.state.parentName}`); // this is ES6 syntax, Literals. NOT the reactJS syntax
+  }
+
+  render() {
+    return (
+      <div>
+        <ChildComponent greetHandler={this.greetParent}/>
+      </div>
+    )
+  }
+}
+```
+
+</td>
+<td>
+
+```jsx
+// ChildComponent
+import React from 'react';
+
+export default function ChildComponent = (props) => {
+  return (
+    <div>
+      <button onClick={props.greetHandler}>Greet Parent</button>
+    <div>
+  )
+}
+```
+</td>
+</tr>
+</tbody>
+</table>
+
+<table>
+<thead>
+  <tr>
+    <th>ParentComponent.jsx</th>
+    <th>ChildComponent.jsx</th>
+  </tr>
+</thead>
+<tbody>
+<tr>
+<td>
+
+```jsx
+import React, { Component } from 'react'
+
+export default class ParentComponent extends Component {
+
+  constructor(){
+    super(); // 
+    
+    this.state = {
+      parentName : 'Parent'
+    }
+
+    this.greetParent = this.greetparent.bind(this)
+  }
+
+  greetParent(childName){
+    alert(`hello ${this.state.parentName} from ${childName}`); // this is ES6 syntax, Literals. NOT the reactJS syntax
+  }
+
+  render() {
+    return (
+      <div>
+        <ChildComponent greetHandler={this.greetParent}/>
+      </div>
+    )
+  }
+}
+```
+</td>
+<td>
+
+```jsx
+// ChildComponent
+import React from 'react';
+
+export default function ChildComponent = (props) => {
+  return (
+    <div>
+      <button onClick={() => props.greetHandler('child')}>Greet Parent</button>
+    </div>
+  )
+}
+```
+
+</td>  
+</tr>
+</tbody>
+</table>
+
+## Conditional Rendering
+
