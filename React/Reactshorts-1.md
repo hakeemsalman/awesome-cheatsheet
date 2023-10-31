@@ -840,3 +840,75 @@ export default function ChildComponent = (props) => {
 
 ## Conditional Rendering
 
+We can do in four approaches,
+
+1. if/else
+1. Element Variables
+1. Ternary conditional Operator
+1. Short circuit operator
+
+Here I want to render based on condition, the base code is below
+
+```jsx
+import React, { Component } from 'react'
+
+export default class Message extends Component {
+
+  constructor(){
+    super(); // we extend parent Component, so we need call parent constructor first.
+    this.state = {
+      isLoggedIn: false
+    }
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>Welcome Salman</h1>
+        <h1>Welcome Guest</h1>
+      </div>
+    )
+  }
+}
+```
+
+1. Using `if/else` approach
+    - ```jsx
+      render() {
+        if(this.state.isLoggedIn){
+            return <h1>Welcome Salman</h1> 
+        } else{
+            return <h1>Welcome Guest</h1>
+        }
+      }
+      ```
+1. Using **Element variable** approach
+    - ```jsx
+      render() {
+        let message;
+
+        if(this.state.isLoggedIn){
+            message = <h1>Welcome Salman</h1> 
+        } else{
+            message = <h1>Welcome Guest</h1>
+        }
+
+        return <div>{message}</div>
+      }
+      ```
+1. Using Ternary Operator
+    - ```jsx
+      render() {
+        return this.state.isLoggedIn ? <h1>Welcome Salman</h1> : <h1>Welcome Guest</h1>
+      }
+      ```
+
+1. Short circuit operator
+    - ```jsx
+      render(){
+        this.state.isLoggedIn && <h1>Welcome Salman</h1>
+      }
+      ```
+
+
+

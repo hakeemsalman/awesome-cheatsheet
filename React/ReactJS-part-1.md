@@ -20,6 +20,7 @@
 1. [React Core Concepts](#react-core-concepts)
     - [props](#props)
 1. [Conditional Rendering](#conditional-rendering)
+1. [Rendering Lists](#rendering-lists)
 
 
 ## Pre-requisites topics of JS
