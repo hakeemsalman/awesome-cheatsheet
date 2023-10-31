@@ -8,6 +8,9 @@
     - [Stylesheets](#css-stylesheets)
     - [Inline styling](#inline-styling)
     - [CSS Modules](#css-modules)
+1. [Basic of Form Handling](#basic-of-form-handling)
+1. [Life cycle Methods](#life-cycle-methods)
+    - [Component Mounting Lifecycle Methods](#component-mounting-lifecycle-methods)
 
 ## Rendering the List
 
@@ -231,6 +234,10 @@ export default Inline
   <td>Should write Module Name</td>
 </tr>
 <tr>
+  <td>Classes affect to children components</td>
+  <td>Modules does NOT effect to children components</td>
+</tr>
+<tr>
 <td>
 
 ```jsx
@@ -280,6 +287,126 @@ export default Person
   </tr>
 </table>
 
+## Basic of Form Handling
+
+![Alt text](./assets/form-handling.png)
+
+```jsx
+import React, { Component } from 'react';
+
+class MyForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: '',
+      textAreaValue: '',
+      selectValue: 'Option 1',
+    };
+  }
+
+  handleInputChange = (event) => {
+    this.setState({ inputValue: event.target.value });
+  }
+
+  handleTextAreaChange = (event) => {
+    this.setState({ textAreaValue: event.target.value });
+  }
+
+  handleSelectChange = (event) => {
+    this.setState({ selectValue: event.target.value });
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    // Here, you can use this.state to access the form data
+    console.log('Input Value:', this.state.inputValue);
+    console.log('Text Area Value:', this.state.textAreaValue);
+    console.log('Select Value:', this.state.selectValue);
+    // You can perform other actions like API calls or further processing here
+  }
+
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <div>
+          <label>Input:</label>
+          <input
+            type="text"
+            value={this.state.inputValue}
+            onChange={this.handleInputChange}
+          />
+        </div>
+        <div>
+          <label>Text Area:</label>
+          <textarea
+            value={this.state.textAreaValue}
+            onChange={this.handleTextAreaChange}
+          />
+        </div>
+        <div>
+          <label>Select Option:</label>
+          <select value={this.state.selectValue} onChange={this.handleSelectChange}>
+            <option value="Option 1">Option 1</option>
+            <option value="Option 2">Option 2</option>
+            <option value="Option 3">Option 3</option>
+          </select>
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    );
+  }
+}
+
+export default MyForm;
+```
+
+## Life cycle Methods
+
+ <table>
+  <tr>
+    <td>
+
+![Alt text](./assets/Life-cycle-methods.png)
+
+  </td>
+  <td>
+
+![Alt text](./assets/Life-cycle-methods-with-methods.png)
+
+  </td>
+  </tr>
+ </table>
 
 
+## Component Mounting Lifecycle Methods
+
+ <table>
+  <tr>
+    <td>
+
+![Alt text](image.png)
+
+  </td>
+  <td>
+
+![Alt text](image-1.png)
+
+  </td>
+  </tr>
+  <tr>
+    <td>
+
+![Alt text](image-2.png)
+
+  </td>
+  <td>
+    
+![Alt text](image-3.png)
+
+  </td>
+  </tr>
+ </table>
+
+
+ 
 
