@@ -10,7 +10,8 @@
     - [CSS Modules](#css-modules)
 1. [Basic of Form Handling](#basic-of-form-handling)
 1. [Life cycle Methods](#life-cycle-methods)
-    - [Component Mounting Lifecycle Methods](#component-mounting-lifecycle-methods)
+    - [Component Mounting Lifecycle Methods](#1-component-mounting-lifecycle-methods)
+    - [Component Updating Lifecycle Methods](#2-component-updating-lifecycle-methods)
 
 ## Rendering the List
 
@@ -378,35 +379,315 @@ export default MyForm;
  </table>
 
 
-## Component Mounting Lifecycle Methods
+### 1 Component Mounting Lifecycle Methods
 
  <table>
   <tr>
     <td>
 
-![Alt text](image.png)
+![Alt text](./assets/image-mount-1.png)
 
   </td>
   <td>
 
-![Alt text](image-1.png)
+![Alt text](./assets/image-mount-2.png)
 
   </td>
   </tr>
   <tr>
     <td>
 
-![Alt text](image-2.png)
+![Alt text](./assets/image-mount-3.png)
 
   </td>
   <td>
     
-![Alt text](image-3.png)
+![Alt text](./assets/image-mount-4.png)
 
   </td>
   </tr>
  </table>
 
 
- 
+```jsx
+import React, { Component } from 'react'
 
+export class LifeCycleA extends Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       name: 'Salman'
+    }
+
+    console.log('LifecycleA constructor');
+  }
+
+  static getDerivedStateFromProps(props, state){
+    // it has to return new state or null
+    console.log('LifecycleA getDerivedStateFromProps');
+    return null
+  }
+
+  componentDidMount(){
+    console.log('LifecycleA componentDidMount')
+  }
+
+  render() {
+    console.log('LifecycleA render');
+    return (
+      <div>LifeCycleA render</div>
+    )
+  }
+}
+
+export default LifeCycleA
+```
+```console
+console
+
+LifecycleA constructor
+LifecycleA getDerivedStateFromProps
+LifecycleA render
+LifecycleA componentDidMount
+```
+
+---
+
+##### If you create same component with changing name from A to B and add LifecycleB component in A component, it will show below output
+
+```jsx
+// ...  code
+
+  render() {
+    console.log('LifecycleA render');
+    return (
+      <>
+      <div>LifeCycleA render</div>
+      <LifecycleB />
+      </>
+    )
+  }
+
+// ... 
+```
+
+```console
+console
+
+LifecycleA constructor
+LifecycleA getDerivedStateFromProps
+LifecycleA render
+LifecycleB constructor
+LifecycleB getDerivedStateFromProps
+LifecycleB render
+LifecycleB componentDidMount
+LifecycleA componentDidMount
+```
+
+### 2 Component Updating Lifecycle Methods
+
+ <table>
+  <tr>
+    <td>
+
+  ![Alt text](./assets/image-update-1.png)
+
+  </td>
+  <td>
+
+  ![Alt text](./assets/image-update-2.png)
+
+  </td>
+  </tr>
+  <tr>
+    <td>
+
+  ![Alt text](./assets/image-update-3.png)
+
+  </td>
+  <td>
+
+  ![Alt text](./assets/image-update-4.png)
+
+  </td>
+  </tr>
+  <tr>
+  <td col-span=2>
+  
+  ![Alt text](./assets/image-update-5.png)
+
+  </td>
+  </tr>
+ </table>
+
+ <table>
+  <tr>
+    <td>
+
+```jsx
+// LifeCycleA.jsx
+
+import React, { Component } from 'react'
+import LifecycleB from './LifeCycleB';
+
+export class LifeCycleA extends Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       name: 'Salman'
+    }
+
+    console.log('LifecycleA constructor');
+  }
+
+  static getDerivedStateFromProps(props, state){
+    // it has to return new state or null
+    console.log('LifecycleA getDerivedStateFromProps');
+    return null
+  }
+
+  componentDidMount(){
+    console.log('LifecycleA componentDidMount');
+  }
+
+  componentDidUpdate(){
+    console.log('LifecycleA componentDidUpdate')
+  }
+
+  shouldComponentUpdate(){
+    console.log('LifecycleA shouldComponentUpdate')
+
+    // it returns only TRUE or FALSE
+
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log('LifecycleA getSnapshotBeforeUpdate');
+    return null
+  }
+
+  changeState(){
+    this.setState({
+      name: 'react'
+    })
+  }
+
+  render() {
+    console.log('LifecycleA render');
+    return (
+      <>
+      <div>LifeCycleA render</div>
+      <button onClick={this.changeState}>Click</button>
+      <LifecycleB />
+      </>
+    )
+  }
+}
+
+export default LifeCycleA
+```
+
+  </td>
+  <td>
+
+```jsx
+// LifeCycleB.jsx
+
+import React, { Component } from 'react'
+
+export class LifecycleB extends Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       name: 'Salman'
+    }
+
+    console.log('LifecycleB constructor');
+  }
+
+  static getDerivedStateFromProps(props, state){
+    // it has to return new state or null
+    console.log('LifecycleB getDerivedStateFromProps');
+    return null
+  }
+
+  componentDidMount(){
+    console.log('LifecycleB componentDidMount')
+  }
+
+  componentDidUpdate(){
+    console.log('LifecycleB componentDidUpdate')
+  }
+
+  shouldComponentUpdate(){
+    console.log('LifecycleB shouldComponentUpdate')
+
+    // it returns only TRUE or FALSE
+
+    return true;
+  }
+
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log('LifecycleB getSnapshotBeforeUpdate');
+
+    return null
+  }
+
+  render() {
+    console.log('LifecycleB render');
+    return (
+      <div>LifecycleB render</div>
+    )
+  }
+}
+
+export default LifecycleB
+```
+
+  </td>
+ </tr>
+ </table>
+
+```console
+console
+
+LifecycleA constructor
+LifecycleA getDerivedStateFromProps
+LifecycleA render
+LifecycleB constructor
+LifecycleB getDerivedStateFromProps
+LifecycleB render
+LifecycleB componentDidMount
+LifecycleA componentDidMount
+```
+
+**After clicking on the BUTTON the output will be below like this**
+
+```console
+LifecycleA getDerivedStateFromProps
+LifecycleA shouldComponentUpdate
+LifecycleA render
+LifecycleB getDerivedStateFromProps
+LifecycleB shouldComponentUpdate
+LifecycleB render
+LifecycleB getSnapshotBeforeUpdate
+LifecycleA getSnapshotBeforeUpdate
+LifecycleB componentDidUpdate
+LifecycleA componentDidUpdate
+```
+
+### 3 Unmount Methods
+
+![Alt text](./assets/image-unmount-1.png)
+
+
+### 4 Error Handling Phase Methods
+
+![Alt text](./assets/Error-Handling-Phase.png)
