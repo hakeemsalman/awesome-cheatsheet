@@ -2,6 +2,7 @@
 
 ## Topics
 
+1. [Definetions](#definetions)
 1. [Functional vs Class Component](#functional-vs-class-component)
 1. [JSX syntax](#jsx-syntax)
 1. [Props](#props)
@@ -13,6 +14,172 @@
 1. [Binding Event Handlers](#binding-event-handlers)
 1. [Methods as Props](#methods-as-props---passing-method-from-the-parameter)
 1. [Conditional Rendering](#conditional-rendering)
+
+## Definetions
+
+### Element
+- **Elements** are anything inside angle brackets.
+    - ```jsx
+      <div></div>
+      <Greeting />
+      ```
+
+### Component
+- A **Component**, by declaring a function that returns a React [Element](#element).
+    - ```jsx
+      function Greeting() {
+        return <div>Hi there!</div>;
+      }
+      ```
+
+### Expressions
+- Use curly braces to [embed expressions]() in [JSX]().
+    - ```jsx
+      function Greeting() {
+        let name = "chantastic";
+
+        return <div>Hi {name}!</div>;
+      }
+      ```
+
+### Props
+
+- Take `props` as an argument to allow outside customizations of your Component.
+    - ```jsx
+      function Greeting(props) {
+        return <div>Hi {props.name}!</div>;
+      }
+      ```
+
+### defaultProps 
+- Specify default values for `props` with `defaultProps`.
+    - ```jsx
+      function Greeting(props) {
+        return <div>Hi {props.name}!</div>;
+      }
+      Greeting.defaultProps = {
+        name: "Guest",
+      };
+      ```
+
+### Destructuring props
+- It is a [ES6 JS feature](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment).
+    - ```jsx
+      let person = { name: "chantastic" };
+      let { name } = person; // Destructing object
+
+      let things = ["one", "two"];
+      let [first, second] = things; // Destructing Array
+      ```
+- In React we mostly use like this,
+    - ```jsx
+      function Greeting(props) {
+        return <div>Hi {props.name}!</div>;
+      }
+
+      function Greeting({ name }) {
+        return <div>Hi {name}!</div>;
+      }
+      ```
+
+### JSX spread attributes
+- Spread Attributes is a feature of [JSX](https://reactjs.org/docs/introducing-jsx.html)
+- We can **spread** `restProps` over our `<div>`.
+    - ```jsx
+      <Greeting name="Fancy pants" className="fancy-greeting" id="user-greeting" />
+
+      function Greeting({ name, ...restProps }) {
+        return <div {...restProps}>Hi {name}!</div>;
+      }
+      ```
+### Merge destructured props with other values
+
+Components are abstractions.
+Good abstractions allow for extension.
+
+Consider this component that uses a `class` attribute for style a `button`.
+
+```jsx
+function MyButton(props) {
+  return <button className="btn" {...props} />;
+}
+```
+This works great until we try to extend it with another class.
+
+```jsx
+<MyButton className="delete-btn">Delete...</MyButton>
+```
+In this case, `delete-btn` replaces `btn`.
+
+Order matters for [JSX spread attributes](#jsx-spread-attributes).
+The `props.className` being spread is overriding the `className` in our component.
+
+We can change the order but now the `className` will never be anything but `btn`.
+
+```jsx
+function MyButton(props) {
+  return <button {...props} className="btn" />;
+}
+```
+We need to use destructuring assignment to get the incoming `className` and merge with the base `className`.
+We can do this simply by adding all values to an array and joining them with a space.
+
+```jsx
+function MyButton({ className, ...props }) {
+  let classNames = ["btn", className].join(" ");
+
+  return <button className={classNames} {...props} />;
+}
+```
+To guard from `undefined` showing up as a className, you could update your logic to filter out `falsy` values:
+
+```jsx
+function MyButton({ className, ...props }) {
+  let classNames = ["btn", className].filter(Boolean).join(" ").trim();
+
+  return <button className={classNames} {...props} />;
+}
+```
+Bear in mind though that if an empty object is passed it'll be included in the class as well, resulting in: `btn [object Object]`.
+
+The better approach is to make use of available packages, like [classnames](https://www.npmjs.com/package/classnames) or [clsx](https://www.npmjs.com/package/clsx), that could be used to join classnames, relieving you from having to deal with it manually.
+
+### Short circuit operator
+- For example, in the expression `a && (b + c)`, if `a` is falsy, then the sub-expression `(b + c)` will *NOT* even get evaluated, even if it is grouped and therefore has higher precedence than `&&`. We could say that the logical AND operator (`&&`) is "**short-circuited**".
+
+### Conditional rendering
+
+You *cannot* use `if/else` statements inside a component declarations.
+So conditional [(ternary) operator]() and [short-circuit](#short-circuit-operator) evaluation are your friends.
+
+1. if
+    - ```jsx
+      {
+        condition && <span>Rendered when `truthy`</span>;
+      }
+      ```
+1. unless
+    - ```jsx
+      {
+        condition || <span>Rendered when `falsy`</span>;
+      }
+      ```
+1. if-else
+    - ```jsx
+      {
+        condition ? (
+          <span>Rendered when `truthy`</span>
+        ) : (
+          <span>Rendered when `falsy`</span>
+        );
+      }
+      ```
+### Children types
+
+
+
+
+
 
 ## Functional vs Class Component
 
