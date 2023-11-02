@@ -171,7 +171,7 @@ body {
 
 1. A mixin lets you make groups of CSS declarations that you want to reuse throughout your site.
 2. It helps keep your Sass very DRY. *Don't Repeat Yourself*.
-3.
+
 
 ```scss
 @mixin theme($theme: DarkGray) {
@@ -327,8 +327,8 @@ aside[role=complementary] {
 ### 1 Media queries
 
 1. Write `@media queries` inside a class.
-2. Don't use `css` *media queriess* instead of `scss` *media queries syntax*
-
+1. Don't use `css` *media queriess* instead of `scss` *media queries syntax*
+1. You can checkout the [Media Queries Mixins](./_media_queries.md).
 <table>
   <tr>
     <td>SCSS</td><td>CSS</td>
