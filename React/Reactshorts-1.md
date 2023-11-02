@@ -13,9 +13,25 @@
 1. [Event Handling](#event-handling)
 1. [Binding Event Handlers](#binding-event-handlers)
 1. [Methods as Props](#methods-as-props---passing-method-from-the-parameter)
-1. [Conditional Rendering](#conditional-rendering)
+1. [Conditional Rendering](#conditional-rendering-1)
 
 ## Definetions
+
+1. [Elements](#element)
+1. [Component](#component)
+1. [Expressions](#expressions)
+1. [Props](#props)
+1. [defaultProps](#defaultprops)
+1. [Destructuring props](#destructuring-props)
+1. [JSX spread attributes](#jsx-spread-attributes)
+1. [Merge destructured props with other values](#merge-destructured-props-with-other-values)
+1. [Short circuit operator](#short-circuit-operator)
+1. [Conditional rendering](#conditional-rendering)
+1. [Children types](#children-types)
+1. [Array as children](#array-as-children)
+1. [Function as children](#function-as-children)
+1. []()
+1. []()
 
 ### Element
 - **Elements** are anything inside angle brackets.
@@ -176,9 +192,67 @@ So conditional [(ternary) operator]() and [short-circuit](#short-circuit-operato
       ```
 ### Children types
 
+- React can render children from most types.
+- In most cases it's either an `array` or a `string`.
 
+<table>
+  <tr>
+    <th>String</th>
+    <th>Array</th>
+  </tr>
+  <tr>
+    <td>
 
+      ```jsx
+      <div>Hello World!</div>
+      ```
 
+  </td>
+  <td>
+
+      ```jsx
+      <div>{["Hello ", <span>World</span>, "!"]}</div>
+      ```
+
+  </td>
+  </tr>
+</table>
+
+#### Array as children
+
+Providing an array as `children` is a very common.
+It's how lists are drawn in React.
+
+We use `map()` to create an array of React Elements for every value in the array.
+
+```jsx
+<ul>
+  {["first", "second"].map((item) => (
+    <li>{item}</li>
+  ))}
+</ul>
+```
+That's equivalent to providing a literal `array`.
+
+```jsx
+<ul>{[<li>first</li>, <li>second</li>]}</ul>
+```
+
+This pattern can be combined with destructuring, JSX Spread Attributes, and other components, for some serious terseness.
+
+```jsx
+<ul>
+  {arrayOfMessageObjects.map(({ id, ...message }) => (
+    <Message key={id} {...message} />
+  ))}
+</ul>
+```
+### Function as children
+
+> React components *DO NOT* support functions as `children`.
+However, [render props](#render-prop) is a pattern for creating components that take functions as children.
+
+#### Render prop
 
 
 ## Functional vs Class Component
