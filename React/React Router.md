@@ -17,11 +17,15 @@ easily shareable with other users.
 1. [Navigating programmatically](#navigating-programmatically)
 1. [History Clear Stack](#to-clear-history-stacks)
 1. [No Match Route](#no-match-route--not-found-page)
-1. [Dynamic routes]()
 1. [Nested routes](#nested-routes)
+    - [Short Demo Nested Routes](#short-demo-nested-routes)
+1. [Relative Links](#relative-links)
+1. [Dynamic routes](#dynamic-routes)
 1. [Route parameters]()
-1. [Lazy loading]()
-1. [Authentication]()
+    - [URL Params](#url-params)
+    - [Search Params](#search-params)
+1. [Lazy loading](#lazy-loading)
+1. [Authentication](#authentication-and-protected-routes)
 
 ### Installation
 
@@ -253,12 +257,14 @@ If page is not available, then we need to *asterisk* `*` symbol in `path`
 <Route path='*' element={<NoMatch />}/>
 ```
 
+
 ### Nested Routes
 
 <img src="./assets/nested-route.png" width="600px" />
 
 1. Add `Route`, `path` to *App.jsx* inside of **Parent Route**.
-1. Inside *Products.jsx* add `outlet` component to render inside same product page.
+1. Add `Link` into the *Navbar.jsx*
+1. Inside *Products.jsx*, Add `Link` of *FeaturesProduct.jsx* *NewProduct.jsx* add `outlet` component to render inside same product page.
 
 <table>
   <tr>
@@ -273,8 +279,8 @@ If page is not available, then we need to *asterisk* `*` symbol in `path`
 import React from "react";
 import { Route, Routes } from "react-router-dom";
 import Products from "./components/Products";
-import Features from "./components/Features";
-import New from "./components/New";
+import FeaturesProduct from "./components/FeaturesProduct";
+import NewProduct from "./components/NewProduct";
 
 function App() {
   return (
@@ -283,8 +289,8 @@ function App() {
       <Routes>
         {/* ... */}
         <Route path="products" element={<Products />}>
-+         <Route path="features" element={<Features />} />
-+         <Route path="new" element={<New />} />
++         <Route path="features" element={<FeaturesProduct />} />
++         <Route path="new" element={<NewProduct />} />
         </Route>
         {/* ... */}
       </Routes>
@@ -298,7 +304,7 @@ export default App;
   </td>
   <td>
   
-```jsx
+```diff
 import React from 'react'
 import {NavLink} from 'react-router-dom';
 
@@ -306,19 +312,20 @@ const Navbar = () => {
   return (
     <nav>
       {/* ... */}
-      <NavLink to='/products'>Products</NavLink>
++     <NavLink to='/products'>Products</NavLink>
     </nav>
   )
 }
-export default Navbar
+export default Navbar;
+{/*  swipe next */}
 ```
   
   </td>
   <td>
   
-```jsx
+```diff
 import { React } from "react";
-import { NavLink, Outlet } from "react-router-dom";
++ import { NavLink, Outlet } from "react-router-dom";
 
 const Products = () => {
   return (
@@ -326,11 +333,11 @@ const Products = () => {
       <div>
         <input type="search" placeholder="Search here..." />
       </div>
-      <nav>
-        <NavLink to="features">Features</NavLink>
-        <NavLink to="new">New</NavLink>
-      </nav>
-      <Outlet />
++      <nav>
++        <NavLink to="features">Features</NavLink>
++        <NavLink to="new">New</NavLink>
++      </nav>
++      <Outlet />
     </>
   );
 };
@@ -341,6 +348,8 @@ export default Products;
   </td>
   </tr>
 </table>
+
+#### Short Demo Nested Routes
 
 ```jsx
 // Parent component
@@ -375,4 +384,220 @@ function Child2Component() {
 <Link to="child2">Go to Child 2</Link>
 ```
 
+### Relative Links
+
+1. Relative links are the `path` value start with Relative path.
+1. Absolute links are the `path` value start with Absolute path.
+
+```jsx
+// Navbar.jsx
+<NavLink to='/products'>Products</NavLink>
+
+// Product.jsx
+  <nav>
+    <NavLink to="features">Features</NavLink>
+    <NavLink to="new">New</NavLink>
+  </nav>
+```
+
+### Index Route
+
+The index prop is used to specify that the route should only be matched if it is the "index" route, i.e., the default route for a particular nesting level. When a route is the index route, it is the route that is matched when the path exactly matches the parent's path.
+
+```jsx
+<Route path="/parent" element={<ParentComponent />}>
+  <Route index element={<DefaultComponent />} />
+  <Route path="child" element={<ChildComponent />} />
+</Route>
+```
+
+<table>
+  <tr>
+    <th>Without Index</th>
+    <th>With Index</th>
+  </tr>
+  <tr>
+  <td>
+
+![alt text](./assets/nested-route-without-index.gif)
+
+</td>
+<td>
+
+![alt text](./assets/nested-route-with-index.gif)
+
+  </td>
+  </tr>
+</table>
+
+### Dynamic Routes
+
+1. URL parameters are a way to pass dynamic data in the URL. They allow you to specify variable parts in the URL that can be accessed and used within your components. These parameters are often used to identify specific resources or to customize the content based on the URL. `:userId`
+
+```jsx
+<Route path="users/:userId" element={<UserDetail />} />
+```
+
+Resource: [LINK](https://youtu.be/P5xgsRIKJjo?list=PLC3y8-rFHvwjkxt8TOteFdT_YmzwpBlrG)
+
+1. When dealing with a list detail pattern or if the route parameter can vary in value make use of dynamic routes specify the url param denoted by a colon prefix in the path
+1. React router will always try to match the route that is more specific before trying to match a dynamic route so  `/admin` before `/userid`
+1. it is possible to have nested dynamic routes
+
+### URL Params
+
+1. Take userId from URL parameters and show on UI, by using `useParams()` Hooks
+1. It returns the object, which contain key-value pair of dynamic params from the current URL
+
+
+```jsx
+// UserDetails.jsx
+import { useParams} from 'react-router-dom';
+
+export const UserDetails = () => {
+  const params = useParams();
+  const userId = params.userId;
+  return <div>Details about user {userId}</div>
+}
+```
+
+```jsx
+// App.jsx
+function App() {
+  return (
+    <React.Fragment>
+      <Navbar />
+      <Routes>
+        {/* */}
+        <Route path="users" element={<Users />}>
+          <Route path=":userId" element={<UserDetails />} /> {/* <== params.userId*/}
+          <Route path="admin" element={<Admin />} />
+        </Route>
+        {/* */}
+      </Routes>
+    </React.Fragment>
+  );
+}
+
+export default App;
+```
+
+
+### Search Params
+
+1. import `useSearchParams` from `react-router-dom`
+1. `useSearchParams()` is a *Hook* to access and manage the query parameters present in the URL.
+1. Query parameters are `key-value` pairs that come after the ` ? ` in a URL and are commonly used to pass data between different pages or components.
+1. It returns two values
+  - object, the key-value pair
+  - function, to `set` the search parameter, with this we can `add or remove` the parameters.
+
+```jsx
+import { useSearchParams } from 'react-router-dom';
+
+function MyComponent() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // Access a specific query parameter
+  const myQueryParam = searchParams.get('filter');
+
+  // Update the query parameters
+  const updateParams = () => {
+    setSearchParams({ filter: 'active' });
+  };
+
+  return (
+    <div>
+      <p>My Query Parameter: {myQueryParam}</p>
+      <button onClick={updateParams}>Update Query Params</button>
+    </div>
+  );
+}
+```
+
+### Lazy loading
+
+1. When you have a big application with many parts, lazy loading helps you load only the parts you need when you need them.
+1. The lazy function is used to dynamically import the components, and the Suspense component is used to show a loading message while the component is being loaded. This way, the initial load time of the application is minimized, making it faster and more efficient for the user.
+
+```jsx
+// App.jsx
+
+import React, { Suspense, lazy } from 'react'; // suspense and lazy
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
+const Home = lazy(() => import('./Home'));
+const About = lazy(() => import('./About'));
+
+function App() {
+  return (
+    <Router>
+    <Route exact path="/" component={Home} />
+      <Suspense fallback={<div>Loading...</div>}>
+          <Route path="/about" component={About} />
+      </Suspense>
+    </Router>
+  );
+}
+
+export default App;
+```
+
+### Authentication and Protected Routes
+
+
+>NOTE: *pending* Still need more about this Authentication, follow this [link](https://youtu.be/X8eAbu1RWZ4?list=PLC3y8-rFHvwjkxt8TOteFdT_YmzwpBlrG)
+
+1. Create a `AuthProvider.jsx`, and below code
+
+```jsx
+// Auth.jsx
+
+import { useState, createContext, useContext } from 'react'
+
+const AuthContext = createContext(null);
+
+export const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
+
+  const login = (user) => {
+    setUser(user);
+  }
+
+  const logout = () => {
+    setUser (null)
+  }
+  return(
+    <AuthContext.Provider value={{user, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export const useAuth = () => {
+  return useContext(AuthContext);
+}
+
+// App.jsx
+
+import AuthProvider from './AuthProvider';
+
+function App() {
+  return (
+    <AuthProvider>
+      <Navbar />
+      <Routes>
+        {/* */}
+        <Route path="users" element={<Users />}>
+          <Route path=":userId" element={<UserDetails />} /> {/* <== params.userId*/}
+          <Route path="admin" element={<Admin />} />
+        </Route>
+        {/* */}
+      </Routes>
+    </AuthProvider>
+  );
+}
+
+export default App;
+```
 
