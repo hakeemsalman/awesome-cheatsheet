@@ -8,6 +8,11 @@
     - [Stylesheets](#css-stylesheets)
     - [Inline styling](#inline-styling)
     - [CSS Modules](#css-modules)
+    - [Ways to Style Component](#ways-to-style-components)
+        1. [Using Regular CSS](#using-regular-css)
+        1. [Importing CSS File](#importing-css-file)
+        1. [Using SCSS](#using-scss)
+        1. [Using Template Literals (Backticks) for Inline Styles](#using-template-literals-backticks-for-inline-styles)
 1. [Basic of Form Handling](#basic-of-form-handling)
 1. [Life cycle Methods](#life-cycle-methods)
     - [Component Mounting Lifecycle Methods](#1-component-mounting-lifecycle-methods)
@@ -115,6 +120,7 @@ const listItems = people.map((person, index) => <Person key={index} personName={
 2. Inline styling
 3. CSS Modules
 4. CSS in IS Libaries (Styled Components)
+5. Ways to style components
 
 ### CSS stylesheets
 
@@ -287,6 +293,183 @@ export default Person
   </td>
   </tr>
 </table>
+
+### Ways to Style Components
+
+1. [Using Regular CSS](#using-regular-css)
+1. [Importing CSS File](#importing-css-file)
+1. [Using SCSS](#using-scss)
+1. [Using CSS Modules]()
+1. [Using Template Literals (Backticks) for Inline Styles](#using-template-literals-backticks-for-inline-styles)
+
+#### Using Regular CSS
+
+**Approach 1:** Inline styles
+
+```jsx
+import React from 'react';
+
+const RegularCSSInline = () => {
+  const divStyle = {
+    color: 'blue',
+    backgroundColor: 'lightgray',
+    padding: '10px',
+  };
+
+  return <div style={divStyle}>Component with inline regular CSS</div>;
+};
+
+export default RegularCSSInline;
+```
+
+#### Importing CSS File:
+
+**Approach 2:** External CSS file
+
+```jsx
+import React from 'react';
+import './ExternalCSSFile.css'; // Import the external CSS file
+
+const ExternalCSSFile = () => {
+  return <div className="external-css-component">Component with external CSS</div>;
+};
+
+export default ExternalCSSFile;
+```
+```css
+/* ExternalCSSFile.css */
+.external-css-component {
+  color: blue;
+  background-color: lightgray;
+  padding: 10px;
+}
+```
+
+#### Using SCSS:
+
+**Approach 3:** External SCSS file
+
+```jsx
+import React from 'react';
+import './ExternalSCSSFile.scss'; // Import the external SCSS file
+
+const ExternalSCSSFile = () => {
+  return <div className="external-scss-component">Component with external SCSS</div>;
+};
+
+export default ExternalSCSSFile;
+```
+```scss
+// ExternalSCSSFile.scss
+.external-scss-component {
+  color: blue;
+  background-color: lightgray;
+  padding: 10px;
+}
+```
+
+#### Using CSS Modules:
+
+**Approach 4:** CSS Modules in React
+
+- CSS Modules allow scoped styling by generating [unique class names](https://create-react-app.dev/docs/adding-a-css-modules-stylesheet).
+
+```jsx
+import React from 'react';
+import styles from './Component.module.css'; // Import CSS Module
+
+const CSSModulesComponent = () => {
+  return <div className={styles.component}>Component with CSS Modules</div>;
+};
+
+export default CSSModulesComponent;
+```
+```css
+/* Component.module.css */
+.component {
+  color: blue;
+  background-color: lightgray;
+  padding: 10px;
+}
+
+```
+
+#### Using Template Literals (Backticks) for Inline Styles:
+
+**Approach 5:** styled-components in React
+- Styled-components allow writing CSS directly within your JavaScript files.
+
+```jsx
+import React from 'react';
+import styled from 'styled-components';
+
+// Create a styled component for the Card
+const Card = styled.div`
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+`;
+
+// Create another styled component for the heading inside the Card
+const Heading = styled.h2`
+  color: #333;
+  font-size: 1.5em;
+  margin-bottom: 10px;
+`;
+
+const Content = styled.p`
+  color: #555;
+  font-size: 1.1em;
+`;
+
+const StyledCard = () => {
+  return (
+    <Card>
+      <Heading>Styled Card</Heading>
+      <Content>
+        This is a custom-styled card component using styled-components in React.
+      </Content>
+    </Card>
+  );
+};
+
+export default StyledCard;
+```
+
+#### Best Practices for Styling components
+
+1. **Inline Styles:**
+   - *Pros:* Simple and straightforward. Dynamic and easily adaptable based on props or state.
+   - *Cons:* Clutters component, limited reusability.
+
+2. **External CSS File:**
+   - *Pros:* Separates concerns, clear structure, global scope.
+   - *Cons:* Naming conflicts, lacks scoping.
+
+3. **SCSS:**
+   - *Pros:* Advanced features (nesting, variables), improved organization.
+   - *Cons:* Requires compilation, additional setup.
+
+4. **CSS Modules:**
+   - *Pros:* Local scoping, modularity, avoids naming conflicts.
+   - *Cons:* Setup required, learning curve.
+
+5. **Styled-Components:**
+   - *Pros:* Component-level styling, reusability, dynamic styles.
+   - *Cons:* CSS-in-JS learning curve, potential bundle size increase.
+
+### Standard Practices:
+- **Project Size:** Inline styles or external CSS are suitable for small projects.
+- **Large Projects:** CSS Modules or styled-components provide encapsulation and modularity.
+- **SCSS:** Suited for larger applications, needs additional setup.
+
+**Recommendation:** Combine methods based on the project's needs. For instance, use styled-components for reusable components and CSS Modules for smaller ones to balance modularity and ease of use.
+
+Remember to consider project specifics, team skills, and preferences while selecting a styling approach. The choice might vary depending on the project's scale and requirements.
+
 
 ## Basic of Form Handling
 
