@@ -12,3 +12,28 @@ Send a valid Access Token in the Authorization header, using the Bearer authenti
 GET https://{yourDomain}/userinfo
 Authorization: 'Bearer {ACCESS_TOKEN}'
 ```
+
+## Salesforce
+
+POST  https://platform-enterprise-9548-dev-ed.scratch.my.salesforce.com/services/oauth2/token
+
+// bulk-edit 
+
+x-form-urlencoded - body:
+
+username:your-email
+password:your-password|your-password-key
+grant_type:password
+client_id: your-Client-ID
+client_secret: your-Secret-Key
+
+## Hrone
+
+POST  https://auth.hrone.cloud/oauth2/token
+
+x-form-urlencoded - body:
+
+username:{{username}}
+password:{{password}}
+grant_type:{{grant_type}}
+loginType:{{loginType}}
