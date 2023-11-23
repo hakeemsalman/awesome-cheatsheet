@@ -1,6 +1,6 @@
 # JS Part 2
 
-## Debugging 
+## Debugging *(pending)*
 
 - For more info please follow this [link](https://javascript.info/debugging-chrome).
 1. A breakpoint is a point of code where the debugger will automatically pause the JavaScript execution.
@@ -26,3 +26,9 @@
         console.log("value,", i);
       }
       ```
+
+## Styling
+
+[Google Guides](https://google.github.io/styleguide/jsguide.html)
+
+

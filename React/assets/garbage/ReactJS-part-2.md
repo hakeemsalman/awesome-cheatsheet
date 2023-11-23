@@ -469,7 +469,7 @@ Follow this [link](https://react.dev/learn/render-and-commit#step-3-react-commit
 
 ## Class Component
 
-![Alt text](./assets/image-1.png)
+![react-part-two-docs.png](../images/react-part-two-docs.png)
 
 <table>
     <thead>

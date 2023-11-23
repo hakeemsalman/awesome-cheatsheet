@@ -473,7 +473,7 @@ Remember to consider project specifics, team skills, and preferences while selec
 
 ## Basic of Form Handling
 
-![Alt text](./assets/form-handling.png)
+![form-handling.png](./assets/form-handling.png)
 
 ```jsx
 import React, { Component } from 'react';
@@ -550,12 +550,12 @@ export default MyForm;
   <tr>
     <td>
 
-![Alt text](./assets/Life-cycle-methods.png)
+![Life-cycle-methods.png](./assets/Life-cycle-methods.png)
 
   </td>
   <td>
 
-![Alt text](./assets/Life-cycle-methods-with-methods.png)
+![Life-cycle-methods-with-methods.png](./assets/Life-cycle-methods-with-methods.png)
 
   </td>
   </tr>
@@ -568,24 +568,24 @@ export default MyForm;
   <tr>
     <td>
 
-![Alt text](./assets/image-mount-1.png)
+![image-mount-1.png](./assets/image-mount-1.png)
 
   </td>
   <td>
 
-![Alt text](./assets/image-mount-2.png)
+![image-mount-2.png](./assets/image-mount-2.png)
 
   </td>
   </tr>
   <tr>
     <td>
 
-![Alt text](./assets/image-mount-3.png)
+![image-mount-3.png](./assets/image-mount-3.png)
 
   </td>
   <td>
     
-![Alt text](./assets/image-mount-4.png)
+![image-mount-4.png](./assets/image-mount-4.png)
 
   </td>
   </tr>
@@ -675,31 +675,31 @@ LifecycleA componentDidMount
   <tr>
     <td>
 
-  ![Alt text](./assets/image-update-1.png)
+  ![image-update-1.png](./assets/image-update-1.png)
 
   </td>
   <td>
 
-  ![Alt text](./assets/image-update-2.png)
+  ![image-update-2.png](./assets/image-update-2.png)
 
   </td>
   </tr>
   <tr>
     <td>
 
-  ![Alt text](./assets/image-update-3.png)
+  ![image-update-3.png](./assets/image-update-3.png)
 
   </td>
   <td>
 
-  ![Alt text](./assets/image-update-4.png)
+  ![image-update-4.png](./assets/image-update-4.png)
 
   </td>
   </tr>
   <tr>
   <td col-span=2>
   
-  ![Alt text](./assets/image-update-5.png)
+  ![image-update-5.png](./assets/image-update-5.png)
 
   </td>
   </tr>
@@ -868,9 +868,9 @@ LifecycleA componentDidUpdate
 
 ### 3 Unmount Methods
 
-![Alt text](./assets/image-unmount-1.png)
+![image-unmount-1.png](./assets/image-unmount-1.png)
 
 
 ### 4 Error Handling Phase Methods
 
-![Alt text](./assets/Error-Handling-Phase.png)
+![Error-Handling-Phase.png](./assets/Error-Handling-Phase.png)

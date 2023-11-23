@@ -419,12 +419,12 @@ The index prop is used to specify that the route should only be matched if it is
   <tr>
   <td>
 
-![alt text](./assets/nested-route-without-index.gif)
+![nested-route-without-index.gif](./assets/nested-route-without-index.gif)
 
 </td>
 <td>
 
-![alt text](./assets/nested-route-with-index.gif)
+![nested-route-with-index.gif](./assets/nested-route-with-index.gif)
 
   </td>
   </tr>

@@ -1259,7 +1259,7 @@ export default function Profile() {
   </td>
   <td>
 
-  ![Alt text](./assets/image.png)
+  ![react-part-one-docs.png](../images/react-part-one-docs.png)
 
   </td>
 </tr>
@@ -1300,7 +1300,7 @@ export default function PackingList() {
 </td>
 <td>
 
-![Alt text](./assets/image.png)
+  ![react-part-one-docs.png](../images/react-part-one-docs.png)
 
 </td>
 </tr>

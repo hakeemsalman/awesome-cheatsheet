@@ -219,7 +219,7 @@ let ac_eq = (a === c); //true
   </td>
   <td>
 
-![Alt text](./assets/pureComponent-1.png)
+![pureComponent-1.png ](./assets/pureComponent-1.png)
 
   </td>
 </tr>
@@ -288,5 +288,143 @@ export default class RefsDemo extends Component {
 
 ## Forwarding Refs
 <p align="center"><i>pendiing</i></p>
+
+## Portals
+
+React portals provide a way to render children into a Dom node that exists outside the Dom hierarchy of the parent component 
+
+### Steps to create Portals:
+1. **Create a container for the portal in your index.html:**
+  - Open your public/index.html file and add a div with an id of portal-root:
+  - ```jsx
+    <body>
+      <div id="root"></div>
+      <div id="portal-root"></div>
+    </body>
+    ```
+2. **Create a new component for the portal:**
+    - In your src directory, create a new file for your portal component, for example, `Portal.js`. 
+    - ```jsx
+      // Portal.js
+      import React from 'react';
+      import ReactDOM from 'react-dom';
+
+      const Portal = () => {
+        const portalRoot = document.getElementById('portal-root');
+
+        return ReactDOM.createPortal(
+          <div>
+            <h1> I am a portal root</h1>
+          </div>, 
+          portalElement);
+      };
+
+      export default Portal;
+      ```
+3. **Use the portal in your main component:**
+   - In the component where you want to use the portal, import the Portal component and use it to render content outside the component's DOM hierarchy.
+   - ```jsx
+        // App.js
+      import React from 'react';
+      import Portal from './Portal';
+
+      const App = () => {
+        return (
+          <div>
+            <h1>Main Content</h1>
+            <Portal>
+              <div>
+                <h2>Portal Content</h2>
+              </div>
+            </Portal>
+          </div>
+        );
+      };
+
+      export default App;
+     ```
+
+## Error Boundary
+
+Error boundaries in React are components that catch JavaScript errors anywhere in the component tree and log those errors or display fallback UI instead of crashing the component tree. Here are the steps to create an error boundary in React:
+
+- A class component that implements either one or both of the lifecycle methods `getDerivedStateFromError` or `componentDidCatch` becomes an error boundary.
+- The static method `getDerivedStateFromError` method is used to render a fallback Ul after an error is thrown.
+- The `componentDidCatch` method is used to log the error information.
+
+
+```jsx
+// ErrorBoundary.js
+import React, { Component } from 'react';
+
+class ErrorBoundary extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+ /* getDerivedStateFromError: This is a lifecycle method that is called when an error is thrown. It sets the hasError state to true.*/
+
+
+  componentDidCatch(error, errorInfo) {
+    // You can log the error to an error reporting service
+    console.error('Error caught by error boundary:', error, errorInfo);
+  /*componentDidCatch: This is another lifecycle method that is called after an error is thrown. You can use it to log the error or send it to an error reporting service.*/
+}
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI here
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+
+export default ErrorBoundary;
+
+ 
+// MyComponent.js optional
+import React from 'react';
+
+const MyComponent = () => {
+  // Intentionally throw an error
+  throw new Error('An error occurred in MyComponent.');
+  // Rest of the component code
+};
+
+export default MyComponent;
+
+
+
+// App.js
+import React from 'react';
+import ErrorBoundary from './ErrorBoundary';
+import MyComponent from './MyComponent'; // Replace with your actual component
+
+const App = () => {
+  return (
+    <div>
+      <h1>Main Content</h1>
+      <ErrorBoundary>
+        <MyComponent />
+      </ErrorBoundary>
+    </div>
+  );
+};
+
+export default App;
+```
+
+
+## Higher order component
+
+<p align="center"><i>pendiing</i></p>
+
+
 
 
