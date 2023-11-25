@@ -7,8 +7,12 @@
     - [Shallow comparison](#shallow-comparison-sc)
 1. [Memo](#memo) 
 1. [Refs](#refs)
-1. [Refs Class]()
-1. [ForwardingRefs]()
+1. [Refs Class](#forwarding-refs-with-class-components)
+1. [ForwardingRefs](#forwarding-refs)
+1. [Portal](#portals)
+1. [Error Boundary](#error-boundary)
+1. [Higher Order Component](#higher-order-component)
+1. [Render Props](#)
 
 ## Fragments
 
@@ -426,5 +430,104 @@ export default App;
 <p align="center"><i>pendiing</i></p>
 
 
+## Render Props
+
+The term "render prop" refers to a technique for **sharing code** between React components using a **prop whose value is a function**.
+
+Suppose if we want to implement this function in two components without re-using same code in both components
+
+
+```jsx
+import React, { Component } from 'react'
+import './App.css'
+import Counter from './components/Counter'
+import ClickCounterTwo from './components/ClickCounterTwo'
+import HoverCounterTwo from './components/HoverCounterTwo'
+
+
+class App extends Component {
+	render() {
+		return (
+			<div className="App">
+				
+				 <Counter
+					render={(count, incrementCount) =>
+					<ClickCounterTwo
+						count={count}
+						incrementCount={incrementCount}>
+					</ClickCounterTwo>}>
+				</Counter>
+				<Counter
+					render={(count, incrementCount) =>
+					<HoverCounterTwo
+						count={count}
+						incrementCount={incrementCount}>
+					</HoverCounterTwo>}>
+				</Counter>
+			
+			</div>
+		)
+	}
+}
+
+export default App
+```
+
+```jsx
+import React, { Component } from 'react'
+
+class Counter extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      count: 0
+    }
+  }
+
+  incrementCount = () => {
+    this.setState(prevState => {
+      return { count: prevState.count + 1 }
+    })
+  }
+  render() {
+    return (
+      <div>
+        {this.props.render(this.state.count, this.incrementCount)}
+      </div>
+    )
+  }
+}
+
+export default Counter
+```
+
+```jsx
+import React, { Component } from 'react'
+
+class ButtonCounter extends Component {
+
+  render() {
+    const { count, incrementCount } = this.props
+		return <button onClick={incrementCount}>{this.props.name } Clicked {count} times</button>
+	}
+}
+
+export default ButtonCounter
+```
+
+```jsx
+import React, { Component } from 'react'
+
+class HoverCounterTwo extends Component {
+
+	render() {
+		const { count, incrementCount } = this.props
+		return <h2 onMouseOver={incrementCount}>Hovered {count} times</h2>
+	}
+}
+
+export default HoverCounterTwo
+```
 
 
