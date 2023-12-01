@@ -22,9 +22,18 @@ graph TD
 
 1. [Install MUI in a react application](#installation)
 1. [Typography](#typography)
-1. Components
+1. [Components](#components)
+    - [Button](#button)
 1. Inputs / Form controls
-1. Layout
+    - [Text field](#text-field)
+    - [Dropdown Select](#select-dropdown)
+    - [Radio Button](#radio-button)
+    - [Checkbox Button](#checkbox)
+    - [Switch Button](#switch)
+    - [Rating Button](#rating)
+    - [Autocomplete](#autocomplete)
+1. [Layout](#layout)
+    - [Box](#box)
 1. Navigation
 1. Data display and feedback
 1. MUI Lab
@@ -202,7 +211,7 @@ const handleFormatChange = ( _event: React.MouseEvent<HTMLElement>, updatedForma
 ```
 ![buttons](./assets/images/buttons/image.png)
 
-### Text Field
+#### Text Field
 
 1. It's a Input text component, 
     - It has *3* `variants` props, `outlined`, `filled` and  `standard`.
@@ -249,7 +258,7 @@ import {  TextField } from '@mui/material'
 
 ![inputField](./assets/images/inputField.png)
 
-### Select Dropdown
+#### Select Dropdown
 
 1. It is used to show an option list based on the user's selection.
 1. `fullwidth` prop is *width:100%*
@@ -286,7 +295,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 </TextField>
 ```
 
-### Radio button
+#### Radio button
 
 1. Props are 
     - `row` in `<RadioGroup>`
@@ -338,7 +347,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 <FormHelperText>Invalid selection</FormHelperText>
 ```
 
-### Checkbox
+#### Checkbox
 
 1. Basic Props can use `size`, `checked`, `color` in `<Checkbox />`
 1. Advanced props are `icon`, `checkedIcon`
@@ -392,7 +401,7 @@ const handleSkillChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 </FormControl>
 ```
 
-### Switch
+#### Switch
 
 1. Switch are used to toggle the button
 1. Basic Props can use `size`, `checked`, `color` in `<Switch />`
@@ -414,7 +423,7 @@ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 ```
 
 
-### Rating
+#### Rating
 
 1. Ratings provide insight regarding others opinions and can allow the user to submit a rating of their own.
 1. onChange have 2 params 
@@ -463,7 +472,164 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
 />
 ```
 
-### Autocomplete
+#### Autocomplete
 
 1. It's an works like ComboBox and also have type search option
+1. Props are:
+    - `options`
+    - `renderInput`, `params` are value to 
+    - `label`
+1. 
+```jsx
+import { Autocomplete, TextField } from '@mui/material'
+import { useState } from 'react'
 
+const skills = ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React']
+ const [value, setValue] = useState<string | null>(null)
+
+// Basics Autocomplete Combo box
+<Autocomplete options={skills} renderInput={params => <TextField {...params} label='Skills' />}/>
+
+// Track value in State
+<Autocomplete options={skills} renderInput={params => <TextField {...params} label='Skills' value={value} onChange={(event: any, newValue: string | null) => { setValue(newValue) }} />}/>
+
+
+// Add or Select any text instead of options -- add a freesolo prop
+<Autocomplete options={skills} renderInput={params => <TextField {...params} label='Skills' value={value} onChange={(event: any, newValue: string | null) => { setValue(newValue) }} />}  freeSolo/>
+
+// Array of object with id, label
+type Skill = {
+  id: number
+  label: string
+}
+
+const [skill, setSkill] = useState<Skill | null>(null)
+
+const skillsOptions = skills.map((skill, index) => ({
+  id: index + 1,
+  label: skill
+}))
+
+<Autocomplete
+        options={skillsOptions}
+        renderInput={params => <TextField {...params} label='Skills' />}
+        value={skill}
+        onChange={(_event: any, newValue: Skill | null) => {
+          setSkill(newValue)
+        }}
+      />
+```
+
+### Layout
+
+#### Box
+
+1. The `Box` component is primarily a utility for styling and layout purposes,
+1. `Box` is replacement of `div` tag/
+1. props are:
+    - `component` used for the root node. Either a string to use a HTML element or a component.
+    - `sx` for custom styling.
+1. CSS utility component  it supports what are called *material ui system properties* that simply means you can use a lot of the css properties as a *prop directly* on the component
+1. Short names:
+    - `bgcolor` - background-color
+    - `p`       - padding, So here `p={2}` value is *`8 x 2 => 16px`*.  8 x n , It's multiplied by `8px`. 
+```jsx
+import { Box } from '@mui/material'
+
+// Basic Box component
+<Box>Codevolution</Box>
+
+// Change the semantic tags names by component prop
+<Box component="span">Codevolution</Box>
+
+
+// Box stylings 
+<Box component='span'
+  sx={{
+    backgroundColor: 'primary.main',
+    color: 'white',
+    height: '100px',
+    width: '100px',
+    padding: '16px',
+    '&:hover': {
+      backgroundColor: 'primary.light'
+    }
+  }}>
+  Salman Hakeem
+</Box>
+
+// Box stylings with system properties 
+<Box display='flex' height='100px'>Salman Hakeem</Box>
+
+// Short name for system properties
+ <Box display='flex' height='100px' width='100px' bgcolor='success.light' p={2}></Box>
+```
+
+#### Stack
+
+1. The `<Stack>` component is used to manage layout in one dimension either along the *vertical* or the *horizontal* axis
+1. CSS utility pass directly to the component as a props.
+1. Props are:
+    - `border`
+    - `spacing`   - it means *gap*, So here `spacing={2}` value is *`8 x 2 => 16px`*.  8 x n , It's multiplied by `8px`.
+    - `direction` - values are `row`, `row-reverse`, `column`, `column-reverse` 
+    - `divider`   - divides the component
+
+```jsx
+import {  Stack } from '@mui/material'
+
+// Basic
+<Stack >
+  <Box display='flex' height='100px' width='100px' bgcolor='primary'>Salman</Box>
+  <Box display='flex' height='100px' width='100px' bgcolor='secondary'>Hakeem</Box>
+</Stack>
+
+// Props Stack
+<Stack border='1px solid' spacing={2} direction='row' >
+  <Box display='flex' height='100px' width='100px' bgcolor='primary'>Salman</Box>
+  <Box display='flex' height='100px' width='100px' bgcolor='secondary'>Hakeem</Box>
+</Stack>
+
+// Divider prop
+import {  Stack, Divider } from '@mui/material';
+
+<Stack border='1px solid' spacing={2} direction='row' divider={<Divider orientation='vertical' flexitem>} >
+  <Box display='flex' height='100px' width='100px' bgcolor='primary'>Salman</Box>
+  <Box display='flex' height='100px' width='100px' bgcolor='secondary'>Hakeem</Box>
+</Stack>
+```
+
+
+#### Grid
+
+1. The grid component is useful for creating two-dimensional and responsive layouts.
+1. The Grid component under the hood uses the flexbox module
+1. The Grid consists of 12 columns
+1. Each item in the grid can take up one or more columns as its width
+1. There are five breakpoints each corresponding to a certain device width.
+1. `xs` for mobile device size, `sm` for tablet, `md` for desktop, `lg` and `xl` for larger monitors.
+1. We can assign integer values to each breakpoint which indicates how many of the 12 available columns are occupied by that item when the viewport satisfies that breakpoint constraints
+1. Grid component has *2 variations*.
+    - grid `container` for the parent.
+    - grid `item` for children.
+
+
+```jsx
+import {  Grid, Box } from '@mui/material';
+
+// Basic 
+<Grid container>
+  <Grid item>
+    <Box>Item 1</Box>
+  </Grid>
+  <Grid item>
+    <Box>Item 2</Box>
+  </Grid>
+  <Grid item>
+    <Box>Item 3</Box>
+  </Grid>
+  <Grid item>
+    <Box>Item 4</Box>
+  </Grid>
+</Grid>
+```

@@ -308,10 +308,10 @@ root.render(navbar);
 ## Installation in Local environment
 
 **To create *React* App**
-> npm init  
-> npm install create-react-app   
-> npx create-react-app myapp  
-> npm run dev  
+```bash
+$ npx create-react-app myapp  
+$ npm run dev  
+```
 
 **To create *Next* App**
 
