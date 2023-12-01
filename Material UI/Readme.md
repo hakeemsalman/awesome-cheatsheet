@@ -94,7 +94,7 @@ import {Typography} from '@mui/material';
 #### Button
 
 1. It's an `anchor` elements, enhanced with Material Design.
-1. It has *3* `variants`.
+1. It has *3* `variants` props.
     - `text` , `contained` and `outlined`
 1. `color` prop is to change the background color of `<Button>` component.
     - `primary`,`secondary`,`error`,`warning`,`info`,`success`.
@@ -200,6 +200,270 @@ const handleFormatChange = ( _event: React.MouseEvent<HTMLElement>, updatedForma
 
 </ToggleButtonGroup>
 ```
+![buttons](./assets/images/buttons/image.png)
 
 ### Text Field
+
+1. It's a Input text component, 
+    - It has *3* `variants` props, `outlined`, `filled` and  `standard`.
+1. It has 2 props `size` and `color`.
+1. It has `required` prop.
+1. `helperText` is used to show the text below the input field component.
+1. `type` prop is used to change the input format like `password`.
+1. `disabled` prop is used to disabled the input component
+1. `inputProps`
+    - `inputProps={{readOnly: true}}` is to use read-only property.
+    -  Add suffix or prefix using `...adornment`
+        - `startAdornment` and `endAdornment`.
+    -  `<InputAdornment>`
+1. `error` prop
+```jsx
+import {  TextField } from '@mui/material'
+
+<TextField label='Name' variants="outlined"/>
+
+<TextField label='Name' size="small" color="secondary"/>
+
+// Required prop
+<TextField label='Form input' required/>
+
+// HelperText prop
+<TextField label='Form input' helperText="Do not show your password to others."/>
+
+// type prop
+<TextField label='Form input' type="password" helperText="Do not show your password to others."/>
+
+// Disable
+<TextField label='Form input' type="password" disabled helperText="Do not show your password to others."/>
+
+// Readonly
+<TextField label='Read Only' InputProps={{readOnly: true}}/>
+
+// Adorment
+<TextField label='Amount' InputProps={{ startAdornment: <InputAdornment position='start'>$</InputAdornment>}}/>
+<TextField  label='Weight' InputProps={{ endAdornment: <InputAdornment position='end'>kg</InputAdornment>}}/>
+
+// Error prop 
+<TextField label='Input form' error/>
+```
+
+![inputField](./assets/images/inputField.png)
+
+### Select Dropdown
+
+1. It is used to show an option list based on the user's selection.
+1. `fullwidth` prop is *width:100%*
+1. Use `SelectProps={{multiple: true}}` prop for Multi select option and add a logic.
+1. `size`, `color`, `helperText` and `error` props can used in select dropdown.
+1. Use map list rendering to iterate the `<MenuItem>` in Select option and the values are came from API.
+
+
+```jsx
+const [countries, setCountries] = useState<string[]>([]);
+console.log(countries);
+
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setCountries(event.target.value as string)
+}
+
+// Simple Basic Single Select dropdown component
+<TextField label='Select country' select value={countries} onChange={handleChange} fullwidth>
+  <MenuItem value='IN'>India</MenuItem>
+  <MenuItem value='US'>USA</MenuItem>
+  <MenuItem value='AU'>Australia</MenuItem>
+</TextField>
+
+// Multi select drowdown component
+ const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value
+    setCountries(typeof value === 'string' ? value.split(',') : value)
+  }
+
+<TextField label='Select country' select value={countries} onChange={handleChange}  SelectProps={{multiple: true}} fullwidth >
+  <MenuItem value='IN'>India</MenuItem>
+  <MenuItem value='US'>USA</MenuItem>
+  <MenuItem value='AU'>Australia</MenuItem>
+</TextField>
+```
+
+### Radio button
+
+1. Props are 
+    - `row` in `<RadioGroup>`
+    - `size`, `color` can be used in `<Radio/>`
+    - `error` in `<FormControl>`
+1. Add `<FormHelperText>` below the `<RadioGroup>` optional
+
+```jsx
+import { useState } from 'react'
+import { FormControl,  FormLabel,  FormControlLabel,  RadioGroup,  Radio} from '@mui/material'
+
+// Basic Radio Group buttons
+<FormControl>
+  <FormLabel id='job-experience-group-label'>Years of experience</FormLabel>
+  <RadioGroup aria-labelledby='job-experience-group-label' name='job-experience-group'>
+    <FormControlLabel value='0-2' control={<Radio size='small' color='secondary' />} label='0-2 years'/>
+    <FormControlLabel value='3-5' control={<Radio size='small' color='secondary' />} label='3-5 years'/>
+    <FormControlLabel value='6-10' control={<Radio size='small' color='secondary' />} label='6-10 years'/>
+  </RadioGroup>
+</FormControl>
+
+// Handle value of the radio button
+const [value, setValue] = useState('')
+console.log(value)
+
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setValue(event.target.value)
+}
+<FormControl>
+  <FormLabel id='job-experience-group-label'>Years of experience</FormLabel>
+  <RadioGroup aria-labelledby='job-experience-group-label' name='job-experience-group' value={value} onChange={handleChange}>
+    <FormControlLabel value='0-2' control={<Radio size='small' color='secondary' />} label='0-2 years'/>
+    <FormControlLabel value='3-5' control={<Radio size='small' color='secondary' />} label='3-5 years'/>
+    <FormControlLabel value='6-10' control={<Radio size='small' color='secondary' />} label='6-10 years'/>
+  </RadioGroup>
+</FormControl>
+
+
+// Props
+<RadioGroup aria-labelledby='job-experience-group-label' row >
+  {/* ... */}
+</RadioGroup>
+
+// Props
+
+<RadioGroup aria-labelledby='job-experience-group-label' row >
+  {/* ... */}
+</RadioGroup>
+<FormHelperText>Invalid selection</FormHelperText>
+```
+
+### Checkbox
+
+1. Basic Props can use `size`, `checked`, `color` in `<Checkbox />`
+1. Advanced props are `icon`, `checkedIcon`
+1. Checkbox group
+    - `row` prop in `<FormGroup>`.
+    - `size`, `color` prop in `<Checkbox/>`
+    - `error` prop in `<FormControl>` 
+
+
+```jsx
+import { useState } from 'react'
+import {FormControlLabel,Checkbox,FormControl,FormLabel,FormGroup} from '@mui/material'
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder'
+import BookmarkIcon from '@mui/icons-material/Bookmark'
+
+// Basic Checkbox
+<FormControlLabel control={<Checkbox/>} label='Accept terms and conditions'/>
+
+// Control checkbox
+const [acceptTnC, setAcceptTnC] = useState(false)
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setAcceptTnC(event.target.checked)
+}
+
+<FormControlLabel control={<Checkbox checked={acceptTnC} onChange={handleChange}/>}label='Accept terms and conditions'/>
+
+
+// Bookmark checkbox
+<Checkbox icon={<BookmarkBorderIcon />} checkedIcon={<BookmarkIcon />} checked={acceptTnC} onChange={handleChange} />
+
+// Checkbox Group
+const [skills, setSkills] = useState<string[]>([])
+    // skill.includes('html') => return true if it contains 'html' otherwise false
+
+const handleSkillChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const index = skills.indexOf(event.target.value)
+  if (index === -1) {
+    setSkills([...skills, event.target.value])
+  } else {
+    setSkills(skills.filter(skill => skill !== event.target.value))
+  }
+}
+
+ <FormControl>
+  <FormLabel>Skills</FormLabel>
+  <FormGroup>
+    <FormControlLabel control={<Checkbox value='html' checked={skills.includes('html')} onChange={handleSkillChange}/>} label='HTML' />
+    <FormControlLabel control={<Checkbox value='css' checked={skills.includes('css')} onChange={handleSkillChange}/>} label='CSS'/>
+    <FormControlLabel control={<Checkbox value='javascript' checked={skills.includes('javascript')} onChange={handleSkillChange}/>} label='JavaScript'/>
+  </FormGroup>
+</FormControl>
+```
+
+### Switch
+
+1. Switch are used to toggle the button
+1. Basic Props can use `size`, `checked`, `color` in `<Switch />`
+1. Can be Group `FormGroup` same as `<Checkbox>`, just replace with `<Switch />`
+
+```jsx
+import { FormControlLabel, Switch } from '@mui/material'
+
+// Basic switch component
+<FormControlLabel control={<Switch/>} label='Dark mode'/>
+
+// Handling the toggle value
+const [checked, setChecked] = useState(false)
+console.log(checked)
+const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  setChecked(event.target.checked)
+}
+<FormControlLabel control={<Switch checked={checked} onChange={handleChange} />} label='Dark mode' />
+```
+
+
+### Rating
+
+1. Ratings provide insight regarding others opinions and can allow the user to submit a rating of their own.
+1. onChange have 2 params 
+    - event
+    - newValue -> is the select user value
+1. Props
+    - `precision` -> *precision={0.5}*
+    - `size` -> *size='large'*
+    - `readOnly`
+1. `highlightSelectedOnly` prop is used only highlight the user selected icon, 
+    - *tip:* Emoji icons is good example to have `highlightSelectedOnly` prop
+```jsx
+import { Stack, Rating } from '@mui/material'
+import { useState } from 'react'
+
+// Basic ratings
+<Rating/>
+
+// Handling the Rating
+const [value, setValue] = useState<number | null>(3)
+console.log(value)
+
+const handleChange = (  _event: React.ChangeEvent<{}>,  newValue: number | null) => {
+  setValue(newValue)
+}
+
+<Rating  value={value} onChange={handleChange}/>
+
+// Adding precision
+<Rating  value={value} onChange={handleChange} precision={0.5}/>
+
+
+// Adding Favorite Icon --Heart Icon--
+import FavoriteIcon from '@mui/icons-material/Favorite'
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
+
+<Rating  value={value} onChange={handleChange} precision={0.5}  icon={<FavoriteIcon fontSize='inherit' color='error' />} emptyIcon={<FavoriteBorderIcon fontSize='inherit' />}/>
+
+
+// Read Only
+<Rating value={3} readonly/>
+
+// Highlight selected only
+<Rating value={value} onChange={handleChange} precision={0.5} size='large' icon={<FavoriteIcon fontSize='inherit' color='error' />} 
+  emptyIcon={<FavoriteBorderIcon fontSize='inherit'/> highlightSelectedOnly}
+/>
+```
+
+### Autocomplete
+
+1. It's an works like ComboBox and also have type search option
 
