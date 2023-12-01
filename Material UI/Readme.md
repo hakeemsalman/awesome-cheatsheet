@@ -612,6 +612,16 @@ import {  Stack, Divider } from '@mui/material';
 1. Grid component has *2 variations*.
     - grid `container` for the parent.
     - grid `item` for children.
+1. Breakpoints are:
+    - `xs`
+    - `sm`
+    - `md`
+    - `lg`
+    - `xl`
+1. props are
+    - `spacing` means gap
+    - `rowSpacing`
+    - `columnSpacing`
 
 
 ```jsx
@@ -632,4 +642,97 @@ import {  Grid, Box } from '@mui/material';
     <Box>Item 4</Box>
   </Grid>
 </Grid>
+
+// Breakpoints xs - x-small 6 out of 12 columns means takes half of the width
+<Grid container>
+  <Grid item xs={6}>
+    <Box>Item 1</Box>
+  </Grid>
+  <Grid item xs={6}>
+    <Box>Item 2</Box>
+  </Grid>
+  <Grid item xs={6}>
+    <Box>Item 3</Box>
+  </Grid>
+  <Grid item xs={6}>
+    <Box>Item 4</Box>
+  </Grid>
+</Grid>
 ```
+
+#### Paper
+
+1. Paper component is a part of the Material Design system and is used to create surfaces that mimic the characteristics of paper. It is a simple container that provides elevation and a consistent background color.
+1. It's used in `<Card>` component
+1. Props are:
+    - `sx` for styling
+    - `elevation` for giving depth box-shadow surrounding of paper component
+
+```jsx
+import { Paper } from '@mui/material';
+
+<Paper elevation={3} /* other styling props */>
+      {/* Your content goes here */}
+</Paper>
+```
+
+#### Card
+
+1. In Material-UI, a Card is a higher-level component designed to represent a "card" or a surface containing related information.
+1. It contains sub-components
+    - `CardHeader`
+    - `CardContent`
+    - `CardActions`
+
+```jsx
+import { Card, CardContent, Typography} from '@mui/material';
+
+// Basic card components
+<Card>
+  <CardContent>
+    <Typography gutterBottom variant='h5' component='div'>
+      React
+    </Typography>
+    <Typography variant='body2' color='text.secondary'>
+      React is a JavaScript library for building user interfaces. React
+      can be used as a base in the development of single-page or mobile
+      applications.
+    </Typography>
+  </CardContent>
+  
+</Card>
+
+// Card actions
+<Card>
+  <CardContent>
+    <Typography gutterBottom variant='h5' component='div'>
+      React
+    </Typography>
+    <Typography variant='body2' color='text.secondary'>
+      React is a JavaScript library for building user interfaces. React
+      can be used as a base in the development of single-page or mobile
+      applications.
+    </Typography>
+  </CardContent>
+  <CardActions>
+    <Button size='small'>Share</Button>
+    <Button size='small'>Learn More</Button>
+  </CardActions>
+</Card>
+
+// Adding images to card, so use CardMedia
+import { Card, CardContent, CardActions, CardMedia} from '@mui/material'
+
+<Card>
+  <CardMedia component='img' height='140' image='https://source.unsplash.com/random' alt='unsplash image' />
+  <CardContent>
+    ...
+  </CardContent>
+  <CardActions>
+    ...
+  </CardActions>
+</Card>
+```
+
+#### Accordion
+
