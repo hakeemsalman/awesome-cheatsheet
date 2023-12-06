@@ -34,7 +34,14 @@ graph TD
     - [Autocomplete](#autocomplete)
 1. [Layout](#layout)
     - [Box](#box)
+    - [Stack](#stack)
+    - [Grid](#grid)
+    - [Paper](#paper)
+    - [Card](#card)
+    - [Accordian](#accordion)
+    - [Image List](#imagelist)
 1. Navigation
+    - [Navbar](#navbar)
 1. Data display and feedback
 1. MUI Lab
 1. MUI Customization
@@ -735,4 +742,244 @@ import { Card, CardContent, CardActions, CardMedia} from '@mui/material'
 ```
 
 #### Accordion
+- We need to import 3 components
+    - `Accordion`, `AccordionSummary`and `AccordionDetails`
+
+```jsx
+// Basic Single Accordion 
+import { Accordion, AccordionSummary, AccordionDetails, Typography } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+<Accordion>
+  <AccordionSummary aria-controls='panel1-content' id='panel1-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 1</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+
+// Group Accordian 
+<Accordion>
+  <AccordionSummary aria-controls='panel1-content' id='panel1-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 1</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+<Accordion>
+  <AccordionSummary aria-controls='panel2-content' id='panel2-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 2</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+<Accordion>
+  <AccordionSummary aria-controls='panel3-content' id='panel3-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 3</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+
+// Expand only one accordian should be open at a given time
+const [expanded, setExpanded] = useState<string | false>(false)
+const handleChange = (isExpanded: boolean, panel: string) => {
+  setExpanded(isExpanded ? panel : false)
+}
+
+<Accordion expanded={expanded === 'panel1'} onChange={(event, isExpanded) => handleChange(isExpanded, 'panel1')}>
+  <AccordionSummary aria-controls='panel1-content' id='panel1-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 1</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+<Accordion
+  expanded={expanded === 'panel2'} onChange={(event, isExpanded) => handleChange(isExpanded, 'panel2')}>
+  <AccordionSummary aria-controls='panel2-content' id='panel2-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 2</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+<Accordion expanded={expanded === 'panel3'} onChange={(event, isExpanded) => handleChange(isExpanded, 'panel3')}>
+  <AccordionSummary aria-controls='panel3-content' id='panel3-header' expandIcon={<ExpandMoreIcon />}>
+    <Typography>Accordion 3</Typography>
+  </AccordionSummary>
+  <AccordionDetails>
+    <Typography>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+      malesuada lacus ex, sit amet blandit leo lobortis eget.
+    </Typography>
+  </AccordionDetails>
+</Accordion>
+```
+
+#### ImageList
+
+- It is component which shows images in organised grid list.
+    - Like Recipe website.
+- Need to import 2 components.
+    - `ImageList` and `ImageListItem`
+- variant props:
+    - ImageList 
+        - `variant={woven}` add props `gap={8}` instead of `rowHeight`.
+        - `variant={masonry}` use `<Box>...</Box>`
+- Props are:
+    - ImageList ->  `cols`, `rowHeight` and `sx`
+    - ImageListItem -> `src`, `alt` and `loading='lazy'`(optional)
+    - ImageListItemBar -> `position`, `subTitle` and `clickable`
+```jsx
+import { ImageList, ImageListItem, Box } from '@mui/material'
+// Basic
+<ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+  {itemData.map(item => (
+    <ImageListItem key={item.img}>
+      <img src={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2`} // <=== unsplash API query parameter
+        alt={item.title} loading='lazy' />
+    </ImageListItem>
+  ))}
+</ImageList>
+
+// Variant woven
+<ImageList sx={{ width: 500, height: 450 }} variant='woven' cols={3} gap={8}>
+  {itemData2.map(item => ( 
+    <ImageListItem key={item.img}>
+      <img src={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2`} alt={item.title} loading='lazy' />
+    </ImageListItem>
+  ))}
+</ImageList>
+
+// Variant masonry
+<Box sx={{ width: 500, height: 450, overflowY: 'scroll' }}>
+  <ImageList variant='masonry' cols={3} gap={8}>
+    {itemData3.map(item => (
+      <ImageListItem key={item.img}>
+        <img src={`${item.img}?w=248&fit=crop&auto=format&dpr=2`} alt={item.title} loading='lazy' />
+      </ImageListItem>
+    ))}
+  </ImageList>
+</Box>
+
+// ImageListItemBar is Overlay title on images
+import {ImageListItemBar } from '@mui/material'
+
+<ImageList sx={{ width: 500, height: 450 }} cols={3} rowHeight={164}>
+  {itemData.map(item => (
+    <ImageListItem key={item.img}>
+      <img src={`${item.img}?w=164&h=164&fit=crop&auto=format&dpr=2`} alt={item.title} loading='lazy'/>
+      Imte
+    </ImageListItem>
+    <ImageListItemBar title={item.title}>
+  ))}
+</ImageList>
+
+```
+![Image List](./assets/images/imageList.png)
+
+
+#### Navbar
+
+```jsx
+//Basic Title and logo
+import { AppBar, Toolbar, IconButton, Typography, } from '@mui/material';
+import CatchingPokemonIcon from '@mui/icons-material/CatchingPokemon'
+
+<AppBar position='static'>
+  <Toolbar>
+    <IconButton size='large' edge='start' color='inherit' aria-label='logo'>
+      <CatchingPokemonIcon />
+    </IconButton>
+    <Typography variant='h6' component='div'>
+      POKEMONAPP
+    </Typography>
+  </Toolbar>
+</AppBar>
+
+// Navbar 
+<AppBar position='static'>
+  <Toolbar>
+    <IconButton size='large' edge='start' color='inherit' aria-label='logo'>
+      <CatchingPokemonIcon />
+    </IconButton>
+    <Typography variant='h6' component='div' sx={{ flexGrow: 1 }}>
+      POKEMONAPP
+    </Typography>
+    <Stack direction='row' spacing={2}>
+      <Button color='inherit'>Features</Button>
+      <Button color='inherit'>Pricing</Button>
+      <Button color='inherit'>About</Button>
+      <Button color='inherit'>Login</Button>
+    </Stack>
+  </Toolbar>
+</AppBar>
+```
+
+#### Menu
+
+- 
+
+```jsx
+// ...
+<Stack direction='row' spacing={2}>
+          <Button color='inherit'>Features</Button>
+          <Button color='inherit'>Pricing</Button>
+          <Button color='inherit'>About</Button>
+          <Button
+            color='inherit'
+            id='resources-button'
+            aria-controls={open ? 'resources-menu' : undefined}
+            aria-haspopup='true'
+            aria-expanded={open ? 'true' : undefined}
+            endIcon={<KeyboardArrowDownIcon />}
+            onClick={handleClick}>
+            Resources
+          </Button>
+          <Button color='inherit'>Login</Button>
+        </Stack>
+        <Menu
+          id='resources-menu'
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right'
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right'
+          }}
+          MenuListProps={{
+            'aria-labelledby': 'resources-button'
+          }}>
+          <MenuItem onClick={handleClose}>Blog</MenuItem>
+          <MenuItem onClick={handleClose}>Podcast</MenuItem>
+        </Menu>
+// ...
+```
 
