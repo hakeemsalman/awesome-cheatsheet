@@ -216,7 +216,7 @@ const handleFormatChange = ( _event: React.MouseEvent<HTMLElement>, updatedForma
 
 </ToggleButtonGroup>
 ```
-![buttons](./assets/images/buttons/image.png)
+![buttons](./assets/images/buttons.png)
 
 #### Text Field
 
