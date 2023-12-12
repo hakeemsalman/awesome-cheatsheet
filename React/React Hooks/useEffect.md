@@ -2,12 +2,18 @@
 
 ## Topics
 
-1. [Class Component without useEffect](#class-component-without-useeffect)
-1. [Function Component with useEffect](#useeffect-functioncal-component)
+1. [useEffect](#useeffect-1)
+    - [Class component without useEffect](#class-component-without-useeffect)
+    - [Function Component with useEffect](#useeffect-functioncal-component)
 1. [Conditionally useEffect](#conditionally-useeffect)
-  - [Class](#class-component)
-  - [Functional](#functional-component)
-1. [Runs onlye one useEffect](#runs-only-once)
+    - [Class](#class-component)
+    - [Functional](#functional-component)
+1. [Run one time useEffect](#runs-only-once)
+1. [useEffect Cleanup](#useeffect-with-cleanup)
+
+
+
+### useEffect
 
 1. The Effect Hook lets you perform side effects in functional components
 1. It is a close replacement for **component DidMount**, **componentDidUpdate** and **componentWillUnmount**
@@ -15,9 +21,9 @@
    - Arrow function
    - Dependent value
 
-Suppose we have class components, and we want to update `count` value in title of page, by click on button.
-1. You can see logs, first is `componentDidMount` will call and set title value to `0`,
-1. Then after clicking the button, it will call `componentDidUpdate` method.
+- Suppose we have class components, and we want to update `count` value in *title of page*, by *click* on `button`.
+    - You can see logs, first is `componentDidMount` will call and set title value to `0`,
+    - Then after *clicking* on the button, it will call `componentDidUpdate` method.
 
 
 ### Class component without useEffect
@@ -67,7 +73,7 @@ export default class dummy extends Component {
 ### useEffect Functioncal Component
 
 1. It will runs after every render.
-
+1. It doesn't depend on any *state*.
 ```jsx
 import React, { useState, useffect } from 'react';
 
@@ -89,16 +95,20 @@ export default HookCounterOne
 
 ## Conditionally useEffect
 
-1. If suppose we don't to run `componentDidUpdate` method when `input` changes, only run on clicking the button.
-  But below code, runs on every rendering.
+1. `useEffect` can also depend on the state to re-render.  
+1. Run `useEffect` only state changes its value.
 
 ### Class Component
-
-```jsx
-import React, { Component } from 'react'
-
-export default class dummy extends Component {
-
+<table>
+  <tr>
+    <th>Un-conditional</th>
+    <th>Conditional Rendering</th>
+  </tr>
+<tr>
+  <td>
+  
+  ```jsx
+{
   constructor(props) {
     super(props)
 
@@ -130,17 +140,17 @@ export default class dummy extends Component {
       <div>
         <input type="text" value={this.state.name} onChange={e => {this.setState({name: e.target.value})}}>
         <button onClick={this.increament}>click me: {this.state.count}</button>
-      </div >
+      </div>
     )
   }
 }
 ```
-
-**Conditionally rendering**
-
-add condition to not update on every rendering
-
+  
+  </td>
+  <td>
+  
 ```jsx
+// *Add condition to not update on every rendering*
 componentDidUpdate(prevProps, prevState) {
   if(prevState.count !== this.state.count){
     document.title = this.state.value;
@@ -149,12 +159,22 @@ componentDidUpdate(prevProps, prevState) {
 }
 ```
 
+  </td>
+</tr>
+</table>
+
 ### Functional Component
 
+<table>
+<tr>
+    <th>Un-conditional</th>
+    <th>Conditional Rendering</th>
+  </tr>
+<tr>
+  <td>
+  
 ```jsx
-import React, { useState, useffect } from 'react';
-
-function HookCounterOne() {
+() => {
   const [count, setCount] = useState(0);
   const [name, setName] = useState('');
 
@@ -165,14 +185,14 @@ function HookCounterOne() {
 
   return (
     <div>
-  <button onClick={() => setCount(count + 1)}>Click {count} times</button>
-  </div>
+      <button onClick={() => setCount(count + 1)}>Click {count} times</button>
+    </div>
   )
 }
-export default HookCounterOne
 ```
-
-**Conditionally rendering**
+  
+  </td>
+  <td>
 
 ```jsx
 useEffect(() => {
@@ -180,7 +200,10 @@ useEffect(() => {
   document.title = count
 }, [count]);              // added count dependency
 ```
-
+  
+  </td>
+</tr>
+</table>
 
 ## Runs Only Once
 
@@ -199,9 +222,7 @@ useEffect(() => {
 Suppose there is Class component, which contains mouse event of X and Y mouse-coordiantes showing on UI.
 
 ```jsx
-import React, { Component } from 'react'
-
-class ClassMouse extends Component {
+{
 	constructor(props) {
 		super(props)
 
@@ -234,15 +255,8 @@ class ClassMouse extends Component {
 	}
 }
 
-export default ClassMouse
-
-
 // Mouse Container
-
-import React, { useState } from 'react'
-import ClassMouse from './ClassMouse'
-
-function MouseContainer() {
+() => {
 	const [display, setDisplay] = useState(true)
 	return (
 		<div>
@@ -252,18 +266,12 @@ function MouseContainer() {
 	)
 }
 
-export default MouseContainer
-
-
 // App.jsx
-
 return(
   <MouseContainer />
 )
-
 ```
 
-Now you will toggle the `button` on UI. If you see on console, you will see the `componentWillUnmount` will appear and it will not show again.
 
 **Functional Component**
 

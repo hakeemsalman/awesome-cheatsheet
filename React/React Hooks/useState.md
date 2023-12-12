@@ -13,8 +13,9 @@
 1. [Keypoints](#keypoints)
 1. [useState](#usestate)
    - [Previous state](#previous-state)
-   - [Object](#usestate-with-object)
-   - [Array](#usestate-with-array)
+   - [state with Object](#usestate-with-object)
+   - [state with Array](#usestate-with-array)
+   - [Initialize state from Function](#initialize-state-from-function)
 
 ## Keypoints
 
@@ -28,7 +29,7 @@
 
 ## useState
 
-Keypoints:
+**Keypoints**:
 - **Only Call Hooks at the Top Level**
   - Don't call Hooks inside loops, conditions, or nested functions
 - **Only Call Hooks from React Functions**
@@ -48,10 +49,7 @@ Keypoints:
 // ...
   <button onClick={() => setName(count + 1)}>Click on me: {count}</button>
 // ...
-```
 
-```jsx
-// ...
   const [name, setName] = useState('your name');
 // ...
   <button onClick={() => setName('salman')}>Click on me: {name}</button>
@@ -119,9 +117,7 @@ class ClassComp extends Component{
       <td>
 
   ```jsx
-  import {useState} from 'react';
-
-  const FunctionComp = () => {
+ () => {
     let initialCount  = 0
     const [count, setCount] = useState(initialCount);
     
@@ -129,7 +125,7 @@ class ClassComp extends Component{
       for(let i = 0; i < 5; i++){
         // Looping 5 times to increament +5
         setCount(count + 1);
-        // but output will be the +1 only, due to lay of setCount
+        // but output will be the +1 only, due to delay of setCount
       }
     }
 
@@ -141,39 +137,34 @@ class ClassComp extends Component{
       <button onClick={() => setCount({increamentFive})}>Increament + 5</button>
     )
   }
-
-  export default FunctionComp
   ```
 
   </td>
   <td>
 
   ```jsx
-  import {useState} from 'react';
-
-  const FunctionComp = () => {
-    let initialCount  = 0
-    const [count, setCount] = useState(initialCount);
-    
-    const increamentFive = () => {
-      for(let i = 0; i < 5; i++){
-        // Looping 5 times to increament +5
-        setCount(prevState => prevState + 1);
-        // prevState is a previous state value
-      }
+() => {
+  let initialCount  = 0
+  const [count, setCount] = useState(initialCount);
+  
+  const increamentFive = () => {
+    for(let i = 0; i < 5; i++){
+      // Looping 5 times to increament +5
+      setCount(prevState => prevState + 1);
+      // prevState is a previous state value
     }
-
-    return (
-      <p>COunt: {count}</p>
-      <button onClick={() => setCount(initialCount)}>Reset</button>
-      <button onClick={() => setCount(count + 1)}>Increament</button>
-      <button onClick={() => setCount(count - 1)}>Decreament</button>
-      <button onClick={() => setCount({increamentFive})}>Increament + 5</button>
-    )
   }
 
-  export default FunctionComp
-  ```
+  return (
+    <p>COunt: {count}</p>
+    <button onClick={() => setCount(initialCount)}>Reset</button>
+    <button onClick={() => setCount(count + 1)}>Increament</button>
+    <button onClick={() => setCount(count - 1)}>Decreament</button>
+    <button onClick={() => setCount({increamentFive})}>Increament + 5</button>
+  )
+}
+
+```
 
   </td>
 </tr>
@@ -206,6 +197,7 @@ incrementCount = () => {
 
 1. We have to use `spread` operator when dealing with `Objects`.
 1. It automatically update objects of `useState` hooks.
+1. You have to pass the entire object to the `useState` updater function as the object *is replaced NOT merged*
 
 <table>
   <tr>
@@ -216,9 +208,7 @@ incrementCount = () => {
     <td>
 
 ```jsx
-import {useState} from 'react';
-
-const FunctionComp = () => {
+() => {
 
   const [name, setName] = useState({firstName: '', lastName: ''});
   return (
@@ -229,19 +219,16 @@ const FunctionComp = () => {
       <h2>Your Last Name is - {name.lastName}</h2>
       <h2>{JSON.stringify(name)}</h2>
     </form>
+    // shows only any one object property, due to the NOT adding existing object properties.
   )
 }
-
-export default FunctionComp;
 ```
 
   </td>
   <td>
   
 ```jsx
-import {useState} from 'react';
-
-const FunctionComp = () => {
+() => {
 
   const [name, setName] = useState({firstName: '', lastName: ''});
   return (
@@ -252,10 +239,9 @@ const FunctionComp = () => {
       <h2>Your Last Name is - {name.lastName}</h2>
       <h2>{JSON.stringify(name)}</h2>
     </form>
+    // shows all object properties, because adding all objects.
   )
 }
-
-export default FunctionComp;
 ```
 
   </td>
@@ -266,34 +252,45 @@ export default FunctionComp;
 ## useState with Array
 
 1. Use `spread` operator to append items values
+
 ```jsx
-import {useState} from 'react';
-
-  const FunctionComp = () => {
-
-    const [item, setItem] = useState([]);
-    
-    const add = () => {
-      setItem([
-        ...items,
-        {
-          id: item.length,
-          value: Math.floor(Math.random() * 10) + 1
-        }
-      ])
-    }
-
-    return (
-      <ul>
-        {item.map(items => {
-          <li key={item.id}>
-            {item.value}
-          </li>
-        })}
-      </ul>
-      <button onClick={() => setCount(add)}>add Item</button>
-    )
+() => {
+  const [item, setItem] = useState([]);
+  
+  const add = () => {
+    setItem([
+      ...items,
+      {
+        id: item.length,
+        value: Math.floor(Math.random() * 10) + 1
+      }
+    ])
   }
 
-  export default FunctionComp
+  return (
+    <ul>
+      {item.map(items => {
+        <li key={item.id}>
+          {item.value}
+        </li>
+      })}
+    </ul>
+    <button onClick={() => setCount(add)}>add Item</button>
+  )
+}
+```
+
+## Initialize State from Function
+
+1. As opposed to just passing an initial state value, state could also be initialized from a function as shown below:
+
+```jsx
+() => {
+  const [token] = useState(() => {
+    let token = window.localStorage.getItem("my-token");
+    return token || "default#-token#"
+  })
+
+  return <div>Token is {token}</div>
+}
 ```
