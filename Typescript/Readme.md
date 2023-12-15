@@ -258,7 +258,11 @@ type UserType = {
 let betterFunc = (user: UserType) => {
   console.log(user.username);
 };
+```
 
+## Function Signatures
+
+```tsx
 //FUNCTION SIGNATURES
 type myFunc = (a: number, b: string) => void;
 
@@ -276,10 +280,14 @@ type UserType2 = {
 const userWithTheme: UserType2 = {
   username: "john",
   age: 43,
-  // theme:"pink"
   theme: "dark",
+  // theme:"pink"
 };
+```
 
+## Interfaces
+
+```jsx
 //// INTERFACES
 // Be aware no equal sign
 interface IUser {
@@ -304,7 +312,11 @@ const client: IUser = {
   email: "tom@gmail.com",
   age: 43,
 };
+```
 
+## Generics
+
+```jsx
 //// GENERICS
 interface IAuthor {
   id: number;

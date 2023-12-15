@@ -250,5 +250,9 @@ console.log(path.parse(__filename).base);                 // path_demo.js
 console.log(path.join(__dirname, 'test', 'hello.html'));  // usr/desktop/node/demo/test/hello.html
 ```
 
-## fs module
+## File System (fs) module
 
+```js
+const fs = require('fs');
+const path = require('path');
+```
