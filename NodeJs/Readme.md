@@ -252,6 +252,8 @@ console.log(path.join(__dirname, 'test', 'hello.html'));  // usr/desktop/node/de
 
 ## File System (fs) module
 
+Link to the [Docs]()
+
 ```js
 const fs = require('fs');
 const path = require('path');

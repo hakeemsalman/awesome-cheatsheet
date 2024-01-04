@@ -330,4 +330,126 @@ export default MouseContainer
 
 ## useEffect with incorrect dependency
 
+<table>
+<tr>
+    <th>Class component with tick feature</th>
+    <th>Function component count dependency</th>
+    <th>Function component prevState</th>
+  </tr>
+<tr>
+  <td>
+  
+```jsx
+constructor(props) {
+    this.state = {
+      count: 0
+    }
+}
 
+componentDidMount() {
+  this.interval = setInterval(this.tick, 1000)
+}
+componentWillUnmount() {
+  clearInterval(this.interval)
+}
+tick = () => {
+  this.setState({
+    count: this.state.count + 1
+  })
+}
+render() {
+  return <h1>{this.state.count}</h1>
+}
+```
+  
+  </td>
+  <td>
+
+```jsx
+const [count, setCount] = useState(0)
+
+const tick = () => {
+  setCount(count + 1)
+}
+useEffect(() => {
+  const interval = setInterval(tick, 1000)
+  return () => {
+    clearInterval(interval)
+  }
+}, [count])
+return (
+  <div>
+    {count}
+  </div>
+)
+```
+  
+  </td>
+  <td>
+
+```diff
+const [count, setCount] = useState(0)
+
+const tick = () => {
++  setCount(prevState => prevState + 1);
+}
+useEffect(() => {
+  const interval = setInterval(tick, 1000)
+  return () => {
+    clearInterval(interval)
+  }
++ }, [])
+return (
+  <div>
+    {count}
+  </div>
+)
+```
+  
+  </td>
+</tr>
+</table>
+
+1. If you want to call a function inside a `useEffect`, then declare inside `useEffect` only.
+1. Use Multiple `useEffect` for *multiple conditions*
+<table>
+<tr>
+    <th>Outside useEffect</th>
+    <th>Inside useEffect</th>
+  </tr>
+<tr>
+  <td>
+  
+```jsx
+function doSomething(){
+  console.log(someProp);
+}
+
+useEffect(() => {
+  doSomething();
+  const interval = setInterval(tick, 1000)
+  return () =>{
+    clearInterval (interval)
+  }
+}, []);
+```
+  
+  </td>
+  <td>
+
+```jsx
+useEffect(() => {
+  function doSomething(){
+    console.log(someProp);
+  }
+  doSomething();
+  const interval = setInterval(tick, 1000)
+  return () =>{
+    clearInterval (interval)
+  }
+}, [someProp]);
+```
+
+  </td>
+</tr>
+</table>

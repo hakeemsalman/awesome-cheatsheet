@@ -1,23 +1,25 @@
 # NExt.js
 
 1. Next.js is a flexible **React framework** that gives you building blocks to create fast web applications.
-2. You can use React to build your UI, then incrementally adopt Next.js features to solve common application requirements such as routing, data fetching, integrations - all while improving the developer and end-user experience.
+1. You can use React to build your UI, then incrementally adopt Next.js features to solve common application requirements such as routing, data fetching, integrations - all while improving the developer and end-user experience.
 
 ## Installation of Next app
 
 **To create *Next* App**
 
-> npm init  
-> npm install create-next-app   
-> npx create-next-app appName  
-> npm run dev  
+```shell
+$ npm init  
+$ npm install create-next-app   
+$ npx create-next-app appName  
+$ npm run dev  
+```
 
 ## Navigating with Pages
 
 1. **Pages** directory is the important directory for navigating pages.
-2. `/` is root directory for every page. 
-3. Add pages in this directory to show in browser, `first-post.js`
-4. Import `next/link` in component to add links.
+1. `/` is root directory for every page. 
+1. Add pages in this directory to show in browser, `first-post.js`
+1. Import `next/link` in component to add links.
 
 ```js
 import Link from 'next/link';
@@ -33,10 +35,9 @@ import Link from 'next/link';
 ## Adding Assets, Metadata and Images
 
 1. Add images in `public` directory.
-2. Import `image` module from `next` package, instead of using `<img />` tag.
-3. Import `head` component from `next` package, and use this instead of `<head>` ... `</head>` tag.
-4. Import `script` component from `next` package, and use this instead of `<script>`... `</script>`.
-5. 
+1. Import `image` module from `next` package, instead of using `<img />` tag.
+1. Import `head` component from `next` package, and use this instead of `<head>` ... `</head>` tag.
+1. Import `script` component from `next` package, and use this instead of `<script>`... `</script>`.
 
 ```js
 import Head from 'next/head';
