@@ -34,6 +34,7 @@
    - [Confirm](#3-confirm)
 7. [Type Conversions](#7-type-conversions)
 
+
 ## 1 Hello World
 
 1. To run script in browser, add `script` tag in html file. You can place tag almost anywhere in HTML document.
@@ -325,6 +326,28 @@ alert("not a number" / 2 - 1); // NaN
 
 console.log(9007199254740991 + 1); // 9007199254740992
 console.log(9007199254740991 + 2); // 9007199254740992
+```
+
+```js
+if(NaN) console.log(true)
+else console.log(false)
+// false
+
+if(undefined) console.log(true)
+else console.log(false)
+// false
+
+if(null) console.log(true)
+else console.log(false)
+// false
+
+if(0) console.log(true)
+else console.log(false)
+// false
+
+if("") console.log(true)
+else console.log(false)
+// false
 ```
 
 #### 2 BigInt
@@ -1330,28 +1353,27 @@ ask("Do you agree?", showOk, showCancel);
 3. And after all Function Declarations are processed, the code is executed. So it has access to these functions.
 
 <table>
-    <tr>
-      <td>Syntax</td>
-      <td>
+<tr>
+<td>
 
-        ```js
-        // Function Declaration
-        function sum(a, b) {
-          return a + b;
-        }
-        ```
-  </td>
-   <td>
+```js
+// Function Declaration
+function sum(a, b) {
+  return a + b;
+}
+```
+</td>
+<td>
 
-        ```js
-        // Function Expression
-        let sum = function(a, b) {
-          return a + b;
-        };
-        ```
+```js
+// Function Expression
+let sum = function(a, b) {
+  return a + b;
+};
+```
 
-  </td>
-  </tr>
+</td>
+</tr>
 </table>
 
 
@@ -1372,27 +1394,27 @@ function sayHi(name) {
     - With curly braces: `(...args) => { body }` but we need an explicit `return` to return something.
 
 <table>
-  <tr>
-    <td>Array function</td><td>Function Expression</td>
-  </tr>
-  <tr>
-    <td>
+<tr>
+<td>Arrow function</td><td>Function Expression</td>
+</tr>
+<tr>
+<td>
 
-      ```js
-      let func = (arg1, arg2, ..., argN) => expression;
-      ```
+```js
+let func = (arg1, arg2, ..., argN) => expression;
+```
 
-  </td>
-  <td>
+</td>
+<td>
 
-      ```js
-      let func = function(arg1, arg2, ..., argN) {
-        return expression;
-      };
-      ```
+```js
+let func = function(arg1, arg2, ..., argN) {
+  return expression;
+};
+```
 
-  </td>
-  </tr>
+</td>
+</tr>
 </table>
 
 ```js
