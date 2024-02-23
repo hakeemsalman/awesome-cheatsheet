@@ -1,5 +1,9 @@
 # Apex
 
+## Wrapper Class
+
+> It's create a new Instance for that object values.
+
 ## Batch Apex
 
 > Batch apex is a part of asynchronous. 
