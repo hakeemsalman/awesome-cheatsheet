@@ -119,3 +119,66 @@ global class ProjectResourceManagerAlerter implements Database.Batchable <Sobjec
     }
 }
 ```
+
+## Test Class
+
+1. It should be private class
+1. Add @isTest notation
+1. Add @isTest on Above class name in test data factory and no need to write on methods.
+
+### Methods
+
+1. Write a `@isTest` above class name
+1. Write a `@testSetup` above a method of a setup method name(setup()),
+   1. in this method we just use create or insertion records and don't logics here.
+   1. First Create Admin and assign profile as admin ant then create a `System.runAs(systemAdmin_username)` method.
+   1. Now then create another records based on the system profile id.
+2. Then write a `@isTest` method to do logics or call methods.
+
+```java
+@isTest
+private class MobileDashBoardMetric_BatchHelperTest {
+
+    @testSetup static void setup(){
+        
+        User regionalUser = MobileDashboardMetric_TestDataFactory.give_userRegionalRecord(REGIONAL_USERNAME_1,REGIONAL_SALES_DIRECTOR_ROLE_NAME);
+        INSERT regionalUser;
+        
+        User systemAdmin = MobileDashboardMetric_TestDataFactory.give_userTerritoryRecord(TERRITORY_USERNAME_1, TERRITORY_MANGER_ROLE_NAME, regionalUser.Id);
+        INSERT systemAdmin;
+        
+        System.runAs(systemAdmin){
+
+          // ACCOUNT RECORD TYPE SURGEON
+            RecordType surgeonRecordType = MobileDashboardMetric_TestDataFactory.give_recordType(SURGEON_NAME,ACCOUNT_NAME);
+            
+            // ACCOUNT SURGEON
+            Account accSurgeon = MobileDashboardMetric_TestDataFactory.give_accountRecord('Test 1 Accellor',surgeonRecordType,'Practice Name Test');
+            // INSERT accSurgeon;
+        }
+    }
+
+      // WORKING METHOD
+    @isTest
+    static void testUpsertRecords() {
+        	
+        Test.startTest();
+        List<String> testUsernames = new List<String> {TERRITORY_USERNAME_1, REGIONAL_USERNAME_1};
+        List<User> userData = [SELECT Id,Name,Region__c,Alias,Userrole.Name,Territory_Global__c,Manager.UserRole.Name,ManagerId FROM User WHERE Username IN :testUsernames  LIMIT 50000 ] ;
+
+        // .....
+        Test.stopTest();
+    }
+}
+```
+
+
+SerializedProduct - Lot/Item
+create product item
+  ProductItem - Id,
+
+create a location
+  Location - ownerId
+
+create a Owner
+  User - Id
