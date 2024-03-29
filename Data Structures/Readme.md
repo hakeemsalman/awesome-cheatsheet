@@ -1,16 +1,110 @@
+- [Data Structures](#data-structures)
+  - [What is need of Data structures](#what-is-need-of-data-structures)
+  - [Types of Data Structures](#types-of-data-structures)
+    - [1. Linear Data Structures](#1-linear-data-structures)
+    - [2. Non-Linear Data Structures](#2-non-linear-data-structures)
+- [Array](#array)
+  - [Basic terminologies of array](#basic-terminologies-of-array)
+  - [Why Array Data Structures is needed?](#why-array-data-structures-is-needed)
+  - [Types of Array operations:](#types-of-array-operations)
+- [Linked List](#linked-list)
+- [Stack](#stack)
+- [Queue](#queue)
+- [Data Structure: Tree](#data-structure-tree)
+  - [Introduction](#introduction)
+  - [Basic Concepts](#basic-concepts)
+    - [1. Node](#1-node)
+    - [2. Root](#2-root)
+    - [3. Leaf](#3-leaf)
+    - [4. Parent and Child](#4-parent-and-child)
+    - [5. Sibling](#5-sibling)
+  - [Types of Trees](#types-of-trees)
+    - [1. Binary Tree](#1-binary-tree)
+    - [2. Binary Search Tree (BST)](#2-binary-search-tree-bst)
+- [Heap Data Structures](#heap-data-structures)
+  - [Types of Heaps](#types-of-heaps)
+    - [1. Max Heap](#1-max-heap)
+  - [2. Min Heap](#2-min-heap)
+  - [Heap Operations](#heap-operations)
+    - [1. Insertion](#1-insertion)
+    - [2. Deletion](#2-deletion)
+    - [3. Heapify](#3-heapify)
+    - [Applications](#applications)
+
+
 # Data Structures
 
+## What is need of Data structures
+Data structures provide an easy way of organising, retrieving, managing, and storing data.
+
+
+## Types of Data Structures
+1. [Linear Data Structures](#linear-data-structures)
+2. [Non-linear Data structures](#non-linear-data-structures)
+
+### 1. Linear Data Structures
+
+- Elements are arranged in one dimension ,also known as linear dimension.
+- Example: lists, stack, queue, linked List etc.
+
+### 2. Non-Linear Data Structures
+
+- Elements are arranged in one-many, many-one and many-many dimensions.
+- Example: tree, graph, table, etc.
+
+![List of Data structures](./assets/image.png)
+  
 # Array
 
-Array is a collection of items that are stored conductively in the memory.
+- Array is a collection of items that are stored conductively in the memory.
+- The idea is to store multiple items of the same type together.
+- This makes it easier to calculate the position of each element by simply adding an offset to a base value, i.e., the memory location of the first element of the array (generally denoted by the name of the array). 
 
 [Array Video](https://youtu.be/QJNwK2uJyGs?si=RWzgyHQgNtZ2iO_D)
 
-1. What the address are how they work?
+## Basic terminologies of array
 
-1. what are some of the limitations?
-1. different operations you can perform on an array
-1. the complexity of those operations
+- Array Index: In an array, elements are identified by their indexes. Array index starts from 0.
+- Array element: Elements are items stored in an array and can be accessed by their index.
+- Array Length: The length of an array is determined by the number of elements it can contain. 
+
+```java
+// The syntax of declaring a static array is: 
+<data type><variable name>[] 
+    = {<data1>, <data2>,…..<dataN> }; 
+  
+// Example: 
+int arr[] = { 2, 5, 6, 9, 7, 4, 3 }; // Static or compile time memory allocation - Static Array
+int dyArr[10]; // Dynamic Arrya
+```
+
+## Why Array Data Structures is needed?
+
+Assume there is a class of five students and if we have to keep records of their marks in examination then, we can do this by declaring five variables individual and keeping track of records but what if the number of students becomes very large, it would be challenging to manipulate and maintain the data.
+
+
+## Types of Array operations:
+
+- **Traversal**: Traverse through the elements of an array.
+- **Insertion**: Inserting a new element in an array.
+- **Deletion**: Deleting element from the array.
+- **Searching**:  Search for an element in the array.
+- **Sorting**: Maintaining the order of elements in the array.
+
+
+1. What the address are how they work?
+2. what are some of the limitations?
+3. different operations you can perform on an array
+4. the complexity of those operations
+
+# Linked List
+
+- A linked list is a fundamental data structure in computer science.
+- It consists of **nodes** where each node contains *data* and a *reference* (link) to the next node in the sequence. This allows for dynamic memory allocation and efficient insertion and deletion operations compared to arrays.
+
+![linkedList](./assets/linkedList.png)
+
+
 
 
 # Stack

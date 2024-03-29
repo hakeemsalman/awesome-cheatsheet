@@ -1,8 +1,7 @@
-# Javascript
+# Javascript Fundamentals
 
 ### Keypoints:
 
----
 
 1. _JavaScript_ was initially created to “make web pages alive”.
 2. The programs in this language are called scripts. They can be written right in a web page’s HTML and run automatically as the page loads.
@@ -10,29 +9,72 @@
 
 #### Fundamentals
 
-1. [Hello World](#1-hello-world)
-2. [Statements](#2-statements)
-   - [semicolon](#semicolon)
-   - [comments](#comments)
-3. [Modern Mode](#3-Modern-mode)
-4. [Variables](#4-variables)
-   - [Variable naming](#variable-naming)
-   - [Reversed words](#reserved-words)
-   - [Constants](#constants)
-5. [Data Types](#5-data-types)
-   - [Number](#1-number)
-   - [BigInt](#2-bigint)
-   - [String](#3-string)
-   - [Boolean](#4-boolean)
-   - [Null](#5-null)
-   - [Undefined](#6-undefined)
-   - [Objects](#7-objects)
-   - [Symbols](#8-symbols)
-6. [Interaction](#6-interaction)
-   - [Alert](#1-alert)
-   - [Prompt](#2-prompt)
-   - [Confirm](#3-confirm)
-7. [Type Conversions](#7-type-conversions)
+- [Javascript Fundamentals](#javascript-fundamentals)
+    - [Keypoints:](#keypoints)
+      - [Fundamentals](#fundamentals)
+  - [1 Hello World](#1-hello-world)
+  - [2 Statements](#2-statements)
+      - [**Semicolon**](#semicolon)
+      - [**Comments**](#comments)
+  - [3 Modern Mode](#3-modern-mode)
+  - [4 Variables](#4-variables)
+    - [**Variable Naming**](#variable-naming)
+  - [_Keypoints_:](#keypoints-1)
+    - [Reserved words](#reserved-words)
+    - [**Constants**](#constants)
+  - [5 Data types](#5-data-types)
+      - [1 Number](#1-number)
+      - [2 BigInt](#2-bigint)
+      - [3 String](#3-string)
+      - [4 Boolean](#4-boolean)
+      - [5 Null](#5-null)
+      - [6 Undefined](#6-undefined)
+      - [7 Objects](#7-objects)
+      - [8 Symbols](#8-symbols)
+      - [typeof Operator](#typeof-operator)
+  - [6 Interaction](#6-interaction)
+      - [1 Alert](#1-alert)
+      - [2 Prompt](#2-prompt)
+      - [3 Confirm](#3-confirm)
+  - [7 Type Conversions](#7-type-conversions)
+      - [1 String](#1-string)
+      - [2 Number](#2-number)
+      - [3 Boolean](#3-boolean)
+  - [8 Basic operators, maths](#8-basic-operators-maths)
+      - [1 String concatenation](#1-string-concatenation)
+      - [2 Operator precedence](#2-operator-precedence)
+      - [3 Modify-in-place](#3-modify-in-place)
+      - [4 Increment \& decrement](#4-increment--decrement)
+      - [5 Bitwise operators](#5-bitwise-operators)
+      - [6 Comma](#6-comma)
+  - [9 Comparisions](#9-comparisions)
+      - [1 String comparisions](#1-string-comparisions)
+      - [2 Strict equality](#2-strict-equality)
+  - [10 Conditions](#10-conditions)
+  - [11 Logical operators](#11-logical-operators)
+  - [12 Nullish coalescing operator '??'](#12-nullish-coalescing-operator-)
+  - [13 Loops: while \& for](#13-loops-while--for)
+      - [1 While Loop](#1-while-loop)
+      - [2 do...while loop](#2-dowhile-loop)
+      - [3 for loop](#3-for-loop)
+      - [4 Break and Continue](#4-break-and-continue)
+      - [5 Continue](#5-continue)
+      - [6 Label](#6-label)
+  - [14 Switch statements](#14-switch-statements)
+  - [15 Functions](#15-functions)
+      - [1 Local variables](#1-local-variables)
+      - [2 Outer variables](#2-outer-variables)
+      - [3 Parameters](#3-parameters)
+      - [4 Default values](#4-default-values)
+      - [5 Returning a value](#5-returning-a-value)
+      - [6 Naming a function](#6-naming-a-function)
+  - [16 Function expressions](#16-function-expressions)
+      - [1 Function is a value](#1-function-is-a-value)
+      - [2 Callback functions](#2-callback-functions)
+      - [3 Function Expression vs Function Declaration](#3-function-expression-vs-function-declaration)
+  - [Arrow functions, the basics](#arrow-functions-the-basics)
+      - [Resources](#resources)
+
 
 
 ## 1 Hello World
@@ -122,7 +164,9 @@ alert("World"); // This comment follows the statement
 
 ## 3 Modern Mode
 
-`"use strict"` or `'use strict'` is located at the top of a script, the whole script works the “modern” way.
+1. `"use strict"` or `'use strict'` is located at the top of a script, the whole script works the “modern” way.
+2. To fully enable all features of modern JavaScript, we should start scripts with "use strict".
+3. 
 
 ```javascript
 1. 'use strict'
@@ -1321,6 +1365,7 @@ let sayHi = function() {
 };                          // semicolon at end of expression
 ```
 
+
 #### 2 Callback functions
 
 1. A callback function is a `function` that is passed as an *argument* to another function.
@@ -1378,6 +1423,53 @@ let sum = function(a, b) {
 
 
 ```js
+sayHi("John"); // Hello, John WORKS 
+
+function sayHi(name) {
+  alert( `Hello, ${name}` );
+}
+
+// FUNCTION DECLATION CAN WRITE ABOVE OR BELOW CALLER.
+```
+<table>
+<tr>
+<td>
+
+
+```js
+function sayHi() {   // (1) create
+  alert( "Hello" );
+}
+
+let func = sayHi;    // (2) copy
+
+func(); // Hello     // (3) run the copy (it works)!
+sayHi(); // Hello    //     this still works too (why wouldn't it)
+```
+
+</td>
+<td>
+
+```js
+let sayHi = function() { // (1) create
+  alert( "Hello" );
+};
+
+let func = sayHi;
+// ...
+```
+
+</td>
+</tr>
+<tr>
+<th>
+Calling before declaration
+</th>
+</tr>
+<tr>
+<td>
+
+```js
 sayHi("John"); // Hello, John
 
 function sayHi(name) {
@@ -1385,13 +1477,32 @@ function sayHi(name) {
 }
 ```
 
+</td>
+<td>
+
+```js
+sayHi("John"); // error!
+
+let sayHi = function(name) {  // (*) no magic any more
+  alert( `Hello, ${name}` );
+};
+```
+
+</td>
+
+</tr>
+
+
+</table>
+
+
 ## Arrow functions, the basics
 
 1. Arrow function is similar to function expression, but only different in syntax.
 2. Arrow function can have Single and multi-line.
 3. Single line automatically returns the expression and Multi-line needs `return` statement.
     - Without curly braces: `(...args) => expression`, function evaluate implicitly `returns` the result
-    - With curly braces: `(...args) => { body }` but we need an explicit `return` to return something.
+    - With curly braces: `(...args) => { return body }` but we need an explicit `return` to return something.
 
 <table>
 <tr>
@@ -1434,6 +1545,12 @@ let sum = (a, b) => {  // the curly brace opens a multiline function
 alert( sum(1, 2) ); // 3
 ```
 
+```js
+let double = n => n * 2;
+// roughly the same as: let double = function(n) { return n * 2 }
+
+alert( double(3) ); // 6
+```
 ---
 
 #### Resources
