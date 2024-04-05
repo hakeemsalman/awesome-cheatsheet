@@ -1,3 +1,4 @@
+# Data Structures
 - [Data Structures](#data-structures)
   - [What is need of Data structures](#what-is-need-of-data-structures)
   - [Types of Data Structures](#types-of-data-structures)
@@ -32,7 +33,6 @@
     - [Applications](#applications)
 
 
-# Data Structures
 
 ## What is need of Data structures
 Data structures provide an easy way of organising, retrieving, managing, and storing data.
