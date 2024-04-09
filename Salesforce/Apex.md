@@ -78,7 +78,12 @@ There are *three* methods in batchable interface.
       ```js
 			ClassName cm = new ClassName();
 			Id jobId = Database.executeBatch(cm,5);  //here 5 means dividing into 5 badge
+
+
+      System.
       ```
+
+      
 		>	if we not give by default it will take 200, Min 1 badge, Max 2000 badge
 
 ### Database.stateful:- 
