@@ -226,7 +226,274 @@ In that case, you can use **Server-side Rendering**. It will be slower, but the 
 
 
 
+## CSS Modules
+
+[CSS Modules](https://nextjs.org/docs/basic-features/built-in-css-support) allow you to scope CSS to a component by automatically creating unique class names, so you don't have to worry about style collisions as well.
+
+CSS Modules create unique class names for each component, so you don't have to worry about style collisions.
+
+```css
+/* /app/ui/home.module.css */
+
+.shape {
+  height: 0;
+  width: 0;
+  border-bottom: 30px solid black;
+  border-left: 20px solid transparent;
+  border-right: 20px solid transparent;
+}
+```
+
+```js
+//  /app/page.tsx
+import styles from '@/app/ui/home.module.css';
+<div className={styles.shape} />;
+```
+### clsx conditional CSS styling
+
+[clsx](https://www.npmjs.com/package/clsx) is a library that lets you toggle class names easily. We recommend taking a look at documentation for more details, but here's the basic usage:
+
+```jsx
+import clsx from 'clsx';
+ 
+export default function InvoiceStatus({ status }: { status: string }) {
+  return (
+    <span
+      className={clsx(
+        'inline-flex items-center rounded-full px-2 py-1 text-sm',
+        {
+          'bg-gray-100 text-gray-500': status === 'pending',
+          'bg-green-500 text-white': status === 'paid',
+        },
+      )}
+    >
+    // ...
+)}
+```
+
+In addition to the approaches we've discussed, you can also style your Next.js application with:
+
+Sass which allows you to import .css and .scss files.
+CSS-in-JS libraries such as styled-jsx, styled-components, and emotion.
+
+
+## Fonts
+Next.js automatically optimizes fonts in the application when you use the` next/font `module. I
+
+Next.js downloads font files at build time and hosts them with your other static assets. This means when a user visits your application, there are no additional network requests for fonts which would impact performance.
+
+
+### addding fonts
+
+In your `/app/ui` folder, create a new file called `fonts.ts`. You'll use this file to keep the fonts that will be used throughout your application.
+
+```tsx
+// /app/ui/fonts.ts
+import { Inter } from 'next/font/google';
+ 
+export const inter = Inter({ subsets: ['latin'] });
+```
+
+```ts
+
+// /app/layout.tsx
+import '@/app/ui/global.css';
+import { inter } from '@/app/ui/fonts';
+ 
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en">
+      <body className={`${inter.className} antialiased`}>{children}</body>
+    </html>
+  );
+}
+```
+
+## The `<Image>` component
+
+Images without dimensions and web fonts are common causes of layout shift due to the browser having to download additional resources.
+
+```diff
+import AcmeLogo from '@/app/ui/acme-logo';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import Link from 'next/link';
+import { lusitana } from '@/app/ui/fonts';
++ import Image from 'next/image';
+ 
+export default function Page() {
+  return (
+    // ...
+    <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
+      {/* Add Hero Images Here */}
++      <Image
++        src="/hero-desktop.png"
++        width={1000}
++        height={760}
++        className="hidden md:block"
++        alt="Screenshots of the dashboard project showing desktop version"
++      />
+    </div>
+    //...
+  );
+}
+```
+
+
+## Page Routing
+
+Nested routing
+Next.js uses file-system routing where folders are used to create nested routes. Each folder represents a route segment that maps to a URL segment.
+![alt text](./assets/nested%20routes.png)
+
+
+You can create separate UIs for each route using `layout.tsx` and `page.tsx `files.
+
+`/app/page.tsx `- this is the home page associated with the route `/`
+
+![alt text](./assets/nested%20route-2.png)
+
+
+> Create a `dashboard` folder in `app` folder and in that add a `page.tsx`
+
+```jsx
+export default function Page() {
+  return <p>Dashboard Page</p>;
+}
+```
+
+## Creating the layout
+
+What is the purpose of the layout file in Next.js?
+
+the layout file is the best way to create a shared layout that all pages in your application can use.
+
+One benefit of using layouts in Next.js is that on navigation, only the page components update while the layout won't re-render. This is called partial rendering:
+
+The `<Layout />` component receives a children prop. This child can either be a page or another layout. In your case, the pages inside `/dashboard` will automatically be nested inside a `<Layout />` like so:
+
+![alt text](./assets/layout.png)
+
+## Navigation Link
+
+To link between pages, you'd traditionally use the `<a>` HTML element. At the moment, the sidebar links use `<a>` elements, but notice what happens when you navigate between the home, invoices, and customers pages on your browser.
+
+Did you see it?
+
+There's a full page refresh on each page navigation!
+
+`<Link>` allows you to do client-side navigation with JavaScript.
+
+
+```tsx
+import {
+  UserGroupIcon,
+  HomeIcon,
+  DocumentDuplicateIcon,
+} from '@heroicons/react/24/outline';
+import Link from 'next/link'; //      <<<<<<<-----------------------
+ 
+// ...
+ 
+export default function NavLinks() {
+  return (
+    <>
+      {links.map((link) => {
+        const LinkIcon = link.icon;
+        return (
+          <Link               //      <<<<<<<-----------------------
+            key={link.name}
+            href={link.href}
+            className="flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
+          >
+            <LinkIcon className="w-6" />
+            <p className="hidden md:block">{link.name}</p>
+          </Link>
+        );
+      })}
+    </>
+  );
+}
+```
+
+In production, whenever `<Link>` components appear in the browser's viewport, Next.js automatically prefetches the code for the linked route in the background. 
 
 
 
+### Pattern: Showing active links
+
+
+A common UI pattern is to show an active link to indicate to the user what page they are currently on. To do this, you need to get the user's current path from the URL. Next.js provides a hook called `usePathname()` that you can use to check the path and implement this pattern.
+
+
+
+
+
+```diff
++ 'use client';
+ 
+import {
+  UserGroupIcon,
+  HomeIcon,
+  DocumentDuplicateIcon,
+} from '@heroicons/react/24/outline';
+import Link from 'next/link';
++ import { usePathname } from 'next/navigation';
++ import clsx from 'clsx';
+ 
+// ...
+ 
+export default function NavLinks() {
++  const pathname = usePathname();
+ 
+  return (
+    <>
+      {links.map((link) => {
+        const LinkIcon = link.icon;
+        return (
+          <Link
+            key={link.name}
+            href={link.href}
++            className={clsx(
++              'flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3',
++              {
++                'bg-sky-100 text-blue-600': pathname === link.href,
++              },
++            )}
+          >
+            <LinkIcon className="w-6" />
+            <p className="hidden md:block">{link.name}</p>
+          </Link>
+        );
+      })}
+    </>
+  );
+}
+```
+
+## Setting up the Database
+
+
+
+
+## Fetching the database
+
+**APIs are an intermediary layer between your application code and database. There are a few cases where you might use an API:**
+- If you're using 3rd party services that provide an API.
+- If you're fetching data from the client, you want to have an API layer that runs on the server to avoid exposing your database secrets to the client.
+
+**There are a few cases where you have to write database queries:**
+- When creating your API endpoints, you need to write logic to interact with your database.
+- If you are using React Server Components (fetching data on the server), you can skip the API layer, and query your database directly without risking exposing your database secrets to the client.
+
+**In which of these scenarios should you not query your database directly?** - 
+`when fetching data on the client as this would expose your database secrets.`
+
+**Server components**
+- Server components allow you fetch data directly from your database.
+- Server Components support promises, providing a simpler solution for asynchronous tasks like data fetching. You can use async/await syntax without reaching out for useEffect, useState or data fetching libraries.
+- Server Components execute on the server, so you can keep expensive data fetches and logic on the server and only send the result to the client.
 

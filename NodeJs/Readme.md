@@ -2,9 +2,25 @@
 
 ## Topics
 
-1. [What is nodejs](#what-is-node-js)
-1. [Prerequisites](#prerequisites)
-1. [Why use node?](#why-use-node)
+- [Node JS](#node-js)
+  - [Topics](#topics)
+  - [What is node js](#what-is-node-js)
+  - [Prerequisites](#prerequisites)
+  - [Why use node?](#why-use-node)
+  - [Real time used of Nodejs](#real-time-used-of-nodejs)
+  - [NPM](#npm)
+  - [Node Modules](#node-modules)
+  - [Initialize package.json](#initialize-packagejson)
+  - [Installing Packages](#installing-packages)
+  - [Using Node.js](#using-nodejs)
+  - [Exporting Modules](#exporting-modules)
+  - [Directory](#directory)
+    - [ECMAScript Module](#ecmascript-module)
+  - [Code Modules](#code-modules)
+  - [Path modules](#path-modules)
+  - [File System (fs) module](#file-system-fs-module)
+
+
 
 ## What is node js
 
@@ -258,3 +274,8 @@ Link to the [Docs]()
 const fs = require('fs');
 const path = require('path');
 ```
+
+the fs.readFileSync() method, we can synchronously read files, i.e. we are telling node.js to block other parallel processes and do the current file reading process.
+
+
+2M-Edical
