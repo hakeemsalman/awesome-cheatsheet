@@ -19,7 +19,7 @@ RAM has **Value** and **Address**(Distinct location of value in RAM)
 
 Address has Unique and continigues value, integer increases `+4` value to the address
 
-![alt text](./ram-1.png)
+![alt text](./assets/ram-1.png)
 
 
 ### Character
@@ -29,7 +29,7 @@ Suppose we have an Array `a = [a, b, c]` and we want to store in RAM.
 So a character takes `1 Bytes` in RAM.
 > 1 x 3 = 3 Bytes
 
-![alt text](./ram-2.png)
+![alt text](./assets/ram-2.png)
 
 
 ## Static Arrays
@@ -57,8 +57,28 @@ So in array we use `index` to access the value.
 
 ### Writing the data
 
-1. There are limitations in array when you want to write some values in an array.
-2. Due to its contiguous array or Fixed size array and same data type array.
-3. 
-![alt text](./static%20array-1.png)
+> There are limitations in array when you want to write some values in an array.
+1. Its a contiguous array.
+2. Fixed size array.
+3. Same data type array.
+4. RAM writes the data randomly, we don't know where our data value is which address in RAM.
+5. Array address is in equal offset of it's data type.
+   1. `char` occupy `1 byte` in RAM, so it's offset is $1, $2, $3,.....
+   2. `int`  occupy `4 bytes` in RAM, so it's offset would be $1, $5, $9,.....
+6. We can't occupy data value in randam address.
+7. To `Write` the value to the RAM of an array is `O(n)`.
+8. To `Remove` the value from the RAM of an array is `O(1)`. Actually we not deleting array, we are overwriting of it.
+![alt text](./assets/static%20array-1.png)
+![alt text](./assets/writingData.png)
+
+
+| operation | Big-O time |
+|---|---|
+| r / w i-th element | O(1) |
+| insert / remove End | O(1) |
+| Insert / remove Middle (shifting every value in the array) | O(n) |
+
+
+
+
 
