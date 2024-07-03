@@ -1,5 +1,20 @@
 # OpenJS Course
 
+- [OpenJS Course](#openjs-course)
+  - [Objectives](#objectives)
+  - [Installing Node usng fnm](#installing-node-usng-fnm)
+  - [.nvmrc File](#nvmrc-file)
+  - [Mocking the Services](#mocking-the-services)
+    - [Learning Objectives](#learning-objectives)
+    - [Starting a node project](#starting-a-node-project)
+    - [Quick File server](#quick-file-server)
+    - [Creating NPM shell commands](#creating-npm-shell-commands)
+    - [Mocking Web Services](#mocking-web-services)
+      - [Modifying the mock service](#modifying-the-mock-service)
+      - [Creating our Mock services](#creating-our-mock-services)
+      - [Testing the Mock service](#testing-the-mock-service)
+  - [Mocking GET Routes](#mocking-get-routes)
+    - [Creating first route](#creating-first-route)
 
 ## Objectives
 
@@ -757,7 +772,5 @@ Following these steps, you will have a mock service set up with routes for `conf
   - [http://localhost:3000/confectionery](http://localhost:3000/confectionery)
 - The fetched data will be displayed on the web page.
 
-
-## Creating POST Routes 
 
 
