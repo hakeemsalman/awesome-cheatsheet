@@ -148,8 +148,8 @@ By understanding both generative and discriminative models, you can choose the a
 > The GenAI power comes from the Transformer
 
 **Transformer**: At high level, transformer consist of
-                - Encoder: it encodes the input sequences and passes to the decoder, which learns how to decode the representations for a relevant task.
-                - Decoder
+                - Encoder: It encodes the input sequences and passes to the decoder
+                - Decoder: Which learns how to decode the representations for a relevant task.
 
 ![alt text](./assets/transformer%20flow.png)
 
