@@ -102,5 +102,16 @@ This approach of pre-training and fine-tuning leverages the strengths of both ge
 - **QA** systems are able to answer a wide range of questions, including factual, definitional and opinio-based questions.
 
 **Question Answering - required domain knowledge**
-- Big tech, consumer support, Education, Media, Pharma and healthcare, retail
+- Big tech, consumer support, Education, Media, Pharma and healthcare, retail, supply chain etc.
 
+#### Prompt design vs Prompt engineering
+
+- **Prompt design** is the process of creating a prompt that is tailored to the specific task that the system is being asked to perform.
+- **Prompt engineering** is the process of creating a prompt that is designed to improve performance.
+
+
+### Three type of Large Language Model
+1. Generic Language model
+   1. Predict the next word(technically, token) based on the language in the training data.
+2. Instruction tuned
+3. Dialogue Tuned model
