@@ -13,6 +13,7 @@
 - LLM are the subset of Deep learning.
 - LLM and Gen AI are intersect and they are both part of Deep Learning.
 - Gen AI is a type of AI that can produce new content including text, image, audio and synthetic data.
+- An LLM is a type of artificial intelligence (AI) that can generate human-quality text. LLMs are trained on massive datasets of text and code, and they can be used for many tasks, such as writing, translating, and coding.
 
 
 **What are Large Language Models?** 
@@ -81,7 +82,9 @@ This approach of pre-training and fine-tuning leverages the strengths of both ge
    1. **Example:** PaLM 2 - Pathways Language Model
       1.  540 billion parameters with large training dataset
       2.  It is the only dense decoder only Transformer model.
-  
+
+- Generative Language models: LaMDA, PaLM, GPT, etc...
+
 #### LLM development vs tradional ML development
 
 1. LLM development (using pre-trained APIs)
@@ -113,5 +116,106 @@ This approach of pre-training and fine-tuning leverages the strengths of both ge
 ### Three type of Large Language Model
 1. Generic Language model
    1. Predict the next word(technically, token) based on the language in the training data.
-2. Instruction tuned
-3. Dialogue Tuned model
+   - ![gen word predictor](./assets/gen%20LM%20word%20predictor.png)
+1. Instruction tuned
+   1. Trained to predict a response to the instructions given in the input.
+   -  ![alt text](./assets/instruction%20tuned%20LM.png)
+2. Dialogue Tuned model
+   1. Trained have a dialog by predicting the next response.
+   - Dialog-tuned models are a special case of instruction tuned where requests are typically framed as a question to a chat bot. 
+   - Dialog tuning is a further specialization of instruction tuning that is expected to be in the context of a longer back-and-forth conversation, and typically works better with natural question-like phrasings.
+
+
+- **Chain-of-thought reasoning** - Models are better at getting the right answer when they first output test that explains the reason for the answer.
+
+- **Model Garden task-specific models**
+  - ![sentiment%20analysis](./assets/sentiment%20analysis.png)
+  - ![occupancy analysis](./assets/occupancy%20analysis.png)
+
+1. Fined tuning requers more consumption model and very expensive
+   - **More efficient methods of tuning**
+     1. **Parameter-efficient tuning methods (PETV)**
+        1. Methods for tuning an LLM on your own custom data without duplicating the model
+     2. **Prompt tuning** 
+        1. One of the easiest parameter-effecient tuning methods
+
+
+- Gen AI - Vertex AI Studio
+  - Quickly explore and customize GenAI models.
+  - Developers create and deploy the GenAI models and tools
+
+-  Features of Vertex AI studio
+   -  Library of pre-trained models
+   -  Tool for fine-tuning models
+   -  Tool for deploying models to production
+   -  Community forum for developers to share ideas and collaborate
+
+
+#### References
+
+**Assembled readings on large language models:**
+- Introduction to Large Language Models
+   - https://developers.google.com/machine-learning/resources/intro-llms
+- Language Models are Few-Shot Learners:
+   -  https://proceedings.neurips.cc/paper/2020/file/1457c0d6bfcb4967418bfb8ac142f64aPaper.pdf
+- Getting Started with LangChain + Vertex AI PaLM API
+   -  https://github.com/GoogleCloudPlatform/generative-ai/blob/main/language/orchestration/langchain/intro_langchain_palm_api.ipynb
+- Learn about LLMs, PaLM models, and Vertex AI
+   -  https://cloud.google.com/vertex-ai/docs/generative-ai/learn-resources
+- Building AI-powered apps on Google Cloud databases using pgvector, LLMs and LangChain
+   - https://cloud.google.com/blog/products/databases/using-pgvector-llms-and-langchain-with-google-cloud-databases
+- Training Large Language Models on Google Cloud
+   -  https://github.com/GoogleCloudPlatform/llm-pipeline-examples
+- Prompt Engineering for Generative AI
+   -  https://developers.google.com/machine-learning/resources/prompt-eng
+- PaLM-E: An embodied multimodal language model:
+   -  https://ai.googleblog.com/2023/03/palm-e-embodied-multimodal-language.html
+- Parameter-efficient fine-tuning of large-scale pre-trained language models
+   -  https://www.nature.com/articles/s42256-023-00626-4
+- Parameter-Efficient Fine-Tuning of Large Language Models with LoRA and QLoRA
+   -  https://www.analyticsvidhya.com/blog/2023/08/lora-and-qlora/
+- Solving a machine-learning mystery:
+   -  https://news.mit.edu/2023/large-language-models-in-context-learning-0207
+
+**Assembled readings on generative AI:**
+- Background: What is a Generative Model?
+   - https://developers.google.com/machine-learning/gan/generative
+- Gen AI for Developers
+   - https://cloud.google.com/ai/generative-ai?hl=en#developer-resources
+- Ask a Techspert: What is generative AI?
+   - https://blog.google/inside-google/googlers/ask-a-techspert/what-is-generative-ai/
+- What is generative AI?
+   - https://www.mckinsey.com/featured-insights/mckinsey-explainers/what-is-generativeai
+- Building the most open and innovative AI ecosystem:
+   - https://cloud.google.com/blog/products/ai-machine-learning/building-an-open-gener
+ative-ai-partner-ecosystem
+- Generative AI is here. Who Should Control It?
+   - https://www.nytimes.com/2022/10/21/podcasts/hard-fork-generative-artificial-intelligence.html
+- Stanford U & Google’s Generative Agents Produce Believable Proxies of Human Behaviors:
+   - https://syncedreview.com/2023/04/12/stanford-u-googles-generative-agents-produce-believable-proxies-of-human-behaviours/
+- Generative AI: Perspectives from Stanford HAI:
+   - https://hai.stanford.edu/sites/default/files/2023-03/Generative_AI_HAI_Perspectives.pdf
+- Generative AI at Work:
+   - https://www.nber.org/system/files/working_papers/w31161/w31161.pdf
+- The future of generative AI is niche, not generalized:
+   - https://www.technologyreview.com/2023/04/27/1072102/the-future-of-generative-ai-is-niche-not-generalized/
+- The implications of Generative AI for businesses:
+   - https://www2.deloitte.com/us/en/pages/consulting/articles/generative-artificial-intelligence.html
+- Proactive Risk Management in Generative AI:
+   - https://www2.deloitte.com/us/en/pages/consulting/articles/responsible-use-of-generative-ai.html
+- How Generative AI Is Changing Creative Work:
+   - https://hbr.org/2022/11/how-generative-ai-is-changing-creative-work
+
+**Additional Resources:**
+- Attention is All You Need: 
+  - https://research.google/pubs/pub46201/
+- Transformer: A Novel Neural Network Architecture for Language Understanding:
+  - https://ai.googleblog.com/2017/08/transformer-novel-neural-network.html
+- Transformer on Wikipedia:
+  - https://en.wikipedia.org/wiki/Transformer_(machine_learning_model)#:~:text=Transformers%20were%20introduced%20in%202017,allowing%20training%20on%20larger%20datasets
+- What is Temperature in NLP?
+  - https://lukesalamone.github.io/posts/what-is-temperature/
+- Model Garden:
+  - https://cloud.google.com/model-garden
+- Auto-generated Summaries in Google Docs:
+  - https://ai.googleblog.com/2022/03/auto-generated-summaries-in-google-docs.html
