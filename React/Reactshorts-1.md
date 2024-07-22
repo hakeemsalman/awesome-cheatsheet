@@ -420,9 +420,12 @@ This is a [Proxy component](#proxy-component) applied to the practices of style.
 
 Say we have a button. It uses classes to be styled as a "primary" button.
 
+```html
 <button type="button" className="btn btn-primary">
+```
 We can generate this output using a couple single-purpose components.
 
+```jsx
 import classnames from "classnames";
 
 const PrimaryBtn = (props) => <Btn {...props} primary />;
@@ -434,17 +437,22 @@ const Btn = ({ className, primary, ...props }) => (
     {...props}
   />
 );
+```
 It can help to visualize this.
 
+```
 PrimaryBtn()
   ↳ Btn({primary: true})
     ↳ Button({className: "btn btn-primary"}, type: "button"})
       ↳ '<button type="button" class="btn btn-primary"></button>'
+```
 Using these components, all of these result in the same output.
 
+```jsx
 <PrimaryBtn />
 <Btn primary />
 <button type="button" className="btn btn-primary" />
+```
 This can be a huge boon to style maintenance. It isolates all concerns of style to a single component.
 
 Event switch #
@@ -453,6 +461,7 @@ When writing event handlers it's common to adopt the handle{eventName} naming co
 handleClick(e) { /* do something */ }
 For components that handle several event types, these function names can be repetitive. The names themselves might not provide much value, as they simply proxy to other actions/functions.
 
+```jsx
 handleClick() { require("./actions/doStuff")(/* action stuff */) }
 handleMouseEnter() { this.setState({ hovered: true }) }
 handleMouseLeave() { this.setState({ hovered: false }) }
@@ -470,9 +479,12 @@ handleEvent({type}) {
       return console.warn(`No case for event type "${type}"`)
   }
 }
+```
 Alternatively, for simple components, you can call imported actions/functions directly from components, using arrow functions.
 
+```jsx
 <div onClick={() => someImportedAction({ action: "DO_STUFF" })}
+```
 Don't fret about performance optimizations until you have problems. Seriously don't.
 
 Layout component #
@@ -480,14 +492,18 @@ Layout components result in some form of static DOM element. It might not need t
 
 Consider a component that renders two children side-by-side.
 
+```jsx
 <HorizontalSplit
   startSide={<SomeSmartComponent />}
   endSide={<AnotherSmartComponent />}
 />
+```
+
 We can aggressively optimize this component.
 
 While HorizontalSplit will be parent to both components, it will never be their owner. We can tell it to update never, without interrupting the lifecycle of the components inside.
 
+```jsx
 class HorizontalSplit extends React.Component {
   shouldComponentUpdate() {
     return false;
@@ -502,11 +518,14 @@ class HorizontalSplit extends React.Component {
     );
   }
 }
+```
+
 Container component #
 "A container does data fetching and then renders its corresponding sub-component. That’s it."—Jason Bonta
 
 Given this reusable CommentList component.
 
+```jsx
 const CommentList = ({ comments }) => (
   <ul>
     {comments.map((comment) => (
@@ -516,8 +535,11 @@ const CommentList = ({ comments }) => (
     ))}
   </ul>
 );
+```
+
 We can create a new component responsible for fetching data and rendering the CommentList function component.
 
+```jsx
 class CommentListContainer extends React.Component {
   constructor() {
     super()
@@ -537,6 +559,7 @@ class CommentListContainer extends React.Component {
     return <CommentList comments={this.state.comments} />
   }
 }
+```
 We can write different containers for different application contexts.
 
 Higher-order component #

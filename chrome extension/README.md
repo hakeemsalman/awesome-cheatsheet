@@ -9,7 +9,8 @@
     ```
 2. Create a new file in this directory called `manifest.json`. 
    1. This JSON file describes the extension's capabilities and configuration.
-   2. For example, most manifest files contain an *`action`* key which declares the image Chrome should use as the extension's action icon and the HTML page to show in a popup when the extension's action icon is clicked.
+   2. For example, most manifest files contain an *`action`* key which declares the image.
+   3. Chrome should use as the extension's action ***icon*** and the ***HTML page*** to show in a popup when the extension's action icon is clicked.
 3. Paste the below code in `manifest.json`
 
     ```js
@@ -151,7 +152,7 @@ If you are developing using a code editor such as VSCode or Atom, you can use th
 
 ```js
 {
-  "content_scripts": [
+  "content_scripts": [ // this script runs on the matching page
     {
       "js": ["scripts/content.js"],
       "matches": [
@@ -161,5 +162,9 @@ If you are developing using a code editor such as VSCode or Atom, you can use th
     }
   ]
 }
+```
+
+### Example
+
 ```
 
