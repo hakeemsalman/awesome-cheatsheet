@@ -1,10 +1,9 @@
 # React Short Notes
 
 ## Topics
-
 - [React Short Notes](#react-short-notes)
   - [Topics](#topics)
-  - [Definetions](#definetions)
+  - [Definition](#definition)
     - [JSX Three Rules](#jsx-three-rules)
     - [Element](#element)
     - [Component](#component)
@@ -35,41 +34,8 @@
   - [Methods as Props - passing method from the parameter](#methods-as-props---passing-method-from-the-parameter)
   - [Conditional Rendering](#conditional-rendering-1)
 
-## Definetions
 
-- [React Short Notes](#react-short-notes)
-  - [Topics](#topics)
-  - [Definetions](#definetions)
-    - [JSX Three Rules](#jsx-three-rules)
-    - [Element](#element)
-    - [Component](#component)
-    - [Expressions](#expressions)
-    - [Props](#props)
-    - [defaultProps](#defaultprops)
-    - [Destructuring props](#destructuring-props)
-    - [JSX spread attributes](#jsx-spread-attributes)
-    - [Merge destructured props with other values](#merge-destructured-props-with-other-values)
-    - [Short circuit operator](#short-circuit-operator)
-    - [Conditional rendering](#conditional-rendering)
-    - [Children types](#children-types)
-      - [Array as children](#array-as-children)
-    - [Function as children](#function-as-children)
-    - [Render prop](#render-prop)
-    - [Children pass-through](#children-pass-through)
-  - [Proxy component](#proxy-component)
-  - [Style component](#style-component)
-  - [Functional vs Class Component](#functional-vs-class-component)
-  - [JSX Syntax](#jsx-syntax)
-  - [Props](#props-1)
-  - [State](#state)
-  - [setState method in class components](#setstate-method-in-class-components)
-    - [Challange](#challange)
-  - [Destructuring props and state](#destructuring-props-and-state)
-  - [Event Handling](#event-handling)
-  - [Binding Event Handlers](#binding-event-handlers)
-  - [Methods as Props - passing method from the parameter](#methods-as-props---passing-method-from-the-parameter)
-  - [Conditional Rendering](#conditional-rendering-1)
-
+## Definition
 
 ### JSX Three Rules 
 1. Return a single root element `<div> <h1>... </h1> </div>`
@@ -93,7 +59,7 @@
       ```
 
 ### Expressions
-- Use curly braces to [embed expressions]() in [JSX]().
+- Use curly braces to [embed expressions](#) in [JSX](#).
     - ```jsx
       function Greeting() {
         let name = "chantastic";
