@@ -182,6 +182,8 @@ print(generation_model.predict(prompt=prompt, max_output_tokens=256).text)
 ```
 
 
+> **Note**: Temperature controls the degree of randomness in token selection. Lower temperatures are good for prompts that expect a true or correct response, while higher temperatures can lead to more diverse or unexpected results. With a temperature of 0 the highest probability token is always selected.
+
 
 
 

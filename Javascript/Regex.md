@@ -251,3 +251,25 @@ Write down the expression that will match anything other than the words `beor` a
       >
       > `/ [0-9]{1,4} /g`
 
+# Grouping
+
+## Parentheses ( ): Grouping
+
+- We can **group an expression** and use these groups to **reference or enforce some rules**.
+- To group an expression, we enclose `()` in **parentheses**. For now just group `haa` below
+
+> ha-ha, `haa`-`haa`
+> 
+> `/ (haa) /g`
+
+## Referencing a Group
+
+- The words `ha` and `haa` are grouped below. The first group is used by writing `\1` to avoid rewriting.
+- Here `1` denotes the order of grouping. Type `\2` at the end of the expression to refer to the second group.
+
+> ha-ha,haa-haa
+>
+> `/ (ha)-\1,(haa)-\2 /g`
+
+
+
