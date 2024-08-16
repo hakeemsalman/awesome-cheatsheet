@@ -272,4 +272,69 @@ Write down the expression that will match anything other than the words `beor` a
 > `/ (ha)-\1,(haa)-\2 /g`
 
 
+# Non-capturing Grouping
+
+## Parentheses (?: ): Non-capturing Grouping
+
+- You can group an expression and ensure that it is not captured by references. For example, below are two groups.
+- However, the first group reference we denote with `\1` actually indicates the second group, as the first is a non-capturing group.
+
+> `ha-ha`,`haa-haa`
+>
+> `/ (?:ha)-ha,(haa)-\1 /g`
+
+
+# Alternation
+
+## Pipe Character `|`
+
+- It allows to specify that an expression can be in different expressions.
+- Thus, all possible statements are written separated by the pipe sign `|`.
+- This differs from charset `[abc]`, charsets operate at the character level.
+- Alternatives are at the expression level.
+- For example, the following expression would select both `cat` and `rat`.
+- Add another pipe sign `|` to the end of the expression and type `dog` so that all words are selected.
+
+> `cat` `rat` `dog`
+>
+> `/ (c|r)at|dog /g`
+
+# Escape Character
+
+## Escape Character `\`
+
+- There are special characters that we use when writing regex. `{ } [ ] / \ + * . $^ | ?` Before we can select these characters themselves, we need to use an escape character `\`.
+- For example, to select the dot `.` and asterisk `*` characters in the text, let's add an escape character `\` before it.
+
+> (`*`) Asterisk`.`
+>
+> `/ (\*|\.) /g`
+
+# Start of The String
+
+## Caret Sign `^`: Selecting by Line Start
+
+- We were using `[0-9]` to find numbers.
+- To find only numbers at the beginning of a line, prefix this expression with the `^` sign.
+
+> Basic Omellette Recipe
+>
+> `1`. 3 eggs, beaten
+> `2`. 1 tsp sunflower oil
+> `3`. 1 tsp butter
+>
+> `/ ^[0-9] /g`
+
+
+# End of The String
+
+## Dollar Sign `$`: Selecting by End of Line
+
+- Let's use the `$` sign after the html value to find the html texts only at the end of the line.
+
+> https://domain.com/what-is-html.`html`
+> https://otherdomain.com/html-elements
+> https://website.com/html5-features.`html`
+>
+> `/ html$ /g`
 
