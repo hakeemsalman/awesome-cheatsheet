@@ -10,3 +10,9 @@
 8. Keeping an eye on things
 9. You have the data, but what are you doing with it?
 10. Let machines do the work
+
+
+Google cloud core infrastructure
+Getting Started with VPC Networking and Google Compute Engine
+Google Cloud Fundamentals: Getting Started with Cloud Storage and Cloud SQL
+Hello cloud run
