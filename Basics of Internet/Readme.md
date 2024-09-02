@@ -10,6 +10,8 @@ The Internet is a global network of computers connected to each other which comm
 ## What is HTTP?
 HTTP is the TCP/IP based application layer communication protocol which standardizes how the client and server communicate with each other. HTTP follows a classical “Client-Server model” with a client opening a connection request, then waiting until it receives a response. HTTP is a stateless protocol, that means that the server does not keep any data (state) between two requests.
 
+![alt text](./assets/image.png)
+
 ## Domain Name
 
 A domain name is a unique, easy-to-remember address used to access websites, such as ‘google.com’, and ‘facebook.com’. Users can connect to websites using domain names thanks to the Domain Name System (DNS).
