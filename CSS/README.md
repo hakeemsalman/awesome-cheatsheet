@@ -18,3 +18,7 @@ a{
   color: inherit;
 }
 ```
+
+Creative Developer and Designer
+
+[Button stealer Creator - Anatoly Zenkov](https://anatolyzenkov.com/)
