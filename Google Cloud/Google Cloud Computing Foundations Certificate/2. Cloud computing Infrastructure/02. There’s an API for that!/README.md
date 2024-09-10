@@ -214,3 +214,164 @@ Click the Overview tab. Here you'll see the traffic coming in. After the traffic
 
 ## Pub/Sub architecture
 
+<img src="./assets/pub-sub-architecture.png" width="800px" />
+
+1. Data is ingested from devices all over the globe into **Pub/Sub**, which is the first point of contact within the system.
+2. Pub/Sub reads, stores, and broadcasts to any subscribers of this data topic that new messages are available.
+3. As a subscriber of Pub/Sub, Dataflow can ingest and transform those messages in an elastic streaming pipeline and output the results into an analytics data warehouse like BigQuery.
+4. Finally, you can connect a data visualization tool, like Looker or Looker Studio, to visualize and monitor the results of a pipeline, or an AI or ML tool such as Vertex AI to explore the data to uncover business insights or help with predictions.
+
+## Topics
+
+- A topic is a central element of Pub/Sub.
+- Topics and subscribers are decoupled.
+  - Like a radio antena, broadcasting no matter the subscribers.
+  - Topics and subscribers can be O..M to O..M relationship.
+    - This means there can be zero, one, or more publishers, and zero, one or more subscribers related to a topic.
+
+**Example:**
+
+- A new employee joins your company, and several applications across the company need to be updated.
+- Adding a new employee can be an event that generates a notification to the other applications that are subscribed to the topic, and they’ll receive the message about the new employee starting.
+- Now, let’s assume that there are two different types of employees:
+  - a full-time employee
+  - a contractor.
+- Both sources of employee data could have no knowledge of the other but still publish their events saying “this employee joined” into the Pub/Sub HR topic.
+- After Pub/Sub receives the message, downstream applications like the directory service, facilities system, account provisioning, and badge activation systems can all listen and process their own next steps independent of one another.
+
+
+- Pub/Sub is a good solution to buffer changes for lightly coupled architectures, like this one, that have many different sources and sinks
+- Pub/Sub supports many different inputs and outputs, and you can even publish a Pub/Sub event from one topic to another.
+
+
+# Lab: Intro to Pub/Sub - Python
+
+During this lab, you'll:
+1. Learn the basics of Pub/Sub.
+2. Create and list a Pub/Sub topic.
+3. Create and list a Pub/Sub subscription.
+4. Publish messages to a topic.
+5. Use a pull subscriber to output individual topic messages.
+
+
+## Task 1. Create a virtual environment
+
+> Python virtual environments are used to isolate package installation from the system.
+
+1. Install the virtualenv environment:
+   1. `sudo apt-get install -y virtualenv`
+2. Build the virtual environment: 
+   1. `python3 -m venv myenv`
+3. Activate the virtual environment.
+   1. `source myenv/bin/activate`
+  
+## Task 2. Install the client library
+
+1. Run the following to install the client library:
+   1. `pip install --upgrade google-cloud-pubsub`
+2. Get the sample code by cloning a GitHub repository:
+   1. `git clone https://github.com/googleapis/python-pubsub.git`
+3. Navigate to the directory:
+   1. `cd python-pubsub/samples/snippets`
+
+## Task 3. Pub/Sub - the Basics
+
+- Pub/Sub is an asynchronous global messaging service.
+- There are three terms in Pub/Sub that appear often:
+  - topics
+  - publishing
+  - subscribing.
+- A topic is a shared string that allows applications to connect with one another through a common thread.
+- Publishers push (or publish) a message to a Pub/Sub topic.
+- Subscribers will then make a subscription to that thread, where they will either pull messages from the topic or configure webhooks for push subscriptions.
+- Every subscriber must acknowledge each message within a configurable window of time.
+- In sum, a publisher creates and sends messages to a topic and a subscriber creates a subscription to a topic to receive messages from it.
+
+### Pub/Sub in Google CLoud
+
+- Pub/Sub comes preinstalled in Cloud Shell, so there are no installations or configurations required to get started with this service.
+- In this lab, you use Python to create the topic, subscriber, and then view the message. You use a gcloud command to publish the message to the topic.
+
+## Task 4. Create a topic
+
+- To publish data to Pub/Sub you create a topic and then configure a publisher to the topic.
+
+1. In Cloud Shell, your Project ID should automatically be stored in the environment variable `GOOGLE_CLOUD_PROJECT`
+   1. `echo $GOOGLE_CLOUD_PROJECT`
+2. Ensure the output is the same as the Project ID in your CONNECTION DETAILS.
+   1. `publisher.py` is a script that demonstrates how to perform basic operations on topics with the Cloud Pub/Sub API. View the content of publisher script:
+   2. `cat publisher.py`
+
+> Note: Alternatively, you can use the shell editors that are installed on Cloud Shell, such as nano or vim or use the Cloud Shell code editor to view `python-pubsub/samples/snippets/publisher.py`.
+
+3. For information about the publisher script:
+   1. `python publisher.py -h`
+4. Run the publisher script to create Pub/Sub Topic:
+   1. `python publisher.py $GOOGLE_CLOUD_PROJECT create MyTopic`
+
+-------------**you have successfully created a Cloud Pub/Sub topic**-----------
+
+1. This command returns a list of all Pub/Sub topics in a given project:
+   1. `python publisher.py $GOOGLE_CLOUD_PROJECT list`
+2. Navigate to **Navigation menu** > **Pub/Sub** > **Topics**.
+   1. You should see `MyTopic`.
+  
+## Task 5. Create a subscription
+
+1. Create a Pub/Sub subscription for topic with subscriber.py script:
+   1. `python subscriber.py $GOOGLE_CLOUD_PROJECT create MyTopic MySub`
+**you have successfully created a Cloud Pub/Sub subscription**
+2. This command returns a list of subscribers in given project:
+   1. `python subscriber.py $GOOGLE_CLOUD_PROJECT list-in-project`
+3. For information about the subscriber script:
+   1. `python subscriber.py -h`
+
+## Task 6. Publish messages
+
+- Now that you've set up `MyTopic` (the topic) and a subscription to `MyTopic` (`MySub`), use `gcloud` commands to publish a message to `MyTopic`.
+
+1. Publish the message "Hello" to MyTopic:
+   1. `gcloud pubsub topics publish MyTopic --message "Hello"`
+2. Publish a few more messages to `MyTopic`—run the following commands
+   1. (replacing <YOUR NAME> with your name and <FOOD> with a food you like to eat):
+   2. `gcloud pubsub topics publish MyTopic --message "Publisher's name is <YOUR NAME>"`
+   3. `gcloud pubsub topics publish MyTopic --message "Publisher likes to eat <FOOD>"`
+   4. `gcloud pubsub topics publish MyTopic --message "Publisher thinks Pub/Sub is awesome"`
+
+## Task 7. View messages
+
+- Now that you've published messages to MyTopic, pull and view the messages using MySub.
+
+1. Use MySub to pull the message from MyTopic:
+   1. `python subscriber.py $GOOGLE_CLOUD_PROJECT receive MySub`
+2. Click `Ctrl+c` to stop listening.
+
+# QUIZ
+
+1. **Q. Which statement about Pub/Sub is true?**
+
+- [X] Pub/Sub’s APIs are open.
+- [ ] Pub/Sub requires provisioning.
+- [ ] Pub/Sub is regional by default.
+- [ ] Pub/Sub is unencrypted.
+
+2. **Q. Which platform for developing and managing API proxies has a specific focus on business problems, like rate limiting, quotas, and analytics?**
+
+- [ ] Cloud Endpoints
+- [ ] Pub/Sub
+- [x] Apigee API Management
+- [ ] REST API
+
+3. **Q. Which API management system supports applications running in App Engine, Google Kubernetes Engine, and Compute Engine?**
+
+- [ ] Apigee
+- [x] Cloud Endpoints
+- [ ] REST API
+- [ ] Pub/Sub
+
+4. **Q. What does API stand for?**
+
+- [ ] Artificial Programming Interface
+- [ ] Asynchronous Programming Interfac
+- [ ] Applied Programming Interface
+- [x] Application Programming Interface
