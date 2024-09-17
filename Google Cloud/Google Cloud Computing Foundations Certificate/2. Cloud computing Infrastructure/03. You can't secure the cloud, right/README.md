@@ -53,7 +53,15 @@
   - [Task 3. Use Cryptographic Verification](#task-3-use-cryptographic-verification)
     - [Deploy to App Engine](#deploy-to-app-engine-1)
 - [6. IAM authorization best practices](#6-iam-authorization-best-practices)
+    - [Grant roles to groups instead of individuals](#grant-roles-to-groups-instead-of-individuals)
+    - [Best practices to consider when you use service accounts](#best-practices-to-consider-when-you-use-service-accounts)
+    - [Grant Roles to groups instead of individuals](#grant-roles-to-groups-instead-of-individuals-1)
 - [7. Lab: IAM: Qwik Start](#7-lab-iam-qwik-start)
+  - [Objectives](#objectives-1)
+  - [Task 1. Explore the IAM console and project level roles](#task-1-explore-the-iam-console-and-project-level-roles)
+      - [Explore the editor role](#explore-the-editor-role)
+  - [Task 2. Prepare a Cloud Storage bucket for access testing](#task-2-prepare-a-cloud-storage-bucket-for-access-testing)
+    - [Create a bucket](#create-a-bucket)
 - [8. QUIZ](#8-quiz)
 
 # 1. Security in the Cloud
@@ -432,10 +440,113 @@ What happens to this app if IAP is disabled, or somehow bypassed (such as by oth
 - If IAP is turned off or bypassed, the verified data would either be missing, or invalid, since it cannot have a valid signature unless it was created by the holder of Google's private keys.
 
 
-
-
 # 6. IAM authorization best practices
 
+<table>
+<tr>
+<td>
+
+```mermaid
+flowchart TD
+  A[Organization Node] --> B
+  B[Folder]           --> C
+  B[Folder]           --> D
+  C[Project]          --> E
+  D[Project]
+  E[Resources]        -->F(logs)
+  E[Resources]        -->G(Policies)
+  E[Resources]        -->H(...etc)
+```
+
+</td>
+<td>
+
+- Leverage and understand the resource hierarchy
+  - Use projects to group resources
+  - Check the policy granted on each resource
+  - Use "principle of least privilege"
+  - Audit policies using Cloud Audit Logs
+  - Audit memberships of groups used in policies
+
+</td>
+
+</tr>
+</table>
+
+
+### Grant roles to groups instead of individuals
+
+```mermaid
+flowchart LR
+  A(Network Admin Group) -->B
+  A -->C
+  B(Group needing read_only role)
+  C(Group needing read _write role)
+```
+
+### Best practices to consider when you use service accounts
+
+1. Use caution when you grant the Service Account Users role, because it provides access to all the resources for which the service account has access.
+2. When you create a service account, give it a display name that clearly identifies its purpose.
+3. Ideally use an established naming convention for your organization.
+4. Establish key rotation policies and methods.
+
+### Grant Roles to groups instead of individuals
+
 # 7. Lab: IAM: Qwik Start
+
+## Objectives
+
+1. Explore editor roles.
+2. Prepare a resource for access testing.
+3. Remove project access.
+4. Add storage permissions.
+5. Verify access.
+
+
+## Task 1. Explore the IAM console and project level roles
+
+1. Return to the Username 1 Cloud Console page.
+2. Select Navigation menu > IAM & Admin > IAM. You are now in the "IAM & Admin" console.
+3. Click +GRANT ACCESS button at the top of the page.
+4. Scroll down to Basic in Select a role section and mouse over.
+
+> There are *three roles*
+>   Viewer
+>   Editor
+>   Owner
+
+- These are *primitive roles* in Google Cloud. Primitive roles set project-level permissions and unless otherwise specified, they control access and management to all Google Cloud services.
+
+| Role Name | Permissions | 
+|:---:|---|
+|roles/viewer | Permissions for read-only actions that do not affect state, such as viewing (but not modifying) existing resources or data. |
+| roles/editor | All viewer permissions, plus permissions for actions that modify state, such as changing existing resources.|
+| roles/owner| All editor permissions and permissions for the following actions: <br/> - Manage roles and permissions for a project and all resources within the project.<br/> - Set up billing for a project. |
+
+Since you are able to manage roles and permissions for this project, Username 1 has Project owner permissions.
+
+5. Click CANCEL to exit out of the "Add principal" panel
+
+#### Explore the editor role
+
+- Now switch to the Username 2 console.
+
+1. Navigate to the IAM & Admin console, select **Navigation menu** > **IAM & Admin** > **IAM**.
+2. Search through the table to find Username 1 and Username 2 and examine the roles they are granted. The Username 1 and Username 2 roles are listed inline and to the right of each user.
+
+- Username 2 has the "Viewer" role granted to it.
+3. Switch back to the **Username 1** console for the next step.
+
+## Task 2. Prepare a Cloud Storage bucket for access testing
+
+### Create a bucket
+
+1. Create a Cloud Storage bucket with a unique name. From the Cloud Console, select **Navigation menu** > **Cloud Storage** > **Buckets**.
+2. Click **+CREATE**.
+
+Note: If you get a permissions error for bucket creation, sign out and then sign in back in with the Username 1 credentials.
+
+
 
 # 8. QUIZ

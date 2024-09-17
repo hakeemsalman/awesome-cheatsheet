@@ -140,7 +140,7 @@ Statements are syntax constructs and commands that perform actions.
 1. A semicolon may be omitted in most cases when a line break exists.
 
 ```javascript
-alert("Hello");
+alert("Hello")
 alert("World");
 
 // or
@@ -299,16 +299,13 @@ These keywords cannot be used as identifiers for variables, functions, classes, 
     <td>abstract</td><td>boolean</td><td>byte</td><td>char</td>
   </tr>
   <tr>
-    <td>double</td><td>final</td><td>float</td><td>goto</td>
+    <td>double</td><td>final</td><td>float</td><td>volatile</td>
   </tr>
    <tr>
     <td>goto</td><td>int</td><td>long</td><td>native</td>
   </tr>
    <tr>
     <td>short</td><td>synchronized</td><td>throws</td><td>transient</td>
-  </tr>
-  <tr>
-    <td>volatile</td>
   </tr>
 </table>
 
@@ -340,10 +337,10 @@ There are _eight_ basic data types in JavaScript.
 
 <table>
     <tr>
-      <td>Number</td><td>BigInt</td><td>String</td><td>Number</td>
+      <td>Number</td><td>BigInt</td><td>String</td><td>Boolean</td>
     </tr>
     <tr>
-      <td>Number</td><td>Number</td><td>Number</td><td>Number</td>
+      <td>Null</td><td>Undefined</td><td>Objects</td><td>Symbols</td>
     </tr>
   </table>
 
@@ -468,7 +465,6 @@ alert(age); // "undefined"
 #### 8 Symbols
 
 1. It is used to create unique identifier for objects
-2. 
 
 ***pending***
 
