@@ -1,3 +1,27 @@
+- [4 Garbage Collection **PENDING**](#4-garbage-collection-pending)
+- [5 Object methods, *this*](#5-object-methods-this)
+  - [1. Method examples](#1-method-examples)
+  - [2. *this* in methods](#2-this-in-methods)
+  - [3. *this* is not bound](#3-this-is-not-bound)
+  - [4. Arrow functions have no “this”](#4-arrow-functions-have-no-this)
+  - [Summary](#summary)
+  - [Task](#task)
+    - [*this* in object literal](#this-in-object-literal)
+    - [1. Create a calculator](#1-create-a-calculator)
+    - [2. Chaining](#2-chaining)
+- [6. Constructor, operator *new*](#6-constructor-operator-new)
+  - [1. Constructor function](#1-constructor-function)
+      - [new function() { … }](#new-function---)
+  - [2. Constructor mode test: new.target](#2-constructor-mode-test-newtarget)
+  - [3. Return from the constructor](#3-return-from-the-constructor)
+  - [4. Methods in constructor](#4-methods-in-constructor)
+  - [5. Summary](#5-summary)
+  - [6. Task](#6-task)
+    - [Two functions – one object](#two-functions--one-object)
+    - [Create new Calculator](#create-new-calculator)
+    - [Create new Accumulator](#create-new-accumulator)
+
+
 # 4 Garbage Collection **PENDING**
 
 # 5 Object methods, *this*
@@ -225,14 +249,12 @@ alert( calculator.mul() );
 
 ```js
 let calculator = {
-    a: 0,
-    b: 0,
     read(){
-        this.a = prompt('Please one number:',0);
-        this.b = prompt('Please another number',0);
+        this.a = +prompt('Please one number:',0);
+        this.b = +prompt('Please another number',0);
     },
     sum(){
-        return Number(this.a) + Number(this.b);
+        return this.a + this.b;
     },
     mul(){
         return this.a * this.b;
@@ -409,3 +431,208 @@ function User(name) {
 let john = User("John"); // redirects call to new User
 alert(john.name); // John
 ```
+
+
+## 3. Return from the constructor
+
+- Usually, constructors do not have a `return` statement. Their task is to write all necessary stuff into `this`, and it automatically becomes the result.
+
+- But if there is a `return` statement, then the rule is simple:
+  - If `return` is called with an object, then the object is returned instead of `this`.
+    - ```js
+      function BigUser() {
+        this.name = "John";
+        return { name: "Godzilla" };  // <-- returns this object
+      }
+      alert( new BigUser().name );  // Godzilla, got that object
+      ```
+  - If `return` is called with a primitive, it’s ignored.
+    - ```js
+      function SmallUser() {
+        this.name = "John";
+
+        return; // <-- returns this
+      }
+
+      alert( new SmallUser().name );  // John
+      ```
+
+<table>
+<tr>
+<td>
+
+```js
+//  Omitting parentheses
+//  By the way, we can omit parentheses after new:
+
+let user = new User; // <-- no parentheses
+// same as
+let user = new User();
+
+// -->>> Omitting parentheses here is not considered a “good style”, but the syntax is permitted by specification.
+```
+
+</td>
+</tr>
+</table>
+
+
+## 4. Methods in constructor
+
+- Using constructor functions to create objects gives a great deal of flexibility.
+- The constructor function may have parameters that define how to construct the object, and what to put in it.
+- Of course, we can add to `this` not only properties, but methods as well.
+
+For instance, `new User(name)` below creates an object with the given `name` and the method `sayHi`:
+
+```js
+function User(name) {
+  this.name = name;
+
+  this.sayHi = function() {
+    alert( "My name is: " + this.name );
+  };
+}
+
+let john = new User("John");
+
+john.sayHi(); // My name is: John
+
+/*
+john = {
+   name: "John",
+   sayHi: function() { ... }
+}
+*/
+```
+
+## 5. Summary
+
+- Constructor functions or, briefly, constructors, are regular functions, but there’s a common agreement to name them with capital letter first.
+- Constructor functions should only be called using `new`. Such a call implies a creation of empty `this` at the start and returning the populated one at the end.
+- JavaScript provides constructor functions for many built-in language objects: like `Date` for dates, `Set` for sets and others that we plan to study.
+
+
+## 6. Task
+
+### Two functions – one object
+
+- Is it possible to create functions `A` and `B` so that `new A() == new B()`?
+
+```js
+function A() { ... }
+function B() { ... }
+
+let a = new A();
+let b = new B();
+
+alert( a == b ); // true
+```
+
+<details>
+<summary>SOLUTION</summary>
+
+Yes, it’s possible.
+
+If a function returns an object then new returns it instead of this.
+
+So they can, for instance, return the same externally defined object obj:
+
+```js
+let obj = {};
+
+function A() { return obj; }
+function B() { return obj; }
+
+alert( new A() == new B() ); // true
+```
+
+</details>
+
+### Create new Calculator
+
+- Create a constructor function Calculator that creates objects with 3 methods:
+  - `read()` prompts for two values and saves them as object properties with names a and b respectively.
+  - `sum()` returns the sum of these properties.
+  - `mul()` returns the multiplication product of these properties.
+
+For instance:
+```js
+let calculator = new Calculator();
+calculator.read();
+
+alert( "Sum=" + calculator.sum() );
+alert( "Mul=" + calculator.mul() );
+```
+
+<details>
+<summary>SOLUTION</summary>
+
+```js
+function Calculator() {
+
+  this.read = function() {
+    this.a = +prompt('a?', 0);
+    this.b = +prompt('b?', 0);
+  };
+
+  this.sum = function() {
+    return this.a + this.b;
+  };
+
+  this.mul = function() {
+    return this.a * this.b;
+  };
+}
+
+let calculator = new Calculator();
+calculator.read();
+
+alert( "Sum=" + calculator.sum() );
+alert( "Mul=" + calculator.mul() );
+```
+
+</details>
+
+
+
+### Create new Accumulator
+
+- Create a constructor function Accumulator(startingValue).
+- Object that it creates should:
+  - Store the “current value” in the property value. The starting value is set to the argument of the constructor startingValue.
+  - The `read()` method should use prompt to read a new number and add it to value.
+
+In other words, the value property is the sum of all user-entered values with the initial value startingValue.
+
+Here’s the demo of the code:
+
+```js
+let accumulator = new Accumulator(1); // initial value 1
+
+accumulator.read(); // adds the user-entered value
+accumulator.read(); // adds the user-entered value
+
+alert(accumulator.value); // shows the sum of these values
+```
+
+<details>
+<summary>SOLUTION</summary>
+
+```js
+function Accumulator(startingValue) {
+  this.value = startingValue;
+
+  this.read = function() {
+    this.value += +prompt('How much to add?', 0);
+  };
+
+}
+
+let accumulator = new Accumulator(1);
+accumulator.read();
+accumulator.read();
+alert(accumulator.value);
+```
+
+</details>

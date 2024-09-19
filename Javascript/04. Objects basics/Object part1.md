@@ -91,6 +91,15 @@ let user = {     // an object
       let user = makeUser("John", 30);
       alert(user.name); // John
       ```
+1. Object property keys types
+
+- By specification, only two primitive types may serve as object property keys:
+  - **string** type,
+    - if one uses another type, such as `number`, it’s autoconverted to `string`.
+      - So that `obj[1]` is the same as `obj["1"]`
+      - `obj[true]` is the same as `obj["true"]`.
+  - **symbol** type [Symbol]()
+
 
 ### 2. Property names limitations
 
