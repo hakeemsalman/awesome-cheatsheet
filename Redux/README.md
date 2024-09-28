@@ -58,14 +58,17 @@
 
 1. `account` object is have `accountReducer`.
 2. `users` object is have `usersReducer`.
-3. 
 
 ## Adding package in Project
 
-1. Create a folder with name of `store` or `state` or `reducer` in the root `src/[name]` folder.
-2. Inside the `store` folder, create a `reducer` folder.
-3. Now, create a `accountReducer.js` in **reducer** folder.
-4. Now copy and paste code from the below.
+1. Create a folder with name of `mkdir ~/app-name && cd app-name `
+2. Install **Vite**
+   1. `npm create vite@latest . && npm i`
+   2. `npm install redux react-redux`
+3. Create a folder with name of `store` or `state` or `reducer` in the root `src/[name]` folder (ALL REDUX LOGIC IN THIS FOLDER).
+4. Inside the `store` folder, create a `reducer` folder.
+5. Now, create a `accountReducer.js` in **reducer** folder.
+6. Now copy and paste code from the below.
    1. ```js
       const reducer = (state = 0 , action) => {
         switch(action.type){
