@@ -214,3 +214,29 @@ alert( num.toString(2) );   // 11111111
 
 ## Imprecise calculations
 
+- A number is represented in 64-bit format [IEEE-754](https://en.wikipedia.org/wiki/IEEE_754).
+- So there are exactly 64 bits to store a number:
+  - **52** of them are used to **store** the **digits**,
+  - **11** of them store the position of the **decimal** **point**, and
+  - **1** bit is for the **sign**.
+- If a number is really huge, `alert( 1e500 ); // Infinity`
+
+---
+
+- 
+- ```js
+  alert( 0.1 + 0.2 == 0.3 ); // false
+  alert( 0.1 + 0.2 ); // 0.30000000000000004
+
+  ```
+
+##  Tests: isFinite and isNaN
+
+Remember these two special numeric values?
+
+1. `Infinity` (and `-Infinity`) is a special numeric value that is greater (less) than anything.
+2. `NaN` represents an error.
+
+
+
+> **PENDING PENDING PENDING**
