@@ -12,14 +12,14 @@
     - [Keypoints:](#keypoints)
       - [Fundamentals](#fundamentals)
   - [1 Hello World](#1-hello-world)
-  - [2 Code statements](#2-code-statements)
+  - [2 Code statements, semicolon, comments](#2-code-statements-semicolon-comments)
     - [Statements](#statements)
       - [**Semicolon**](#semicolon)
       - [**Comments**](#comments)
   - [3 Modern Mode](#3-modern-mode)
   - [4 Variables](#4-variables)
     - [**Variable Naming**](#variable-naming)
-  - [_Keypoints_:](#keypoints-1)
+      - [Keypoints:](#keypoints-1)
     - [Reserved words](#reserved-words)
     - [**Constants**](#constants)
   - [5 Data types](#5-data-types)
@@ -129,7 +129,7 @@ Before the script...
 </tr>
 </table>
 
-## 2 Code statements
+## 2 Code statements, semicolon, comments
 
 ### Statements
 
@@ -203,21 +203,18 @@ let message = "That"; // SyntaxError: 'message' has already been declared
 
 ### **Variable Naming**
 
-## _Keypoints_:
+#### Keypoints:
 
 1. Javascript is case-sensitive.
 2. Two limitations on variable naming convention.
+   1. The name must contain only letters, digits, or the symbols `$` and `_`.
+   2.  The first character must not be a digit.
 3. Non-Latin letters are allowed, but not recommended.
-4. Reserved words _CANNOT_ be used as variable names.[GOTO](#reserved-words)
+4. [Reserved words](#reserved-words) _CANNOT_ be used as variable names.
 5. Use human-readable names like userName or shoppingCart.
 6. Stay away from abbreviations or short names like a, b, c, unless you really know what you’re doing.
 7. Make names maximally descriptive and concise.
-8. Agree on terms within your team and in your own mind. If a site visitor is called a “user” then we should name related variables currentUser or newUser instead of currentVisitor or newManInTown.
-
-There are two limitations on variable names in JavaScript:
-
-1. The name must contain only letters, digits, or the symbols `$` and `_`.
-2. The first character must not be a digit.
+8.  Agree on terms within your team and in your own mind. If a site visitor is called a “user” then we should name related variables currentUser or newUser instead of currentVisitor or newManInTown.
 
 ```javascript
 let USERNAME;  // VALID
@@ -395,7 +392,7 @@ else console.log(false)
 
 #### 2 BigInt
 
-1. Number can store greater than `number` type upto `1.7976931348623157 * 10`<sup>`308`</sup>.
+1. **Bigint** can store greater than `number` type upto `1.7976931348623157 * 10`<sup>`308`</sup>.
 2. Used in cryptography or microsecond-precision timestamps.
 3. A `BigInt` value is created by appending `n` to the end of an integer.
 
