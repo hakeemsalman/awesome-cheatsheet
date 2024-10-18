@@ -1,1 +1,1 @@
-PLEASE GO TO [THIS](https://github.com/hakeemsalman/javascript-string-cheatsheet) LINK FOR STRINGS
+# PLEASE GO TO [THIS](https://hakeemsalman.github.io/javascript-string-cheatsheet) LINK FOR STRINGS

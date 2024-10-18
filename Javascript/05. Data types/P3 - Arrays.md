@@ -1,0 +1,1 @@
+# PLEASE GO TO [THIS](https://hakeemsalman.github.io/javascript-array-cheatsheet) LINK FOR ARRAYS
