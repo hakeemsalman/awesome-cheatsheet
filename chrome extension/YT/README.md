@@ -10,10 +10,10 @@
         "description": "Base Level Extension",    
         "version": "1.0",                         // REQUIRED
         "icons": {
-          "16": "images/icon-16.png",   // Favicon on the extension's pages and context menu.
-          "32": "images/icon-32.png",   // Windows computers often require this size.
-          "48": "images/icon-48.png",   // Displays on the Extensions page.
-          "128": "images/icon-128.png"  // Displays on installation and in the Chrome Web Store.
+          "16": "assets/icon-16.png",   // Favicon on the extension's pages and context menu.
+          "32": "assets/icon-32.png",   // Windows computers often require this size.
+          "48": "assets/icon-48.png",   // Displays on the Extensions page.
+          "128": "assets/icon-128.png"  // Displays on installation and in the Chrome Web Store.
         }
       }
       ```
@@ -144,7 +144,7 @@
       // ...
           patterns: [
             { from: path.resolve('src/manifest.json'), to: path.resolve('dist/') },
-            { from: path.resolve('src/assets/icon-16.png'), to: path.resolve('dist/') },
+            { from: path.resolve('src/assets/icon-16.png'), to: path.resolve('dist/assets/') },
           ],
       // ...
 
@@ -160,7 +160,7 @@
   "manifest_version": 3,
   "name" : "Hello",
   "description": "",
-  "version": "0.1-a",
+  "version": "0.0.1",
   "action":{
     "default_title" : "Hello",
     "default_popup": "popup.html"
@@ -191,4 +191,9 @@
         })
       ],
       ```
+
+## Now add dist folder into the chrome extension for testing purpose.
+
+---
+
 
