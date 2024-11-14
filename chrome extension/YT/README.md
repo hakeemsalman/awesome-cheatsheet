@@ -243,6 +243,7 @@ module.exports = {
 ### You see an error in extension of Uncaught EvalError: Refused to evaluate a string as JavaScript because 'unsafe-eval' ....
 
 - To solve this issue, we have to use `devtool` property with value `cheap-module-source-map` in `webpack.config.js`
+- It copy the original lines from the files.
 
 ```js
 module.exports = {
