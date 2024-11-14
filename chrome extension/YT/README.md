@@ -92,7 +92,103 @@
 
 1. Now modify the `package.json` for auto updates files using webpack.
    1. ```json
-      
+      {
+        "name": "tubemellow",
+        "version": "1.0.0",
+        "description": "",
+        "main": "index.js",
+        "scripts": {
+          "watch": "webpack --watch --progress --config webpack.config.js"
+        },
+        "author": "Hakeem Salman",
+        "license": "ISC",
+        "dependencies": {
+          "react": "^18.3.1",
+          "react-dom": "^18.3.1",
+          "ts-loader": "^9.5.1",
+          "typescript": "^5.6.3"
+        },
+        "devDependencies": {
+          "webpack": "^5.96.1",
+          "webpack-cli": "^5.1.4"
+        }
+      }
       ``` 
+2. Now move our `manifest.json` from `/` into `/src/` folder.
+3. Here we can't track out **manifest** file into `dist` folder, so we have to use `copy-webpack-plugin`
+   1. ```bash
+      npm i copy-webpack-plugin -D
+      ```
+4. Import `copy-webpack-plugin` and `path` modules into `webpack.config.js` file
+   1. ```js
+      import path from "path"
+      import CopyPlugin from "copy-webpack-plugin"
+      // module.exports = {
+      //...
+      ```
+5. Add plugins code from the below. Please go for [CopyPlugin](https://webpack.js.org/plugins/copy-webpack-plugin/#getting-started) for more information
+   1. ```js
+      //....
+      entry: "",
+      plugins: [
+        new CopyPlugin({
+          patterns: [
+            { from: path.resolve('src/manifest.json'), to: path.resolve('dist/') },
+          ],
+        }),
+      ],
+      // ...
+      ```
+6. Now copy the images into **dist** folder using same above *copy* method.
+   1. ```js
+      // ...
+          patterns: [
+            { from: path.resolve('src/manifest.json'), to: path.resolve('dist/') },
+            { from: path.resolve('src/assets/icon-16.png'), to: path.resolve('dist/') },
+          ],
+      // ...
 
+
+# Action
+
+1. Now add [`action`](https://developer.chrome.com/docs/extensions/reference/api/action#manifest) property from the below code in `manifest.json`. 
+2. [Action](https://developer.chrome.com/docs/extensions/reference/api/action#manifest): action api uses only `.html` file for UI, but `react` is in `.js`.
+   1. So we use [`HtmlWebpackPlugin`](https://webpack.js.org/plugins/html-webpack-plugin/#basic-usage), it compiles the `.js` into `.html` file.
+
+```json
+{
+  "manifest_version": 3,
+  "name" : "Hello",
+  "description": "",
+  "version": "0.1-a",
+  "action":{
+    "default_title" : "Hello",
+    "default_popup": "popup.html"
+  }
+  //...
+}
+```
+
+3. Install the HtmlWebpackPlugin
+   1. ```bash
+      npm install --save-dev html-webpack-plugin
+      ```
+4. Now **rename** and **move** the `test.tsx` file into the `src/popup/popup.tsx` folder
+5. Paste the below code in `webpack.config.js`
+   1. ```js
+      const HtmlWebpackPlugin = require('html-webpack-plugin');
+      // ...
+
+      entry: { // convert into object and a popup property and it's url
+        popup: path.resolve('src/popup/popup.tsx'),
+      }
+
+      // ...
+      plugins: [
+        new HtmlWebpackPlugin({
+          title: "Tube Mellow",
+          filename: 'popup.html'   // just write the filename no need write to dist
+        })
+      ],
+      ```
 
