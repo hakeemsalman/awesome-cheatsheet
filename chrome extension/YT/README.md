@@ -197,3 +197,60 @@
 ---
 
 
+# Chunks and devtools
+
+- Chunk is used to copy the name of specified file name in `HtmlWebpackPlugin`.
+```js
+module.exports = {
+  mode: "development",  
+  entry: {
+    popup: path.resolve('src/popup/popup.tsx')
+  },
+  module: {  
+    rules: [
+      {
+        use: "ts-loader",
+        test: /\.tsx$/,
+        exclude: /node_modules/,
+      },
+    ]
+  },
+  plugins: [
+    new CopyPlugin({
+      patterns: [
+        { from: path.resolve('src/manifest.json'), to: path.resolve('dist/') },
+        { from: path.resolve('src/assets/icon-16.png'), to: path.resolve('dist/assets/') },
+        { from: path.resolve('src/assets/icon-32.png'), to: path.resolve('dist/assets/') },
+        { from: path.resolve('src/assets/icon-48.png'), to: path.resolve('dist/assets/') },
+        { from: path.resolve('src/assets/icon-128.png'), to: path.resolve('dist/assets/') },
+      ],
+    }),
+    new HtmlWebpackPlugin({
+      title: "Tube Mellow",
+      filename: 'popup.html',
+      chunks: ['popup']  // add chunk property and then popup value in the array
+    })
+  ],
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js']
+  },
+  output: { 
+    filename: '[name].js' // rename the index.js to [name].js
+  }
+}
+```
+
+### You see an error in extension of Uncaught EvalError: Refused to evaluate a string as JavaScript because 'unsafe-eval' ....
+
+- To solve this issue, we have to use `devtool` property with value `cheap-module-source-map` in `webpack.config.js`
+
+```js
+module.exports = {
+  mode: "development",  
+  devtool: "cheap-module-source-map",  // <-- Here
+  entry: {
+    popup: path.resolve('src/popup/popup.tsx')
+  },
+  // ...
+}
+```
