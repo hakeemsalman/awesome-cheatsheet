@@ -1,5 +1,7 @@
 # Chrome extension development
 
+> I learned this tutorial from this [docs](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world) and [playlist](https://youtube.com/playlist?list=PLBS1L3Ug2VVods9GnWbJc__STt9VnrJ9Z&si=2WiLdq1GYvUvB_u-) 
+
 ## Getting started
 
 1. Run the below code
@@ -13,12 +15,12 @@
    3. Chrome should use as the extension's action ***icon*** and the ***HTML page*** to show in a popup when the extension's action icon is clicked.
 3. Paste the below code in `manifest.json`
 
-    ```js
+    ```json
     {
-      "manifest_version": 3,
-      "name": "Hello Extensions",
-      "description": "Base Level Extension",
-      "version": "1.0",
+      "manifest_version": 3,                    // REQUIRED
+      "name": "Hello Extensions",               // REQUIRED
+      "description": "Base Level Extension",    
+      "version": "1.0",                         // REQUIRED
       "action": {
         "default_popup": "hello.html",
         "default_icon": "hello_extensions.png"
@@ -147,7 +149,8 @@ If you are developing using a code editor such as VSCode or Atom, you can use th
 
 ## Declare the content script
 
-- Extensions can run scripts that read and modify the content of a page. These are called content scripts. They live in an isolated world, meaning they can make changes to their JavaScript environment without conflicting with their host page or other extensions' content scripts.
+- **content scripts**: Extension can run the **scripts** that read and modify the content of a page.
+- They live in an isolated world, meaning they can make changes to their JavaScript environment without conflicting with their host page or other extensions' content scripts.
 - Add the following code to the `manifest.json` to register a content script called `content.js`.
 
 ```js
@@ -164,7 +167,6 @@ If you are developing using a code editor such as VSCode or Atom, you can use th
 }
 ```
 
-### Example
+---
 
-```
-
+# This is **END** of this document, please follow this [link](https://developer.chrome.com/docs/extensions/get-started/tutorial/scripts-on-every-tab#step-4) for continuation
