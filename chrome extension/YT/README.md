@@ -255,3 +255,78 @@ module.exports = {
   // ...
 }
 ```
+
+## Working with react and react-dom
+
+- Paste the below code in the `popup.tsx` file.
+
+```tsx
+import React from 'react';
+import {createRoot} from 'react-dom/client'
+
+const test = (
+  <div>
+    <h1>Hello World</h1>
+  </div>
+)
+
+const container = document.createElement('div')
+document.body.appendChild(container)
+const root = createRoot(container)
+root.render(test)
+```
+
+# Styling
+
+- Run this command
+  - ```bash
+    npm i style-loader css-loader -D
+    ```
+
+1. Create a `popup.css` file in the `/src/popup/` folder and paste the below code.
+   1. ```css
+      body{
+        width: 300px;
+        height: 700px;
+        background-color: #161a30;
+      }
+      ```
+   2. `import` the `popup.css` file into the `popup.tsx` file.
+
+2. Modify the `webpack.config.js` for loading `style-loader` and `css-loader`
+   1. ```js
+      // ...
+       module: {  
+        rules: [
+          {
+            use: "ts-loader",
+            test: /\.tsx$/,
+            exclude: /node_modules/,
+          },
+          {
+            use: ['style-loader', 'css-loader'],   // <---- Here add these
+            test: /\.css$/i,
+          }
+        ]
+      },
+      // ...
+      ```
+3. Now we'll use [**TailwindCSS**](https://tailwindcss.com/docs/installation/using-postcss), in that we use `PostCSS`.
+   1. ```bash
+      npm install -D tailwindcss postcss autoprefixer
+      npx tailwindcss init
+      ```
+   2. Follow the steps from the docs, create a `postcss.config.js` file and paste the code from the link.
+4. Now we'do sme modification in the folder.
+   1. Create a `static` folder in `/src/` folder, move `manifest` and `icons` files in it.
+   2. Move `popup.css` file into the `/src/assets/` folder.
+   3. Now just only `static` path into the `CopyPlugin` as shown below.
+      1. ```js
+          plugins: [
+            new CopyPlugin({
+              patterns: [
+                { from: path.resolve('src/static'), to: path.resolve('dist/') },
+              ],
+            }),
+          ]
+         ```
