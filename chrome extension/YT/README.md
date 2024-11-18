@@ -330,3 +330,169 @@ root.render(test)
             }),
           ]
          ```
+5. Now we need to add `postcss-loader` and update `webpack.config.js`:
+   1. ```bash
+      npm i -D postcss-loader
+      ```
+   2. ```js
+      // ...
+      const tailwindcss = require('tailwindcss');
+      const autoprefixer = require('autoprefixer');
+      // ...
+      module: {
+          rules: [
+            {
+              use: "ts-loader",
+              test: /\.tsx$/,
+              exclude: /node_modules/,
+            },
+            {
+              use: ['style-loader', 'css-loader',
+                {
+                  loader: 'postcss-loader',
+                  options: {
+                    postcssOptions:{
+                      ident: 'postcss',
+                      plugins: [tailwindcss, autoprefixer],
+                    }
+                  }
+                }
+              ],
+              test: /\.css$/i,
+            }
+          ]
+        },
+      ```
+
+6. Now add below code in `tailwind.css` or `popup.css` and write **css** classes into `popup.tsx`
+   1. ```css
+      @tailwind base;
+      @tailwind components;
+      @tailwind utilities;
+      ```
+   2. ```ts
+      const test = (
+        <div className="p-3 flex flex-col gap-3">
+          <h1 className="text-2xl text-white">Hello World</h1>
+          <p className="text-sm text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit iure animi culpa odio beatae est inventore, ratione impedit molestiae eligendi quam, optio voluptatem quo nihil rem qui, id earum alias?</p>
+        </div>
+      )
+      ```
+
+# Options chrome settings
+
+1. IF right-click, we need options setting page, so first create a `options/options.tsx` file in **options** folder and paste the below code.
+   1. ```tsx
+      import React from 'react';
+      import {createRoot} from 'react-dom/client'
+      import "../assets/popup.css";
+
+      const options = (
+        <div className="p-3 flex flex-col gap-3">
+          <h1 className="text-2xl text-white">Options</h1>
+        </div>
+      )
+
+      const container = document.createElement('div')
+      document.body.appendChild(container)
+      const root = createRoot(container)
+      root.render(test)
+      ```
+   2. Now update the webpack by adding `option` in `webpack.config.js`
+      1. ```js
+          module.exports = {
+            mode: "development",
+            devtool: "cheap-module-source-map",
+            entry: {
+              popup: path.resolve('src/popup/popup.tsx'),
+              options: path.resolve('src/options/options.tsx')  // <---- here
+            },
+            //...
+          }
+         ```
+    3. Now we have to convert the `options.tsx` to `options.html` using HtmlCopyPlugin
+       1. ```js
+          plugins: [
+              new CopyPlugin({
+                patterns: [
+                  { from: path.resolve('src/static'), to: path.resolve('dist/') },
+                ],
+              }),
+              new HtmlWebpackPlugin({
+                title: "Tube Mellow",
+                filename: 'popup.html',
+                chunks: ['popup']
+              }),
+              new HtmlWebpackPlugin({
+                title: "Tube Mellow",
+                filename: 'options.html',
+                chunks: ['options']
+              })
+            ],
+          ```
+      4. But above one *in-efficient* code. So paste the code from the below.
+         1. ```js
+            const HtmlPlugin = require('html-webpack-plugin');
+            const path = require('path')
+            const CopyPlugin = require("copy-webpack-plugin");
+            const tailwindcss = require('tailwindcss')
+            const autoprefixer = require('autoprefixer')
+
+            module.exports = {
+              mode: "development",
+              devtool: "cheap-module-source-map",
+              entry: {
+                popup: path.resolve('src/popup/popup.tsx'),
+                options: path.resolve('src/options/options.tsx')
+              },
+              module: {
+                rules: [
+                  {
+                    use: "ts-loader",
+                    test: /\.tsx$/,
+                    exclude: /node_modules/,
+                  },
+                  {
+                    use: ['style-loader', 'css-loader',
+                      {
+                        loader: 'postcss-loader',
+                        options: {
+                          postcssOptions:{
+                            ident: 'postcss',
+                            plugins: [tailwindcss, autoprefixer],
+                          }
+                        }
+                      }
+                    ],
+                    test: /\.css$/i,
+                  }
+                ]
+              },
+              plugins: [
+                new CopyPlugin({
+                  patterns: [
+                    { from: path.resolve('src/static'), to: path.resolve('dist/') },
+                  ],
+                }),
+                ...getHtmlPlugins(
+                  ['popup', 'options']
+                )
+              ],
+              resolve: {
+                extensions: ['.tsx', '.ts', '.js']
+              },
+              output: {
+                path: path.resolve(__dirname, 'dist'),
+                filename: '[name].js',
+              },
+            }
+
+            function getHtmlPlugins(chunks) {
+                return chunks.map((chunk) => new HtmlPlugin({
+                  title: "Tube Mellow",
+                  filename: `${chunk}.html`,
+                  chunks: [chunk]
+                }))
+            }
+            ```
+      5. Now add `"options_page": "options.html",` in manifest.json
