@@ -73,7 +73,17 @@
     - [**Common Type Narrowing Techniques**](#common-type-narrowing-techniques)
     - [**Example: Combining Narrowing Techniques**](#example-combining-narrowing-techniques)
     - [**Key Points to Remember**](#key-points-to-remember-1)
-- [](#)
+- [Literal Types](#literal-types)
+    - [**What Are Literal Types?**](#what-are-literal-types)
+    - [**Examples**](#examples-5)
+      - [**String Literal Types**](#string-literal-types)
+      - [**Number Literal Types**](#number-literal-types)
+      - [**Boolean Literal Types**](#boolean-literal-types)
+    - [**Why Use Literal Types?**](#why-use-literal-types)
+    - [**Combining Literal Types with Other Types**](#combining-literal-types-with-other-types)
+      - [Example: Union of Literal and Primitive Types](#example-union-of-literal-and-primitive-types)
+    - [**Practical Example**](#practical-example)
+    - [**Key Benefits**](#key-benefits)
 
 
 ## Type Annotations
@@ -1003,4 +1013,155 @@ function process(input: string | number | null) {
 
 ---
 
-# 
+# Literal Types
+
+Literal types are a way to specify a variable or parameter to accept only a specific value or a set of predefined values. They help make code more predictable and reduce errors by enforcing stricter types.
+
+---
+
+### **What Are Literal Types?**
+
+Literal types allow a variable to hold a **specific value**. For example:
+
+- A variable can be a **specific string**, like `"hello"`.
+- A variable can be a **specific number**, like `42`.
+- A variable can be a **specific boolean**, like `true`.
+
+---
+
+### **Examples**
+
+#### **String Literal Types**
+
+```ts
+let direction: "left" | "right" | "up" | "down";
+
+direction = "left"; // ✅ Valid
+direction = "right"; // ✅ Valid
+direction = "forward"; // ❌ Error: Type '"forward"' is not assignable to type '"left" | "right" | "up" | "down"'.
+```
+
+---
+
+#### **Number Literal Types**
+
+```ts
+let roll: 1 | 2 | 3 | 4 | 5 | 6;
+
+roll = 3; // ✅ Valid
+roll = 7; // ❌ Error: Type '7' is not assignable to type '1 | 2 | 3 | 4 | 5 | 6'.
+```
+
+---
+
+#### **Boolean Literal Types**
+
+```ts
+let isActive: true;
+
+isActive = true; // ✅ Valid
+isActive = false; // ❌ Error: Type 'false' is not assignable to type 'true'.
+```
+
+---
+
+### **Why Use Literal Types?**
+
+Literal types are especially useful in scenarios where you have a limited set of possible values. For example:
+
+1. **Function Parameters**:
+   Literal types help enforce valid inputs.
+
+   ```ts
+   function move(direction: "left" | "right" | "up" | "down") {
+     console.log(`Moving ${direction}`);
+   }
+
+   move("left"); // ✅ Valid
+   move("forward"); // ❌ Error
+   ```
+
+2. **Configuration Options**:
+   Use literal types to define valid configuration settings.
+
+   ```ts
+   type Mode = "light" | "dark";
+
+   function setMode(mode: Mode) {
+     console.log(`Setting mode to ${mode}`);
+   }
+
+   setMode("light"); // ✅ Valid
+   setMode("dark"); // ✅ Valid
+   setMode("blue"); // ❌ Error
+   ```
+
+3. **Discriminated Unions**:
+   Literal types are a key part of **discriminated unions**, making complex type systems easier to manage.
+
+   ```ts
+   type Circle = { kind: "circle"; radius: number };
+   type Square = { kind: "square"; side: number };
+
+   type Shape = Circle | Square;
+
+   function getArea(shape: Shape): number {
+     if (shape.kind === "circle") {
+       return Math.PI * shape.radius ** 2;
+     } else {
+       return shape.side ** 2;
+     }
+   }
+   ```
+
+---
+
+### **Combining Literal Types with Other Types**
+
+Literal types are often combined with **union types** or **type aliases** for flexibility.
+
+#### Example: Union of Literal and Primitive Types
+```ts
+type Status = "success" | "error" | null;
+
+let responseStatus: Status;
+
+responseStatus = "success"; // ✅ Valid
+responseStatus = null;      // ✅ Valid
+responseStatus = "pending"; // ❌ Error
+```
+
+---
+
+### **Practical Example**
+
+Imagine you're building a game where the player can choose a difficulty level:
+
+```ts
+type Difficulty = "easy" | "medium" | "hard";
+
+function setDifficulty(level: Difficulty) {
+  console.log(`Game difficulty set to ${level}`);
+}
+
+setDifficulty("easy"); // ✅ Valid
+setDifficulty("hard"); // ✅ Valid
+setDifficulty("extreme"); // ❌ Error
+```
+
+---
+
+### **Key Benefits**
+
+1. **Enhanced Type Safety**:
+   Ensures that only valid values are used.
+
+2. **Improved Code Readability**:
+   Makes it clear what values are acceptable.
+
+3. **Editor Assistance**:
+   IDEs provide auto-completion for possible values.
+
+---
+
+Would you like to try some examples, or move on to the next topic? 😊
