@@ -2,6 +2,80 @@
 
 > this lesson from [CodeMastery.dev](https://codemastery.dev/ts/interactive-handbook/intro/0)
 
+
+- [TypeScript Basics](#typescript-basics)
+  - [Type Annotations](#type-annotations)
+  - [Type Aliases](#type-aliases)
+  - [Array Types](#array-types)
+  - [Object Types](#object-types)
+  - [Optional Properties](#optional-properties)
+  - [Argument Types](#argument-types)
+  - [Return Types](#return-types)
+  - [Function Type Expressions](#function-type-expressions)
+    - [Examples](#examples)
+      - [Basic Function Type Expression](#basic-function-type-expression)
+      - [Function as a Parameter](#function-as-a-parameter)
+    - [Using Function Types in Objects](#using-function-types-in-objects)
+    - [Optional Parameters in Function Type](#optional-parameters-in-function-type)
+    - [Rest Parameters in Function Type](#rest-parameters-in-function-type)
+    - [Return Type as `void`](#return-type-as-void)
+  - [Unions](#unions)
+    - [**Syntax**](#syntax)
+    - [**Examples**](#examples-1)
+      - [Basic Union Types](#basic-union-types)
+    - [**Unions in Functions**](#unions-in-functions)
+    - [**Using Union Types in Arrays**](#using-union-types-in-arrays)
+    - [**Discriminating Union Types**](#discriminating-union-types)
+      - [Example: Type Narrowing with `typeof`](#example-type-narrowing-with-typeof)
+      - [Example: Type Narrowing with Custom Properties](#example-type-narrowing-with-custom-properties)
+    - [**Optional Parameters with Unions**](#optional-parameters-with-unions)
+    - [**Union Types with Aliases**](#union-types-with-aliases)
+    - [**Key Points to Remember**](#key-points-to-remember)
+  - [null and undefined](#null-and-undefined)
+    - [**Key Differences**](#key-differences)
+    - [**Default Behavior in TypeScript**](#default-behavior-in-typescript)
+    - [**Examples**](#examples-2)
+      - [**Undefined Variable**](#undefined-variable)
+      - [Example: Union with `null`](#example-union-with-null)
+    - [**Optional Properties**](#optional-properties-1)
+    - [**Default Parameters with Undefined**](#default-parameters-with-undefined)
+    - [**Strict Null Checking**](#strict-null-checking)
+      - [Example: Without `strictNullChecks` (Default Behavior)](#example-without-strictnullchecks-default-behavior)
+      - [Example: With `strictNullChecks`](#example-with-strictnullchecks)
+    - [**Best Practices**](#best-practices)
+    - [**Optional Chaining and Nullish Coalescing**](#optional-chaining-and-nullish-coalescing)
+      - [Optional Chaining (`?.`)](#optional-chaining-)
+      - [Nullish Coalescing (`??`)](#nullish-coalescing-)
+  - [The never](#the-never)
+    - [**Use Cases for `never`**](#use-cases-for-never)
+    - [**Key Features**](#key-features)
+    - [**Examples**](#examples-3)
+      - [1. **Functions That Throw Errors**](#1-functions-that-throw-errors)
+      - [2. **Functions That Never Return**](#2-functions-that-never-return)
+      - [3. **Exhaustive Type Checking**](#3-exhaustive-type-checking)
+      - [4. **Unreachable Code Example**](#4-unreachable-code-example)
+    - [**Differences Between `never` and `void`**](#differences-between-never-and-void)
+    - [**Best Practices**](#best-practices-1)
+- [Fundamentals Concepts](#fundamentals-concepts)
+- [Type Inference](#type-inference)
+    - [**How It Works**](#how-it-works)
+    - [**Key Features of Type Inference**](#key-features-of-type-inference)
+    - [**Explicit Types vs. Inference**](#explicit-types-vs-inference)
+    - [**Benefits of Type Inference**](#benefits-of-type-inference)
+    - [**When to Use Explicit Types**](#when-to-use-explicit-types)
+    - [**Examples**](#examples-4)
+      - [1. Variable Inference](#1-variable-inference)
+      - [2. Function Inference](#2-function-inference)
+      - [3. Contextual Typing](#3-contextual-typing)
+    - [**Best Practices**](#best-practices-2)
+- [Narrowing](#narrowing)
+    - [**How Does Narrowing Work?**](#how-does-narrowing-work)
+    - [**Common Type Narrowing Techniques**](#common-type-narrowing-techniques)
+    - [**Example: Combining Narrowing Techniques**](#example-combining-narrowing-techniques)
+    - [**Key Points to Remember**](#key-points-to-remember-1)
+- [](#)
+
+
 ## Type Annotations
 
 - Type annotations are used to explicitly declare the types of variables.
@@ -588,6 +662,8 @@ function handleAnimal(animal: Animal): string {
       return _exhaustiveCheck;
   }
 }
+
+console.log(handleAnimal('cat'))
 ```
 
 - If a new case (like `"bird"`) is added to the `Animal` type but not handled in the `switch` statement, TypeScript will throw an error, ensuring no case is missed.
@@ -623,3 +699,308 @@ function unreachable(): never {
 3. Avoid using `never` unless the function or logic explicitly indicates its need.
 
 ---
+# Fundamentals Concepts
+
+# Type Inference
+
+Type inference is a feature in TypeScript where the compiler **automatically determines the type** of a variable, function return value, or expression based on the context. This helps reduce the need for explicitly declaring types in your code, making it cleaner while still maintaining type safety.
+
+---
+
+### **How It Works**
+
+1. **Variable Initialization**: When you initialize a variable, TypeScript infers its type from the assigned value.
+
+```ts
+let age = 25; // Inferred as number
+let name = "Salman"; // Inferred as string
+let isHuman = true; // Inferred as boolean
+```
+
+2. **Function Return Types**: TypeScript infers the return type of a function based on its implementation.
+
+```ts
+function add(a: number, b: number) {
+  return a + b; // Inferred as number
+}
+
+let result = add(2, 3); // result is inferred as number
+```
+
+3. **Default Parameters**: Default parameter values help TypeScript infer the parameter type.
+
+```ts
+function greet(name = "World") {
+  console.log(`Hello, ${name}!`); // name is inferred as string
+}
+```
+
+4. **Arrays**: TypeScript infers the type of arrays based on their elements.
+
+```ts
+let numbers = [1, 2, 3, 4]; // Inferred as number[]
+let names = ["Alice", "Bob"]; // Inferred as string[]
+```
+
+---
+
+### **Key Features of Type Inference**
+
+1. **Best Common Type**:
+   When working with arrays, TypeScript determines a type that all elements can conform to.
+
+```ts
+let mixedArray = [1, "hello", true]; // Inferred as (string | number | boolean)[]
+```
+
+2. **Contextual Typing**:
+   TypeScript infers the type of a function’s arguments based on where the function is used.
+
+```ts
+window.onmousedown = function (event) {
+  console.log(event.button); // event is inferred as MouseEvent
+};
+```
+
+3. **Type Widening and Narrowing**:
+   - **Widening**: Infers the most general type.
+   - **Narrowing**: Reduces a variable’s type based on conditions.
+
+```ts
+let value = null; // Inferred as any
+value = 42; // Still valid
+```
+
+---
+
+### **Explicit Types vs. Inference**
+
+While TypeScript can infer most types, there are cases where explicitly declaring a type improves code readability and avoids ambiguity:
+
+```ts
+// Inference
+let speed = 60; // Inferred as number
+
+// Explicit declaration
+let distance: number = 100; // Clearer to the reader
+```
+
+---
+
+### **Benefits of Type Inference**
+
+1. **Less Boilerplate Code**: You don’t have to specify types explicitly.
+2. **Readability**: Makes code shorter and easier to read.
+3. **Type Safety**: Automatically prevents assigning incompatible values.
+
+---
+
+### **When to Use Explicit Types**
+
+- When writing library code for others to use.
+- When the inferred type isn’t clear or might cause confusion.
+- For function parameters and return types in complex codebases.
+
+---
+
+### **Examples**
+
+#### 1. Variable Inference
+
+```ts
+let count = 10; // Inferred as number
+count = "hello"; // Error: Type 'string' is not assignable to type 'number'
+```
+
+#### 2. Function Inference
+
+```ts
+function multiply(a: number, b: number) {
+  return a * b; // Inferred as number
+}
+
+let product = multiply(5, 3); // product is inferred as number
+```
+
+#### 3. Contextual Typing
+
+```ts
+document.addEventListener("click", (event) => {
+  console.log(event.clientX); // event is inferred as MouseEvent
+});
+```
+
+---
+
+### **Best Practices**
+
+1. **Trust TypeScript**: Let it infer types wherever possible.
+2. **Be Explicit When Necessary**: Declare types explicitly for complex functions or APIs.
+3. **Avoid Overusing `any`**: Rely on inference instead of resorting to `any`.
+
+---
+
+# Narrowing
+
+Narrowing is a process in TypeScript where the type of a variable is refined to a more specific type based on runtime checks. This helps TypeScript make better assumptions about the variable’s type, ensuring type safety and enabling features like IntelliSense.
+
+---
+
+### **How Does Narrowing Work?**
+
+TypeScript begins with a broad type and uses control flow analysis and conditional checks to narrow it down to a more specific type. For example:
+
+```ts
+function printId(id: string | number) {
+  if (typeof id === "string") {
+    console.log(id.toUpperCase()); // id is narrowed to string
+  } else {
+    console.log(id.toFixed(2)); // id is narrowed to number
+  }
+}
+```
+
+---
+
+### **Common Type Narrowing Techniques**
+
+1. **Using `typeof`**
+   - Use `typeof` to narrow down primitive types like `string`, `number`, or `boolean`.
+
+```ts
+function checkType(input: string | number) {
+  if (typeof input === "string") {
+    console.log("It's a string:", input.toUpperCase());
+  } else {
+    console.log("It's a number:", input.toFixed(2));
+  }
+}
+```
+
+2. **Using `instanceof`**
+   - Use `instanceof` to narrow down object types.
+
+```ts
+class Dog {
+  bark() {
+    console.log("Woof!");
+  }
+}
+
+class Cat {
+  meow() {
+    console.log("Meow!");
+  }
+}
+
+function animalSound(animal: Dog | Cat) {
+  if (animal instanceof Dog) {
+    animal.bark(); // Narrowed to Dog
+  } else {
+    animal.meow(); // Narrowed to Cat
+  }
+}
+```
+
+3. **Using Equality Checks**
+   - Direct equality checks can narrow down to specific values or types.
+
+```ts
+function checkValue(input: string | null) {
+  if (input === null) {
+    console.log("It's null.");
+  } else {
+    console.log("It's a string:", input.toUpperCase());
+  }
+}
+```
+
+4. **Using `in` Operator**
+   - The `in` operator checks for the presence of a property in an object, narrowing the type.
+
+```ts
+type Fish = { swim: () => void };
+type Bird = { fly: () => void };
+
+function move(animal: Fish | Bird) {
+  if ("swim" in animal) {
+    animal.swim(); // Narrowed to Fish
+  } else {
+    animal.fly(); // Narrowed to Bird
+  }
+}
+```
+
+5. **Custom Type Predicates**
+   - Create custom type-checking functions to narrow types.
+
+```ts
+type Car = { wheels: number };
+type Boat = { sails: number };
+
+function isCar(vehicle: Car | Boat): vehicle is Car {
+  return (vehicle as Car).wheels !== undefined;
+}
+
+function checkVehicle(vehicle: Car | Boat) {
+  if (isCar(vehicle)) {
+    console.log("It's a car with", vehicle.wheels, "wheels.");
+  } else {
+    console.log("It's a boat with", vehicle.sails, "sails.");
+  }
+}
+```
+
+6. **Exhaustive Checks**
+   - Use `never` to handle impossible cases in `switch` or conditional statements.
+
+```ts
+type Shape = { kind: "circle"; radius: number } | { kind: "square"; side: number };
+
+function getArea(shape: Shape) {
+  switch (shape.kind) {
+    case "circle":
+      return Math.PI * shape.radius ** 2;
+    case "square":
+      return shape.side ** 2;
+    default:
+      const _exhaustiveCheck: never = shape; // Ensures all cases are handled
+      return _exhaustiveCheck;
+  }
+}
+```
+
+---
+
+### **Example: Combining Narrowing Techniques**
+
+```ts
+function process(input: string | number | null) {
+  if (input === null) {
+    console.log("Input is null.");
+  } else if (typeof input === "string") {
+    console.log("Input is a string:", input.toUpperCase());
+  } else {
+    console.log("Input is a number:", input.toFixed(2));
+  }
+}
+```
+
+---
+
+### **Key Points to Remember**
+
+1. **Narrowing Simplifies Code**:
+   By reducing broad types to specific types, you can write cleaner, safer, and more efficient code.
+   
+2. **TypeScript Tracks Narrowing**:
+   TypeScript uses control flow analysis to understand and track narrowing across your code.
+
+3. **Best Practices**:
+   - Use clear checks (like `typeof`, `instanceof`, and `in`).
+   - Leverage custom type predicates for more complex narrowing.
+   - Always handle all cases when dealing with union types.
+
+---
+
+# 
