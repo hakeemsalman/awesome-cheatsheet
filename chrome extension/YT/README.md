@@ -382,7 +382,7 @@ root.render(test)
 # Options chrome settings
 
 1. IF right-click, we need options setting page, so first create a `options/options.tsx` file in **options** folder and paste the below code.
-   1. ```tsx
+    1. ```tsx
       import React from 'react';
       import {createRoot} from 'react-dom/client'
       import "../assets/popup.css";
@@ -398,7 +398,7 @@ root.render(test)
       const root = createRoot(container)
       root.render(test)
       ```
-   2. Now update the webpack by adding `option` in `webpack.config.js`
+    2. Now update the webpack by adding `option` in `webpack.config.js`
       1. ```js
           module.exports = {
             mode: "development",
@@ -430,69 +430,207 @@ root.render(test)
               })
             ],
           ```
-      4. But above one *in-efficient* code. So paste the code from the below.
-         1. ```js
-            const HtmlPlugin = require('html-webpack-plugin');
-            const path = require('path')
-            const CopyPlugin = require("copy-webpack-plugin");
-            const tailwindcss = require('tailwindcss')
-            const autoprefixer = require('autoprefixer')
+    4. But above one *in-efficient* code. So paste the code from the below.
+       1. ```js
+          const HtmlPlugin = require('html-webpack-plugin');
+          const path = require('path')
+          const CopyPlugin = require("copy-webpack-plugin");
+          const tailwindcss = require('tailwindcss')
+          const autoprefixer = require('autoprefixer')
 
-            module.exports = {
-              mode: "development",
-              devtool: "cheap-module-source-map",
-              entry: {
-                popup: path.resolve('src/popup/popup.tsx'),
-                options: path.resolve('src/options/options.tsx')
-              },
-              module: {
-                rules: [
-                  {
-                    use: "ts-loader",
-                    test: /\.tsx$/,
-                    exclude: /node_modules/,
-                  },
-                  {
-                    use: ['style-loader', 'css-loader',
-                      {
-                        loader: 'postcss-loader',
-                        options: {
-                          postcssOptions:{
-                            ident: 'postcss',
-                            plugins: [tailwindcss, autoprefixer],
-                          }
+          module.exports = {
+            mode: "development",
+            devtool: "cheap-module-source-map",
+            entry: {
+              popup: path.resolve('src/popup/popup.tsx'),
+              options: path.resolve('src/options/options.tsx')
+            },
+            module: {
+              rules: [
+                {
+                  use: "ts-loader",
+                  test: /\.tsx$/,
+                  exclude: /node_modules/,
+                },
+                {
+                  use: ['style-loader', 'css-loader',
+                    {
+                      loader: 'postcss-loader',
+                      options: {
+                        postcssOptions:{
+                          ident: 'postcss',
+                          plugins: [tailwindcss, autoprefixer],
                         }
                       }
-                    ],
-                    test: /\.css$/i,
-                  }
-                ]
-              },
-              plugins: [
-                new CopyPlugin({
-                  patterns: [
-                    { from: path.resolve('src/static'), to: path.resolve('dist/') },
+                    }
                   ],
-                }),
-                ...getHtmlPlugins(
-                  ['popup', 'options']
-                )
-              ],
-              resolve: {
-                extensions: ['.tsx', '.ts', '.js']
-              },
-              output: {
-                path: path.resolve(__dirname, 'dist'),
-                filename: '[name].js',
-              },
-            }
+                  test: /\.css$/i,
+                }
+              ]
+            },
+            plugins: [
+              new CopyPlugin({
+                patterns: [
+                  { from: path.resolve('src/static'), to: path.resolve('dist/') },
+                ],
+              }),
+              ...getHtmlPlugins(
+                ['popup', 'options']
+              )
+            ],
+            resolve: {
+              extensions: ['.tsx', '.ts', '.js']
+            },
+            output: {
+              path: path.resolve(__dirname, 'dist'),
+              filename: '[name].js',
+            },
+          }
 
-            function getHtmlPlugins(chunks) {
-                return chunks.map((chunk) => new HtmlPlugin({
-                  title: "Tube Mellow",
-                  filename: `${chunk}.html`,
-                  chunks: [chunk]
-                }))
-            }
-            ```
+          function getHtmlPlugins(chunks) {
+              return chunks.map((chunk) => new HtmlPlugin({
+                title: "Tube Mellow",
+                filename: `${chunk}.html`,
+                chunks: [chunk]
+              }))
+          }
+          ```
       5. Now add `"options_page": "options.html",` in manifest.json
+      6. Now we have optimize the the `popup.tsx` and `options.tsx` due to both are taking heavy react files. So we use `SplitChunkPlugin` from webpack.
+         1. ```js
+            module.exports = {
+              //...
+              optimization: {
+                splitChunks: {
+                  // include all types of chunks
+                  chunks: 'all',
+                },
+              },
+            };
+            ```
+
+# Service worker background
+
+1. For more info please follow this [Link](https://developer.chrome.com/docs/extensions/develop/migrate/to-service-workers#update-bg-field)
+2. Now add this code into `manifest.json` file.
+   1. ```js
+      {
+        ...
+        "background": {
+          "service_worker": "background.js",
+          "type": "module"
+        }
+        ...
+      }
+      ```
+3. Create a `background.tsx` file in `static` folder, and now modify the `webpack.config.js` for locating `background.tsx` file to generate a copy.
+   1. ```js
+      module.exports = {
+        // ...
+        entry: {
+          //..
+          background: path.resolve('src/background/background.tsx')
+        },
+        // ...
+      }
+      ```
+4. Now we have to add some `listeners` into background.tsx, inspect page of the extension.
+   1. ```tsx
+      chrome.runtime.onInstalled.addListener(() => {
+        console.log('You have run the chrome extension')
+      })
+      ```
+5. Now you'll encounter some issue, like this `TS2304: Cannot find name 'chrome'.`. So install `types` to get rid off.
+   1. ```sh
+      $ npm i -D @types/react @types/react-dom @types/chrome
+      ```
+
+# Permissions
+
+- Follow this [Link](https://developer.chrome.com/docs/extensions/develop/concepts/declare-permissions#manifest) for more info.
+
+1. Now we want to add **Permissions** in the `manifest.json` to work on the *bookmarks*.
+   1. ```js
+      {
+      //..
+      "permissions" : [
+          "tabs",
+          "bookmarks"
+        ],
+      //..
+      }
+      ```
+2. Now write the code to trigger the function on the bookmark of the page.
+   1. ```ts
+      chrome.bookmarks.onCreated.addListener(() => {
+        console.log('You have just bookmarked the page.')
+      })
+      ```
+
+# Content scripts
+
+- [Content scripts](https://developer.chrome.com/docs/extensions/develop/concepts/content-scripts?hl=en) are files that run in the context of web pages.
+- Using the standard Document Object Model (DOM), they are able to read details of the web pages the browser visits, make changes to them, and pass information to their parent extension.
+
+1. Now create a `contentScript.ts` file in the `src/contentScript/contentScript.ts` folder and add path into `webpack.config.js`
+   1. ```js
+      window.onload = ()=>{
+        console.log('I am from content script')
+        // this log appear in the window console, not in chrome extensin console.
+      }
+      ```
+2. Now modify the `manifest.json` file to access the page and mofify it.
+   1. ```json
+      {
+        // ...
+        "content_scripts": [
+          {
+            "matches": ["https://*.google.com/*"],
+            "js": ["content-script.js"]
+          },
+        ]
+        // ...
+      }
+      ```
+
+3. Now go to [google.com](https://www.google.com), and inspect page, you'll see the log in the console.
+
+# Optimization for production
+
+1. Create two new files with name of `webpack.dev.js` for **development** and `webpack.prod.js` for production use.
+2. Rename the `webpack.config.js` to `webpack.common.config.js` for common plugins and also modify `package.json` file
+   1. ```json
+       "scripts": {
+          "dev": "webpack --watch --progress --config webpack.dev.js",
+          "build": "webpack --progress --config webpack.prod.js"
+          // remove the --watch in production environment
+        },
+      ```
+3. Now we have to install `webpack-merge` as a devDependency and use it in both files.
+   1. ```bash
+      $ npm i -D webpack-merge
+      ```
+4. Now modify the both files.
+   1. ```js
+      // webpack.dev.js
+      const {merge} = require('webpack-merge')
+      const common = require('./webpack.common.config.js')
+
+      module.exports = merge(common, {
+        mode: "development",
+        devtool: "cheap-module-source-map",
+      })
+
+
+      // webpack.prod.js
+      const {merge} = require('webpack-merge')
+      const common = require('./webpack.common.config.js')
+
+      module.exports = merge(common, {
+        mode: "production"
+      })
+      ```
+
+# Tabs
+
+
