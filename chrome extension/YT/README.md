@@ -633,4 +633,68 @@ root.render(test)
 
 # Tabs
 
+- We are now creating a Custom Tab, when we click on it, it opens our customized html page.
 
+1. Add `Tab` permissions and `chrome_url_overrides` in `manifest.json`.
+   1. ```json
+      {
+        // ...
+        "chrome_url_overrides":{
+            "newTab": "newTab.html"
+        },
+        "permissions" : [
+            "tabs",
+            "bookmarks"
+          ],
+        // ...
+      }
+      ```
+2. Create a folder `src/tabs` and place a `index.ts` in it. Now update the `webpack.common.config.js` with below code.
+   1. ```js
+      module.exports = {
+        entry: {
+          // ...
+          newTab: path.resolve('src/tabs/index.ts')
+        },
+      }
+      ```
+3. Now modify some files as shown below.
+   1. ```tsx
+      // src/popup/index.tsx
+      import React from 'react'
+      import { createRoot } from 'react-dom/client'
+      import Popup from './popup'
+
+      function init(){
+        const container = document.createElement('div')
+        if(!container){
+          throw new Error("cannot created container");
+        }
+        document.body.appendChild(container)
+        const root = createRoot(container)
+        root.render(<Popup/>)
+      }
+
+      init();
+
+      ```
+      ```ts
+      // src/popup/popup.tsx
+      import React, { useState } from 'react';
+      import "../assets/popup.css";
+
+      export default function Popup(){
+
+        const [isToggle, setisToggle] = useState<boolean>(false)
+
+        return (
+          <div className="p-3 flex flex-col gap-3">
+            <h1 className="text-2xl text-white">Hello World</h1>
+          </div>
+        )
+      }
+      ```
+
+  # Pause upto part 9
+
+  - See the this [video](https://www.youtube.com/watch?v=6VDC3C9_uEw&list=PLBS1L3Ug2VVods9GnWbJc__STt9VnrJ9Z&index=9) link to continue
