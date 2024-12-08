@@ -289,6 +289,7 @@ A **Binary Search Tree (BST)** is a type of binary tree where each node satisfie
 Let’s construct a BST by inserting the following values in order: `50, 30, 70, 20, 40, 60, 80`.
 
 ### Visualization
+
 ```mermaid
 graph TB
     50 --> 30
