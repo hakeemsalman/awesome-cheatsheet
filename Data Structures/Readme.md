@@ -52,7 +52,7 @@ Data structures provide an easy way of organising, retrieving, managing, and sto
 - Elements are arranged in one-many, many-one and many-many dimensions.
 - Example: tree, graph, table, etc.
 
-![List of Data structures](./assets/image.png)
+![List of Data structures](./assets/classification of DS.png)
   
 # Array
 
