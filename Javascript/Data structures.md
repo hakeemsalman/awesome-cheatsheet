@@ -107,6 +107,9 @@ function mySet(){
     return unionSet;
   }
 
+  this.intersection = function(){
+    
+  }
   
 }
 ```
