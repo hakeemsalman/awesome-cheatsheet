@@ -1161,7 +1161,3 @@ setDifficulty("extreme"); // ❌ Error
 
 3. **Editor Assistance**:
    IDEs provide auto-completion for possible values.
-
----
-
-Would you like to try some examples, or move on to the next topic? 😊
