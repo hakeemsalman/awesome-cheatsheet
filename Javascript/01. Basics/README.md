@@ -265,6 +265,20 @@ These keywords cannot be used as identifiers for variables, functions, classes, 
       <td>with</td>
     </tr>
   </table>
+  
+b1
+c5
+d4
+e3
+f5
+i5
+n2
+r1
+s2
+t5
+v2
+w2
+
 
 **The following are only reserved when they are found in strict mode code:**
 
